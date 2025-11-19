@@ -12,6 +12,15 @@
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
+  <!-- Favicons page 2-->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
+  <link rel="manifest" href="assets/img/favicons/manifest.json">
+  <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
+  <meta name="theme-color" content="#ffffff">
+
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
@@ -26,18 +35,24 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/theme.css" rel="stylesheet" />
 </head>
 
 <body class="index-page">
 
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- ... semua script lain ... -->
+  <script src="assets/js/main.js"></script>
+
+  <!-- pop up button pesan sekarang -->
+
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container position-relative d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+      <a href="index.html" class="">
         <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1 class="sitename">Yummy</h1>
-        <span>.</span>
+        <img src="assets/img/logo_ayam.png" alt="" style="height: 65px; width: auto; object-fit: contain;">
       </a>
 
       <nav id="navmenu" class="navmenu">
@@ -55,1025 +70,497 @@
 
   <main class="main">
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero section light-background">
+    <!-- Hero Section [HOMEPAGE] -->
+    <section id="beranda" class="hero section light-background">
 
       <div class="container">
         <div class="row gy-4 justify-content-center justify-content-lg-between">
           <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center">
-            <h1 data-aos="fade-up">Enjoy Your Healthy<br>Delicious Food</h1>
-            <p data-aos="fade-up" data-aos-delay="100">We are team of talented designers making websites with Bootstrap</p>
+            <!-- judul 1 -->
+            <h1 class="title1" data-aos="fade-up">Ayam Kabogor</h1>
+            <br />
+
+            <p data-aos="fade-up" data-aos-delay="100">
+              Pilihan sehat, rasa nikmat untuk setiap acara anda. Dapatkan kelezatan autentik ayam kampung yang diolah secara alami tanpa bahan buatan.
+              Selain ayam kampung, Ayam Kabogor juga menawarkan berbagai menu lainnya seperti olahan bebek, prasmanan, dan nasi kotak berbagai varian.
+            </p>
+
+            <!-- judul 2 -->
+            <h2 class="title2" data-aos="fade-up">Ayam Kampung Asli Bogor yang <br /> Gurih dan Alami</h2>
+            <p></p>
+
             <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-              <a href="#book-a-table" class="btn-get-started">Booka a Table</a>
-              <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+              <a href="#" class="btn-get-started">Pesan Sekarang</a>
             </div>
           </div>
           <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
-            <img src="assets/img/hero-img.png" class="img-fluid animated" alt="">
+            <img src="assets/img/ayam_homepage.png" class="img-fluid animated" alt="">
           </div>
         </div>
       </div>
 
-    </section><!-- /Hero Section -->
+    </section><!-- Hero Section [HOMEPAGE CLOSE] -->
 
-    <!-- About Section -->
-    <section id="about" class="about section">
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>About Us<br></h2>
-        <p><span>Learn More</span> <span class="description-title">About Us</span></p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-4">
-          <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
-            <img src="assets/img/about.jpg" class="img-fluid mb-4" alt="">
-            <div class="book-a-table">
-              <h3>Book a Table</h3>
-              <p>+1 5589 55488 55</p>
-            </div>
-          </div>
-          <div class="col-lg-5" data-aos="fade-up" data-aos-delay="250">
-            <div class="content ps-0 ps-lg-5">
-              <p class="fst-italic">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua.
-              </p>
-              <ul>
-                <li><i class="bi bi-check-circle-fill"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-                <li><i class="bi bi-check-circle-fill"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
-                <li><i class="bi bi-check-circle-fill"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</span></li>
-              </ul>
-              <p>
-                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident
-              </p>
-
-              <div class="position-relative mt-4">
-                <img src="assets/img/about-2.jpg" class="img-fluid" alt="">
-                <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn"></a>
+      <!-- Produk Section -->
+        <section id="produk" class="section orange-background">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-7 mx-auto text-center mb-5">
+                <h2 class="d-inline-block bg-warning text-dark px-6 py-3 rounded-pill fw-bold" style="font-size: 1.6rem;">
+                  Daftar Produk
+                </h2>
               </div>
             </div>
-          </div>
-        </div>
 
-      </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="carousel slide" id="carouselPopularItems" data-bs-touch="false" data-bs-interval="false">
+                  <div class="carousel-inner">
+
+                    <!-- Slide 1 -->
+                    <div class="carousel-item active">
+                      <div class="row gx-3 align-items-stretch">
+                        
+                        <!-- 1. Ayam Bakar Taliwang -->
+                          <div class="col-sm-6 col-md-4 col-xl mb-5">
+                            <div class="product-card rounded-3 p-3">
+                              <img src="assets/img/ayam_ka/abak_tal.png" class="img-fluid rounded-3 w-100" alt="Ayam Bakar Taliwang">
+                              <div class="mt-3">
+                                <h5 class="fw-bold">Ayam Bakar Taliwang</h5>
+                                <p class="small mt-2">Ayam kampung yang dibakar dengan bumbu khas Taliwang, pedas, gurih dan sedap beraroma rempah</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                  <span class="fw-bold">Rp 90.000</span>
+                                  <span class="text-success fw-bold">Promo</span>
+                                </div>
+                                <div class="mt-3">
+                                  <a href="#!" class="btn-orange">Detail</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- 2. Ayam Frozen Ungkep -->
+                          <div class="col-sm-6 col-md-4 col-xl mb-5">
+                            <div class="product-card rounded-3 p-3">
+                              <img src="assets/img/ayam_ka/af_ungkep.png" class="img-fluid rounded-3 w-100" alt="Ayam Frozen Ungkep">
+                              <div class="mt-3">
+                                <h5 class="fw-bold">Ayam Frozen Ungkep</h5>
+                                <p class="small mt-2">Ayam yang sudah diungkep dengan bumbu rempah lengkap, siap goreng atau simpan beku</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                  <span class="fw-bold">Rp 80.000</span>
+                                  <span class="text-success fw-bold">Hemat</span>
+                                </div>
+                                <div class="mt-3">
+                                  <a href="#!" class="btn-orange">Detail</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- 3. Ayam Frozen Kecap -->
+                          <div class="col-sm-6 col-md-4 col-xl mb-5">
+                            <div class="product-card rounded-3 p-3">
+                              <img src="assets/img/ayam_ka/afro_kecap.png" class="img-fluid rounded-3 w-100" alt="Ayam Frozen Kecap">
+                              <div class="mt-3">
+                                <h5 class="fw-bold">Ayam Frozen Kecap</h5>
+                                <p class="small mt-2">Ayam utuh marinated dengan bumbu kecap manis, siap masak jadi hidangan praktis nan lezat</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                  <span class="fw-bold">Rp 80.000</span>
+                                  <span class="text-success fw-bold">Diskon</span>
+                                </div>
+                                <div class="mt-3">
+                                  <a href="#!" class="btn-orange">Detail</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- 4. Ayam Goreng Ungkep -->
+                          <div class="col-sm-6 col-md-4 col-xl mb-5">
+                            <div class="product-card rounded-3 p-3">
+                              <img src="assets/img/ayam_ka/ag_ungkep.png" class="img-fluid rounded-3 w-100" alt="Ayam Goreng Ungkep">
+                              <div class="mt-3">
+                                <h5 class="fw-bold">Ayam Goreng Ungkep</h5>
+                                <p class="small mt-2">Ayam utuh digoreng garing setelah direbus dalam bumbu rempah khas, gurih meresap dan renyah sempurna</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                  <span class="fw-bold">Rp 90.000</span>
+                                  <span class="text-success fw-bold">Best Seller</span>
+                                </div>
+                                <div class="mt-3">
+                                  <a href="#!" class="btn-orange">Detail</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
 
-    </section><!-- /About Section -->
-
-    <!-- Why Us Section -->
-    <section id="why-us" class="why-us section light-background">
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="why-box">
-              <h3>Why Choose Yummy</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
-                Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus optio ad corporis.
-              </p>
-              <div class="text-center">
-                <a href="#" class="more-btn"><span>Learn More</span> <i class="bi bi-chevron-right"></i></a>
-              </div>
-            </div>
-          </div><!-- End Why Box -->
-
-          <div class="col-lg-8 d-flex align-items-stretch">
-            <div class="row gy-4" data-aos="fade-up" data-aos-delay="200">
-
-              <div class="col-xl-4">
-                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                  <i class="bi bi-clipboard-data"></i>
-                  <h4>Corporis voluptates officia eiusmod</h4>
-                  <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
-                </div>
-              </div><!-- End Icon Box -->
-
-              <div class="col-xl-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                  <i class="bi bi-gem"></i>
-                  <h4>Ullamco laboris ladore lore pan</h4>
-                  <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
-                </div>
-              </div><!-- End Icon Box -->
-
-              <div class="col-xl-4" data-aos="fade-up" data-aos-delay="400">
-                <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                  <i class="bi bi-inboxes"></i>
-                  <h4>Labore consequatur incidid dolore</h4>
-                  <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
-                </div>
-              </div><!-- End Icon Box -->
-
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section><!-- /Why Us Section -->
-
-    <!-- Stats Section -->
-    <section id="stats" class="stats section dark-background">
-
-      <img src="assets/img/stats-bg.jpg" alt="" data-aos="fade-in">
-
-      <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Clients</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Projects</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Hours Of Support</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Workers</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Stats Section -->
-
-    <!-- Menu Section -->
-    <section id="menu" class="menu section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Our Menu</h2>
-        <p><span>Check Our</span> <span class="description-title">Yummy Menu</span></p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
-
-          <li class="nav-item">
-            <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#menu-starters">
-              <h4>Starters</h4>
-            </a>
-          </li><!-- End tab nav item -->
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-breakfast">
-              <h4>Breakfast</h4>
-            </a><!-- End tab nav item -->
-
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-lunch">
-              <h4>Lunch</h4>
-            </a>
-          </li><!-- End tab nav item -->
-
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-dinner">
-              <h4>Dinner</h4>
-            </a>
-          </li><!-- End tab nav item -->
-
-        </ul>
-
-        <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
-
-          <div class="tab-pane fade active show" id="menu-starters">
-
-            <div class="tab-header text-center">
-              <p>Menu</p>
-              <h3>Starters</h3>
-            </div>
-
-            <div class="row gy-5">
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-1.png" class="glightbox"><img src="assets/img/menu/menu-item-1.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Magnam Tiste</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $5.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-2.png" class="glightbox"><img src="assets/img/menu/menu-item-2.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Aut Luia</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $14.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-3.png" class="glightbox"><img src="assets/img/menu/menu-item-3.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Est Eligendi</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $8.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-4.png" class="glightbox"><img src="assets/img/menu/menu-item-4.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Eos Luibusdam</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $12.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-5.png" class="glightbox"><img src="assets/img/menu/menu-item-5.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Eos Luibusdam</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $12.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-6.png" class="glightbox"><img src="assets/img/menu/menu-item-6.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Laboriosam Direva</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $9.95
-                </p>
-              </div><!-- Menu Item -->
-
-            </div>
-          </div><!-- End Starter Menu Content -->
-
-          <div class="tab-pane fade" id="menu-breakfast">
-
-            <div class="tab-header text-center">
-              <p>Menu</p>
-              <h3>Breakfast</h3>
-            </div>
-
-            <div class="row gy-5">
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-1.png" class="glightbox"><img src="assets/img/menu/menu-item-1.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Magnam Tiste</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $5.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-2.png" class="glightbox"><img src="assets/img/menu/menu-item-2.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Aut Luia</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $14.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-3.png" class="glightbox"><img src="assets/img/menu/menu-item-3.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Est Eligendi</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $8.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-4.png" class="glightbox"><img src="assets/img/menu/menu-item-4.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Eos Luibusdam</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $12.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-5.png" class="glightbox"><img src="assets/img/menu/menu-item-5.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Eos Luibusdam</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $12.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-6.png" class="glightbox"><img src="assets/img/menu/menu-item-6.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Laboriosam Direva</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $9.95
-                </p>
-              </div><!-- Menu Item -->
-
-            </div>
-          </div><!-- End Breakfast Menu Content -->
-
-          <div class="tab-pane fade" id="menu-lunch">
-
-            <div class="tab-header text-center">
-              <p>Menu</p>
-              <h3>Lunch</h3>
-            </div>
-
-            <div class="row gy-5">
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-1.png" class="glightbox"><img src="assets/img/menu/menu-item-1.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Magnam Tiste</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $5.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-2.png" class="glightbox"><img src="assets/img/menu/menu-item-2.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Aut Luia</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $14.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-3.png" class="glightbox"><img src="assets/img/menu/menu-item-3.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Est Eligendi</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $8.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-4.png" class="glightbox"><img src="assets/img/menu/menu-item-4.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Eos Luibusdam</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $12.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-5.png" class="glightbox"><img src="assets/img/menu/menu-item-5.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Eos Luibusdam</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $12.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-6.png" class="glightbox"><img src="assets/img/menu/menu-item-6.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Laboriosam Direva</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $9.95
-                </p>
-              </div><!-- Menu Item -->
-
-            </div>
-          </div><!-- End Lunch Menu Content -->
-
-          <div class="tab-pane fade" id="menu-dinner">
-
-            <div class="tab-header text-center">
-              <p>Menu</p>
-              <h3>Dinner</h3>
-            </div>
-
-            <div class="row gy-5">
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-1.png" class="glightbox"><img src="assets/img/menu/menu-item-1.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Magnam Tiste</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $5.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-2.png" class="glightbox"><img src="assets/img/menu/menu-item-2.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Aut Luia</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $14.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-3.png" class="glightbox"><img src="assets/img/menu/menu-item-3.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Est Eligendi</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $8.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-4.png" class="glightbox"><img src="assets/img/menu/menu-item-4.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Eos Luibusdam</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $12.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-5.png" class="glightbox"><img src="assets/img/menu/menu-item-5.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Eos Luibusdam</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $12.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-6.png" class="glightbox"><img src="assets/img/menu/menu-item-6.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Laboriosam Direva</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $9.95
-                </p>
-              </div><!-- Menu Item -->
-
-            </div>
-          </div><!-- End Dinner Menu Content -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Menu Section -->
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials section light-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>TESTIMONIALS</h2>
-        <p>What Are They <span class="description-title">Saying About Us</span></p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              }
-            }
-          </script>
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row gy-4 justify-content-center">
-                  <div class="col-lg-6">
-                    <div class="testimonial-content">
-                      <p>
-                        <i class="bi bi-quote quote-icon-left"></i>
-                        <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
-                        <i class="bi bi-quote quote-icon-right"></i>
-                      </p>
-                      <h3>Saul Goodman</h3>
-                      <h4>Ceo &amp; Founder</h4>
-                      <div class="stars">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-lg-2 text-center">
-                    <img src="assets/img/testimonials/testimonials-1.jpg" class="img-fluid testimonial-img" alt="">
-                  </div>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
 
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row gy-4 justify-content-center">
-                  <div class="col-lg-6">
-                    <div class="testimonial-content">
-                      <p>
-                        <i class="bi bi-quote quote-icon-left"></i>
-                        <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
-                        <i class="bi bi-quote quote-icon-right"></i>
-                      </p>
-                      <h3>Sara Wilsson</h3>
-                      <h4>Designer</h4>
-                      <div class="stars">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    <!-- Slide 2 -->
+                    <div class="carousel-item">
+                      <div class="row gx-3 align-items-stretch">
+
+                        <!-- 5. Ayam Bakar Kecap -->
+                        <div class="col-sm-6 col-md-4 col-xl mb-5">
+                          <div class="product-card rounded-3 p-3">
+                            <img src="assets/img/ayam_ka/akampbak_kecap.png" class="img-fluid rounded-3 w-100" alt="Ayam Bakar Kecap">
+                            <div class="mt-3">
+                              <h5 class="fw-bold">Ayam Bakar Kecap</h5>
+                              <p class="small mt-2">Ayam bakar berbalut bumbu kecap manis, dipanggang hingga karamelisasi sempurna, legit dan juicy</p>
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold">Rp 90.000</span>
+                                <span class="text-success fw-bold">Spesial</span>
+                              </div>
+                              <div class="mt-3">
+                                <a href="#!" class="btn-orange">Detail</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 col-xl mb-5">
+                          <div class="product-card rounded-3 p-3">
+                            <img src="assets/img/ayam_ka/bakakak_hamp.jpg" class="img-fluid rounded-3 w-100" alt="Bakakak Hampers">
+                            <div class="mt-3">
+                              <h5 class="fw-bold">Bakakak Hampers</h5>
+                              <p class="small mt-2">Ayam kampung utuh yang dikemas eksklusif dalam hampers untuk hantaran ataupun acara spesial</p>
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold">Rp 85.000</span>
+                                <span class="text-success fw-bold">Spesial</span>
+                              </div>
+                              <div class="mt-3">
+                                <a href="#!" class="btn-orange">Detail</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 col-xl mb-5">
+                          <div class="product-card rounded-3 p-3">
+                            <img src="assets/img/ayam_ka/be_fro_ungkep.png" class="img-fluid rounded-3 w-100" alt="Bebek Frozen Ungkep">
+                            <div class="mt-3">
+                              <h5 class="fw-bold">Bebek Ungkep Frozen</h5>
+                              <p class="small mt-2">Bebek utuh yang sudah diungkep dengan bumbu rempah, siap digoreng atau disimpan beku</p>
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold">Rp 85.000</span>
+                                <span class="text-success fw-bold">Spesial</span>
+                              </div>
+                              <div class="mt-3">
+                                <a href="#!" class="btn-orange">Detail</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 col-xl mb-5">
+                          <div class="product-card rounded-3 p-3">
+                            <img src="assets/img/ayam_ka/be_go_kremes.png" class="img-fluid rounded-3 w-100" alt="Bebek Goreng Kremes">
+                            <div class="mt-3">
+                              <h5 class="fw-bold">Bebek Goreng Kremes</h5>
+                              <p class="small mt-2">Bebek yang digoreng garing dan disajikan dengan serundeng kremes yang renyah</p>
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold">Rp 100.000</span>
+                                <span class="text-success fw-bold">Spesial</span>
+                              </div>
+                              <div class="mt-3">
+                                <a href="#!" class="btn-orange">Detail</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
                       </div>
                     </div>
-                  </div>
-                  <div class="col-lg-2 text-center">
-                    <img src="assets/img/testimonials/testimonials-2.jpg" class="img-fluid testimonial-img" alt="">
-                  </div>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
 
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row gy-4 justify-content-center">
-                  <div class="col-lg-6">
-                    <div class="testimonial-content">
-                      <p>
-                        <i class="bi bi-quote quote-icon-left"></i>
-                        <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
-                        <i class="bi bi-quote quote-icon-right"></i>
-                      </p>
-                      <h3>Jena Karlis</h3>
-                      <h4>Store Owner</h4>
-                      <div class="stars">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    <!-- Slide 3 -->
+                    <div class="carousel-item">
+                      <div class="row gx-3 align-items-stretch">
+
+                        <div class="col-sm-6 col-md-4 col-xl mb-5">
+                          <div class="product-card rounded-3 p-3">
+                            <img src="assets/img/ayam_ka/NB_ikan.jpg" class="img-fluid rounded-3 w-100" alt="Nasi Box Ikan">
+                            <div class="mt-3">
+                              <h5 class="fw-bold">Nasi Box Ikan</h5>
+                              <p class="small mt-2">Nasi putih hangat, ikan nila goreng dengan bumbu kuning, lalapan, tahu dan sambal dalam kemasan praktis</p>
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold">Mulai dari Rp 25.000</span>
+                                <span class="text-success fw-bold">Spesial</span>
+                              </div>
+                              <div class="mt-3">
+                                <a href="#!" class="btn-orange">Detail</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 col-xl mb-5">
+                          <div class="product-card rounded-3 p-3">
+                            <img src="assets/img/ayam_ka/nasi_box.jpg" class="img-fluid rounded-3 w-100" alt="Nasi Box">
+                            <div class="mt-3">
+                              <h5 class="fw-bold">Nasi Box Ayam Kecap</h5>
+                              <p class="small mt-2">Nasi putih, ayam kecap empuk, sayur, telur balado dan jeruk dalam box siap saji</p>
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold">Mulai dari Rp 25.000</span>
+                                <span class="text-success fw-bold">Spesial</span>
+                              </div>
+                              <div class="mt-3">
+                                <a href="#!" class="btn-orange">Detail</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 col-xl mb-5">
+                          <div class="product-card rounded-3 p-3">
+                            <img src="assets/img/ayam_ka/tumpeng.jpg" class="img-fluid rounded-3 w-100" alt="Tumpeng">
+                            <div class="mt-3">
+                              <h5 class="fw-bold">Tumpeng</h5>
+                              <p class="small mt-2">Nasi kuning berbentuk kerucut dengan lauk komplit sebagai simbol syukur untuk acara istimewa</p>
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold">Rp 350.000</span>
+                                <span class="text-success fw-bold">Spesial</span>
+                              </div>
+                              <div class="mt-3">
+                                <a href="#!" class="btn-orange">Detail</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 col-xl mb-5">
+                          <div class="product-card rounded-3 p-3">
+                            <img src="assets/img/ayam_ka/tumpeng_mini.jpg" class="img-fluid rounded-3 w-100" alt="Tumpeng Mini">
+                            <div class="mt-3">
+                              <h5 class="fw-bold">Tumpeng Mini</h5>
+                              <p class="small mt-2">Versi mini dari tumpeng lengkap, cocok untuk syukuran atau hadiah personal</p>
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold">Rp 35.000</span>
+                                <span class="text-success fw-bold">Spesial</span>
+                              </div>
+                              <div class="mt-3">
+                                <a href="#!" class="btn-orange">Detail</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
                       </div>
                     </div>
-                  </div>
-                  <div class="col-lg-2 text-center">
-                    <img src="assets/img/testimonials/testimonials-3.jpg" class="img-fluid testimonial-img" alt="">
-                  </div>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
 
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="row gy-4 justify-content-center">
-                  <div class="col-lg-6">
-                    <div class="testimonial-content">
-                      <p>
-                        <i class="bi bi-quote quote-icon-left"></i>
-                        <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
-                        <i class="bi bi-quote quote-icon-right"></i>
-                      </p>
-                      <h3>John Larson</h3>
-                      <h4>Entrepreneur</h4>
-                      <div class="stars">
-                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    <!-- Slide 4-->
+                    <div class="carousel-item">
+                      <div class="row gx-3 align-items-stretch">
+
+                        <div class="col-sm-6 col-md-4 col-xl mb-5">
+                          <div class="product-card rounded-3 p-3">
+                            <img src="assets/img/ayam_ka/nasi_box2.jpg" class="img-fluid rounded-3 w-100" alt="Aneka Nasi Box">
+                            <div class="mt-3">
+                              <h5 class="fw-bold">Nasi Box Ayam Serundeng</h5>
+                              <p class="small mt-2">Nasi putih dengan ayam berbalut serundeng kelapa garing, gurih dan harum dalam box siap saji</p>
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold">Mulai dari Rp 25.000</span>
+                                <span class="text-success fw-bold">Spesial</span>
+                              </div>
+                              <div class="mt-3">
+                                <a href="#!" class="btn-orange">Detail</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 col-xl mb-5">
+                          <div class="product-card rounded-3 p-3">
+                            <img src="assets/img/ayam_ka/nasi_box3.jpg" class="img-fluid rounded-3 w-100" alt="Aneka Nasi Box">
+                            <div class="mt-3">
+                              <h5 class="fw-bold">Bento Karakter</h5>
+                              <p class="small mt-2">Nasi dan lauk berbentuk karakter lucu untuk anak-anak, sehat, bergizi dan menggemaskan</p>
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold">Mulai dari Rp 25.000</span>
+                                <span class="text-success fw-bold">Spesial</span>
+                              </div>
+                              <div class="mt-3">
+                                <a href="#!" class="btn-orange">Detail</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 col-xl mb-5">
+                          <div class="product-card rounded-3 p-3">
+                            <img src="assets/img/ayam_ka/nasi_box5.jpg" class="img-fluid rounded-3 w-100" alt="Aneka Nasi Box">
+                            <div class="mt-3">
+                              <h5 class="fw-bold">Nasi Box Ayam Goreng</h5>
+                              <p class="small mt-2">Nasi putih, ayam goreng, sambal, lalapan, sayur dan irisan timun dalam kemasan yang praktis</p>
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold">Mulai dari Rp 25.000</span>
+                                <span class="text-success fw-bold">Spesial</span>
+                              </div>
+                              <div class="mt-3">
+                                <a href="#!" class="btn-orange">Detail</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 col-xl mb-5">
+                          <div class="product-card rounded-3 p-3">
+                            <img src="assets/img/ayam_ka/prasmanan.jpg" class="img-fluid rounded-3 w-100" alt="Prasmanan">
+                            <div class="mt-3">
+                              <h5 class="fw-bold">Prasmanan</h5>
+                              <p class="small mt-2">Sajian lengkap ala prasmanan untuk acara besar, bisa disesuaikan sesuai paket</p>
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold">Mulai dari Rp 65.000</span>
+                                <span class="text-success fw-bold">Spesial</span>
+                              </div>
+                              <div class="mt-3">
+                                <a href="#!" class="btn-orange">Detail</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
                       </div>
                     </div>
+
+                    <!-- Slide 5 -->
+                    <div class="carousel-item">
+                      <div class="row gx-3 align-items-stretch">
+
+                        <div class="col-sm-6 col-md-4 col-xl mb-5">
+                          <div class="product-card rounded-3 p-3">
+                            <img src="assets/img/ayam_ka/nasi_bok_AB.jpg" class="img-fluid rounded-3 w-100" alt="Aneka Nasi Box">
+                            <div class="mt-3">
+                              <h5 class="fw-bold">Nasi Box Ayam Bakar</h5>
+                              <p class="small mt-2">Nasi putih, ayam bakar bumbu rempah, lalapan, tahu dan sambal dalam kemasan siap saji</p>
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold">Mulai dari Rp 25.000</span>
+                                <span class="text-success fw-bold">Spesial</span>
+                              </div>
+                              <div class="mt-3">
+                                <a href="#!" class="btn-orange">Detail</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 col-xl mb-5">
+                          <div class="product-card rounded-3 p-3">
+                            <img src="assets/img/ayam_ka/NB_kotak_makan.jpg" class="img-fluid rounded-3 w-100" alt="Aneka Nasi Box">
+                            <div class="mt-3">
+                              <h5 class="fw-bold">Nasi Box + Kotak Makan</h5>
+                              <p class="small mt-2">Paket nasi box lengkap dengan kotak makan eksklusif, cocok untuk hampers atau acara formal</p>
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold">Mulai dari Rp 25.000</span>
+                                <span class="text-success fw-bold">Spesial</span>
+                              </div>
+                              <div class="mt-3">
+                                <a href="#!" class="btn-orange">Detail</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 col-xl mb-5">
+                          <div class="product-card rounded-3 p-3">
+                            <img src="assets/img/ayam_ka/nasi_box_ayam_kotak.jpg" class="img-fluid rounded-3 w-100" alt="Ayam Karkas">
+                            <div class="mt-3">
+                              <h5 class="fw-bold">Nasi Box Ayam Asam Manis</h5>
+                              <p class="small mt-2">Nasi putih yang dipadukan dengan ayam fillet saus asam manis, sayuran, sambal, bakwan dan ikan fillet</p>
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold">Mulai dari Rp 25.000</span>
+                                <span class="text-success fw-bold">Spesial</span>
+                              </div>
+                              <div class="mt-3">
+                                <a href="#!" class="btn-orange">Detail</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 col-xl mb-5">
+                          <div class="product-card rounded-3 p-3">
+                            <img src="assets/img/ayam_ka/karkas.jpeg" class="img-fluid rounded-3 w-100" alt="Ayam Karkas">
+                            <div class="mt-3">
+                              <h5 class="fw-bold">Ayam Karkas</h5>
+                              <p class="small mt-2">Ayam potong bersih tanpa kepala, ceker, dan jeroan – siap olah untuk berbagai kebutuhan masak</p>
+                              <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold">Rp -</span>
+                                <span class="text-success fw-bold">Spesial</span>
+                              </div>
+                              <div class="mt-3">
+                                <a href="#!" class="btn-orange">Detail</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>
+
                   </div>
-                  <div class="col-lg-2 text-center">
-                    <img src="assets/img/testimonials/testimonials-4.jpg" class="img-fluid testimonial-img" alt="">
+
+                  <!-- Navigation Buttons -->
+                  <button class="carousel-control-prev carousel-icon" type="button" data-bs-target="#carouselPopularItems" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next carousel-icon" type="button" data-bs-target="#carouselPopularItems" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- End Produk Section -->
+
+
+      <!-- Page 3 ============================-->
+        <section id="kelebihan" class="hero section light-background">
+
+          <div class="container">
+            <div class="row justify-content-center g-0">
+              <div class="col-xl-9">
+                <div class="col-lg-6 text-center mx-auto mb-3 mb-md-5 mt-4">
+                  <h5 class="fw-bold text-danger fs-3 fs-lg-5 lh-sm my-6">Keunggulan</h5>
+                  <p>Kenapa Memilih Ayam Kabogor</p>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6 col-md-3 mb-6">
+                    <div class="text-center"><img class="shadow-icon" src="assets/img/gallery/location.png" height="112" alt="..." />
+                      <h5 class="mt-4 fw-bold">Select location</h5>
+                      <p class="mb-md-0">Choose the location where your food will be delivered.</p>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-3 mb-6">
+                    <div class="text-center"><img class="shadow-icon" src="assets/img/gallery/order.png" height="112" alt="..." />
+                      <h5 class="mt-4 fw-bold">Choose order</h5>
+                      <p class="mb-md-0">Check over hundreds of menus to pick your favorite food</p>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-3 mb-6">
+                    <div class="text-center"><img class="shadow-icon" src="assets/img/gallery/pay.png" height="112" alt="..." />
+                      <h5 class="mt-4 fw-bold">Pay advanced</h5>
+                      <p class="mb-md-0">It's quick, safe, and simple. Select several methods of payment</p>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-3 mb-6">
+                    <div class="text-center"><img class="shadow-icon" src="assets/img/gallery/meals.png" height="112" alt="..." />
+                      <h5 class="mt-4 fw-bold">Enjoy meals</h5>
+                      <p class="mb-md-0">Food is made and delivered directly to your home.</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div><!-- End testimonial item -->
-
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-
-      </div>
-
-    </section><!-- /Testimonials Section -->
-
-    <!-- Events Section -->
-    <section id="events" class="events section">
-
-      <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-              "breakpoints": {
-                "320": {
-                  "slidesPerView": 1,
-                  "spaceBetween": 40
-                },
-                "1200": {
-                  "slidesPerView": 3,
-                  "spaceBetween": 1
-                }
-              }
-            }
-          </script>
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url(assets/img/events-1.jpg)">
-              <h3>Custom Parties</h3>
-              <div class="price align-self-start">$99</div>
-              <p class="description">
-                Quo corporis voluptas ea ad. Consectetur inventore sapiente ipsum voluptas eos omnis facere. Enim facilis veritatis id est rem repudiandae nulla expedita quas.
-              </p>
-            </div><!-- End Event item -->
-
-            <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url(assets/img/events-2.jpg)">
-              <h3>Private Parties</h3>
-              <div class="price align-self-start">$289</div>
-              <p class="description">
-                In delectus sint qui et enim. Et ab repudiandae inventore quaerat doloribus. Facere nemo vero est ut dolores ea assumenda et. Delectus saepe accusamus aspernatur.
-              </p>
-            </div><!-- End Event item -->
-
-            <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url(assets/img/events-3.jpg)">
-              <h3>Birthday Parties</h3>
-              <div class="price align-self-start">$499</div>
-              <p class="description">
-                Laborum aperiam atque omnis minus omnis est qui assumenda quos. Quis id sit quibusdam. Esse quisquam ducimus officia ipsum ut quibusdam maxime. Non enim perspiciatis.
-              </p>
-            </div><!-- End Event item -->
-
-            <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url(assets/img/events-4.jpg)">
-              <h3>Wedding Parties</h3>
-              <div class="price align-self-start">$899</div>
-              <p class="description">
-                Laborum aperiam atque omnis minus omnis est qui assumenda quos. Quis id sit quibusdam. Esse quisquam ducimus officia ipsum ut quibusdam maxime. Non enim perspiciatis.
-              </p>
-            </div><!-- End Event item -->
-
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-
-      </div>
-
-    </section><!-- /Events Section -->
-
-    <!-- Chefs Section -->
-    <section id="chefs" class="chefs section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>chefs</h2>
-        <p><span>Our</span> <span class="description-title">Proffesional Chefs<br></span></p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-            <div class="team-member">
-              <div class="member-img">
-                <img src="assets/img/chefs/chefs-1.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter-x"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Walter White</h4>
-                <span>Master Chef</span>
-                <p>Velit aut quia fugit et et. Dolorum ea voluptate vel tempore tenetur ipsa quae aut. Ipsum exercitationem iure minima enim corporis et voluptate.</p>
-              </div>
             </div>
-          </div><!-- End Chef Team Member -->
+          </div><!-- end of .container-->
+  
+        </section>
+        <!-- Page 3 close ============================-->
 
-          <div class="col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-            <div class="team-member">
-              <div class="member-img">
-                <img src="assets/img/chefs/chefs-2.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter-x"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Sarah Jhonson</h4>
-                <span>Patissier</span>
-                <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis. Voluptate sed quas reiciendis animi neque sapiente.</p>
-              </div>
-            </div>
-          </div><!-- End Chef Team Member -->
-
-          <div class="col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-            <div class="team-member">
-              <div class="member-img">
-                <img src="assets/img/chefs/chefs-3.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter-x"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>William Anderson</h4>
-                <span>Cook</span>
-                <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt. Voluptates enim aut architecto porro aspernatur molestiae modi.</p>
-              </div>
-            </div>
-          </div><!-- End Chef Team Member -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Chefs Section -->
-
-    <!-- Book A Table Section -->
-    <section id="book-a-table" class="book-a-table section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Book A Table</h2>
-        <p><span>Book Your</span> <span class="description-title">Stay With Us<br></span></p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row g-0" data-aos="fade-up" data-aos-delay="100">
-
-          <div class="col-lg-4 reservation-img" style="background-image: url(assets/img/reservation.jpg);"></div>
-
-          <div class="col-lg-8 d-flex align-items-center reservation-form-bg" data-aos="fade-up" data-aos-delay="200">
-            <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form">
-              <div class="row gy-4">
-                <div class="col-lg-4 col-md-6">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required="">
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required="">
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone" required="">
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <input type="date" name="date" class="form-control" id="date" placeholder="Date" required="">
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <input type="time" class="form-control" name="time" id="time" placeholder="Time" required="">
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <input type="number" class="form-control" name="people" id="people" placeholder="# of people" required="">
-                </div>
-              </div>
-
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message"></textarea>
-              </div>
-
-              <div class="text-center mt-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!</div>
-                <button type="submit">Book a Table</button>
-              </div>
-            </form>
-          </div><!-- End Reservation Form -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Book A Table Section -->
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery section light-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Gallery</h2>
-        <p><span>Check</span> <span class="description-title">Our Gallery</span></p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "centeredSlides": true,
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-              "breakpoints": {
-                "320": {
-                  "slidesPerView": 1,
-                  "spaceBetween": 0
-                },
-                "768": {
-                  "slidesPerView": 3,
-                  "spaceBetween": 20
-                },
-                "1200": {
-                  "slidesPerView": 5,
-                  "spaceBetween": 20
-                }
-              }
-            }
-          </script>
-          <div class="swiper-wrapper align-items-center">
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-1.jpg"><img src="assets/img/gallery/gallery-1.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-2.jpg"><img src="assets/img/gallery/gallery-2.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-3.jpg"><img src="assets/img/gallery/gallery-3.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-4.jpg"><img src="assets/img/gallery/gallery-4.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-5.jpg"><img src="assets/img/gallery/gallery-5.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-6.jpg"><img src="assets/img/gallery/gallery-6.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-7.jpg"><img src="assets/img/gallery/gallery-7.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-8.jpg"><img src="assets/img/gallery/gallery-8.jpg" class="img-fluid" alt=""></a></div>
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-
-      </div>
-
-    </section><!-- /Gallery Section -->
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-        <p><span>Need Help?</span> <span class="description-title">Contact Us</span></p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="mb-5">
-          <iframe style="width: 100%; height: 400px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen=""></iframe>
-        </div><!-- End Google Maps -->
-
-        <div class="row gy-4">
-
-          <div class="col-md-6">
-            <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
-              <i class="icon bi bi-geo-alt flex-shrink-0"></i>
-              <div>
-                <h3>Address</h3>
-                <p>A108 Adam Street, New York, NY 535022</p>
-              </div>
-            </div>
-          </div><!-- End Info Item -->
-
-          <div class="col-md-6">
-            <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="300">
-              <i class="icon bi bi-telephone flex-shrink-0"></i>
-              <div>
-                <h3>Call Us</h3>
-                <p>+1 5589 55488 55</p>
-              </div>
-            </div>
-          </div><!-- End Info Item -->
-
-          <div class="col-md-6">
-            <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="400">
-              <i class="icon bi bi-envelope flex-shrink-0"></i>
-              <div>
-                <h3>Email Us</h3>
-                <p>info@example.com</p>
-              </div>
-            </div>
-          </div><!-- End Info Item -->
-
-          <div class="col-md-6">
-            <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="500">
-              <i class="icon bi bi-clock flex-shrink-0"></i>
-              <div>
-                <h3>Opening Hours<br></h3>
-                <p><strong>Mon-Sat:</strong> 11AM - 23PM; <strong>Sunday:</strong> Closed</p>
-              </div>
-            </div>
-          </div><!-- End Info Item -->
-
-        </div>
-
-        <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="600">
-          <div class="row gy-4">
-
-            <div class="col-md-6">
-              <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-            </div>
-
-            <div class="col-md-6 ">
-              <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-            </div>
-
-            <div class="col-md-12">
-              <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-            </div>
-
-            <div class="col-md-12">
-              <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
-            </div>
-
-            <div class="col-md-12 text-center">
-              <div class="loading">Loading</div>
-              <div class="error-message"></div>
-              <div class="sent-message">Your message has been sent. Thank you!</div>
-
-              <button type="submit">Send Message</button>
-            </div>
-
-          </div>
-        </form><!-- End Contact Form -->
-
-      </div>
-
-    </section><!-- /Contact Section -->
-
-  </main>
-
+    
   <footer id="footer" class="footer dark-background">
 
     <div class="container">
@@ -1154,6 +641,64 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
-</body>
+  <!-- Javascript Page 2 -->
+  <script src="assets/vendor/@popperjs/popper.min.js"></script>
+  <script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
+  <script src="assets/vendor/is/is.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+  <script src="assets/vendor/fontawesome/all.min.js"></script>
+  <script src="assets/js/theme.js"></script>
 
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&amp;display=swap" rel="stylesheet">
+        
+
+  <!-- pop up button pesan sekarang -->
+  <div id="pesanModal" class="modal">
+    <div class="modal-content">
+      <center>
+      <h2>Tanya Admin untuk Pemesanan</h2>
+      <a href="https://wa.me/6282122103241?text=Selamat%20siang,%20mohon%20informasi%20mengenai%20harga%20produk%20pada%20Ayam%20Kabogor" target="_blank" class="whatsapp-btn">
+        Pesan WhatsApp
+      </a>
+      <button class="close-btn">Kembali</button>
+      </center>
+    </div>
+  </div>
+
+  <!-- Script Modal -->
+  <script>
+    const modal = document.getElementById("pesanModal");
+    const openBtn = document.querySelector(".btn-get-started");
+    const closeBtn = document.querySelector(".close-btn");
+
+    function openModal() {
+      modal.classList.add("show");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      modal.classList.remove("show");
+      document.body.style.overflow = "auto";
+    }
+
+    if (openBtn) {
+      openBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        openModal();
+      });
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", closeModal);
+    }
+
+    window.addEventListener("click", function(e) {
+      if (e.target === modal) closeModal();
+    });
+
+    window.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") closeModal();
+    });
+  </script>
+</body>
 </html>
