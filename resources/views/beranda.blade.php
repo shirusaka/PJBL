@@ -1,17 +1,25 @@
+<?php
+
+$nomor_admin = "6281233329906";
+$template_pesan = "Halo min, saya ingin memesan produk Ayam Kabogor";
+$link_wa_pesan = "https://wa.me/" . $nomor_admin . "?text=" . urlencode($template_pesan);
+
+?>
+
 @extends('layouts.main')
 
-@section('konten')
+@section('content')
 
     <!-- Hero Section -->
     <section id="hero" class="hero section light-background">
-
-      <div class="container">
+    
+    <div class="container">
         <div class="row gy-4 justify-content-center justify-content-lg-between">
           <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center">
             <h1 data-aos="fade-up">Enjoy Your Healthy<br>Delicious Food</h1>
             <p data-aos="fade-up" data-aos-delay="100">We are team of talented designers making websites with Bootstrap</p>
             <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-              <a href="#book-a-table" class="btn-get-started">Booka a Table</a>
+              <a href="<?php echo $link_wa_pesan; ?>" class="btn-get-started" target="_blank"> Pesan Sekarang!</a>
               <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
             </div>
           </div>
@@ -42,6 +50,18 @@
               <p>+1 5589 55488 55</p>
             </div>
           </div>
+          
+          <div class="col-lg-4 menu-item">
+    <p class="price">$5.95</p>
+    
+    <?php
+        $nama_menu_spesifik = 'Magnam Tiste';
+        $pesan_menu_spesifik = urlencode("Halo Admin, saya mau pesan menu: {$nama_menu_spesifik}. Mohon diproses.");
+        $link_wa_menu = 'https://wa.me/' . $nomor_admin . '?text=' . $pesan_menu_spesifik;
+    ?>
+    <a href="<?php echo $link_wa_menu; ?>" target="_blank" class="btn btn-sm btn-success mt-2">Pesan Menu Ini</a>
+</div>
+
           <div class="col-lg-5" data-aos="fade-up" data-aos-delay="250">
             <div class="content ps-0 ps-lg-5">
               <p class="fst-italic">
