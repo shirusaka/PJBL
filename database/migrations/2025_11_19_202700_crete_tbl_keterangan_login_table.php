@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('username');
             $table->dateTime('login_datetime');
-            $table->dateTime('logout_datetime');
+            $table->dateTime('logout_datetime')->nullable();
             $table->timestamps();
         });
     }

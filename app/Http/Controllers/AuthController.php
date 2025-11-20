@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Admin;
+use App\Models\User;
 use App\Models\KeteranganLogin;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -26,7 +26,7 @@ class AuthController extends Controller
         ]);
 
         // buat nyari admin
-        $admin = Admin::where('username', $request->username)->first();
+        $admin = User::where('username', $request->username)->first();
         
         // cek pass
         if ($admin && Hash::check($request->password, $admin->password)){
@@ -36,7 +36,7 @@ class AuthController extends Controller
 
             // log
             KeteranganLogin::create([
-                'date_time_login' => now(),
+                'login_datetime' => now(),
                 'username' => $admin->username,
             ]);
 

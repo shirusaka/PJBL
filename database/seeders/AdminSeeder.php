@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Support\Facades\Hash;
-use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class AdminSeeder extends Seeder
@@ -13,12 +13,13 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        Admin::create([
+        User::create([
             'username' => 'admin01',
             'password' => Hash::make('12341234'),
-            'nama' => 'Zahran',
-            'alamat' => 'Aeon Tanjung Barat',
-            'no_telp' => '628118509743',
+            'name' => 'Zahran',
+            'address' => 'Aeon Tanjung Barat',
+            'email' => 'zahran@gmail.com',
+            'phone' => '628118509743',
         ]);
     }
 }

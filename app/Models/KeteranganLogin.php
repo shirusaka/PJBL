@@ -14,8 +14,8 @@ class KeteranganLogin extends Model
 
     protected $fillable = [
         'id_login',
-        'date_time_login',
-        'date_time_logout',
+        'login_datetime',
+        'logout_datetime',
         'username',
     ];
 }
