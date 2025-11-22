@@ -5,6 +5,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\FAQController;
+use App\Http\Controllers\Admin\TestimoniController;
+
 
 // PUBLIC
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
@@ -17,5 +20,18 @@ Route::get('/logout', [AuthController::class, 'logout']);
 //ADMIN
 Route::group(['prefix' => 'admin'], function() {
     Route::get('/dashboard', [DashboardController::class, 'index']);
-    Route::resource('menus', MenuController::class);
+    // Route::resource('menus', MenuController::class);
+});
+
+// CRUD ADMIN
+Route::prefix('admin')->middleware('auth')->group(function () {
+
+    //MENU
+    Route::resource('menu', MenuController::class)->names('admin.menu');
+
+    //TESTIMONI
+    Route::resource('testimoni', TestimoniController::class)->names('admin.testimoni');
+
+    //FAQ
+    Route::resource('faq', FAQController::class)->names('admin.faq');
 });

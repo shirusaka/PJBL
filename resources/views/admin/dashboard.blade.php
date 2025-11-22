@@ -1,47 +1,157 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="row">
-    <div class="col-lg-8 mb-4 order-0">
-        <div class="card">
-            <div class="d-flex align-items-end row">
-                <div class="col-sm-7">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">Selamat Datang, {{ Session::get('nama') }}! 🎉</h5>
-                        <p class="mb-4">
-                            Ini adalah halaman admin untuk mengelola konten website Ayam Kabogor.
-                        </p>
-                        <a href="{{ route('menus.index') }}" class="btn btn-sm btn-outline-primary">Kelola Menu</a>
+<div class="container">
+
+    <h2>Dashboard Admin</h2>
+    <p>Selamat datang, {{ Session::get('nama') }}!</p>
+
+    <hr>
+
+    <h4>Kelola Konten Website</h4>
+
+    <!-- Tombol buka modal -->
+    <button class="btn btn-success btn-sm"
+            data-bs-toggle="modal"
+            data-bs-target="#modalTestimoni">
+        Testimoni
+    </button>
+
+    <button class="btn btn-success btn-sm"
+            data-bs-toggle="modal"
+            data-bs-target="#modalFAQ">
+        FAQ
+    </button>
+
+    <button class="btn btn-success btn-sm"
+            data-bs-toggle="modal"
+            data-bs-target="#modalMenu">
+        Menu
+    </button>
+<!-- 
+    <a href="{{ route('admin.faq.index') }}" class="btn btn-warning btn-sm">Kelola FAQ</a> -->
+
+    <hr>
+
+    <!-- ===================== -->
+    <!--       MODAL           -->
+    <!-- ===================== -->
+
+    <!-- Modal Testi -->
+<!-- Modal Tambah Testimoni -->
+<div class="modal fade" id="modalTambahTestimoni" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah Testimoni</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="formTestimoni" enctype="multipart/form-data">
+                    @csrf
+                    
+                    <div class="mb-3">
+                        <label>Username</label>
+                        <input type="text" name="username" class="form-control">
                     </div>
+
+                    <div class="mb-3">
+                        <label>Foto Screenshot</label>
+                        <input type="file" name="foto_ss" class="form-control">
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" form="formTestimoni" class="btn btn-primary">
+                    Simpan
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- Modal FAQ -->
+    <div class="modal fade" id="modalFAQ" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                
+                <div class="modal-header">
+                    <h5 class="modal-title">Tes2</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="col-sm-5 text-center text-sm-left">
-                    <div class="card-body pb-0 px-0 px-md-4">
-                        <img src="{{ asset('assets/img/illustrations/man-with-laptop-light.png') }}" height="140" alt="View Badge User">
-                    </div>
+                
+                <div class="modal-body" id="modalFAQContent">
+                    Konten?
                 </div>
             </div>
         </div>
     </div>
     
-    <div class="col-lg-4 col-md-4 order-1">
-        <div class="row">
-            <div class="col-lg-6 col-md-12 col-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <span class="fw-semibold d-block mb-1">Total Menu</span>
-                        <h3 class="card-title mb-2">{{ $total_menu ?? 0 }}</h3>
-                    </div>
+    
+    <!-- Modal Testi -->
+    <div class="modal fade" id="modalMenu" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                
+                <div class="modal-header">
+                    <h5 class="modal-title">Tes3</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-            </div>
-            <div class="col-lg-6 col-md-12 col-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <span class="fw-semibold d-block mb-1">Total Admin</span>
-                        <h3 class="card-title mb-2">{{ $total_admin ?? 0 }}</h3>
-                    </div>
+                
+                <div class="modal-body" id="modalMenuContent">
+                    Konten?
                 </div>
             </div>
         </div>
     </div>
+
+    <hr>
+
+    <h4>Statistik</h4>
+    <p>Total Menu: {{ $total_menu ?? 0 }}</p>
+    <p>Total Admin: {{ $total_admin ?? 0 }}</p>
+
 </div>
 @endsection
+
+
+@push('scripts')
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // === TESTIMONI ===
+    let modalTesti = document.getElementById('modalTestimoni');
+    modalTesti.addEventListener('shown.bs.modal', function () {
+        fetch("{{ route('admin.testimoni.index') }}")
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('modalTestimoniContent').innerHTML = html;
+            });
+    });
+
+    // === FAQ ===
+    let modalFAQ = document.getElementById('modalFAQ');
+    modalFAQ.addEventListener('shown.bs.modal', function () {
+        fetch("{{ route('admin.faq.index') }}")
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('modalFAQContent').innerHTML = html;
+            });
+    });
+
+    // === MENU ===
+    let modalMenu = document.getElementById('modalMenu');
+    modalMenu.addEventListener('shown.bs.modal', function () {
+        fetch("{{ route('admin.menu.index') }}")
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('modalMenuContent').innerHTML = html;
+            });
+    });
+
+});
+</script>
+@endpush

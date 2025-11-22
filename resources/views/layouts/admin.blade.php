@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
 
     <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('assets/js/config.js') }}"></script>
 </head>
 
@@ -35,26 +36,6 @@
                 </div>
 
                 <div class="menu-inner-shadow"></div>
-
-                <ul class="menu-inner py-1">
-                    <li class="menu-item {{ Request::is('admin/dashboard') ? 'active' : '' }}">
-                        <a href="{{ url('/admin/dashboard') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics">Dashboard</div>
-                        </a>
-                    </li>
-
-                    <li class="menu-header small text-uppercase">
-                        <span class="menu-header-text">Manajemen Toko</span>
-                    </li>
-                    <li class="menu-item {{ Request::is('admin/menus*') ? 'active' : '' }}">
-                        <a href="{{ route('menus.index') }}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-food-menu"></i>
-                            <div data-i18n="Menu Makanan">Menu Makanan</div>
-                        </a>
-                    </li>
-                    
-                    <li class="menu-item">
                         <a href="{{ url('/logout') }}" class="menu-link text-danger">
                             <i class="menu-icon tf-icons bx bx-power-off"></i>
                             <div>Logout</div>
@@ -105,6 +86,7 @@
     </div>
 
     <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
     <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
