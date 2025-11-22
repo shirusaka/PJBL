@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+<!-- @extends('layouts.admin')
 
 @section('content')
 <div class="container">
@@ -8,10 +8,10 @@
 
     <hr>
 
-    <h4>Kelola Konten Website</h4>
+    <h4>Kelola Konten Website</h4> -->
 
     <!-- Tombol buka modal -->
-    <button class="btn btn-success btn-sm"
+    <!-- <button class="btn btn-success btn-sm"
             data-bs-toggle="modal"
             data-bs-target="#modalTestimoni">
         Testimoni
@@ -27,11 +27,11 @@
             data-bs-toggle="modal"
             data-bs-target="#modalMenu">
         Menu
-    </button>
-<!-- 
-    <a href="{{ route('admin.faq.index') }}" class="btn btn-warning btn-sm">Kelola FAQ</a> -->
+    </button> -->
+<!-- ini jangan diaktifin
+    <a href="{{ route('admin.faq.index') }}" class="btn btn-warning btn-sm">Kelola FAQ</a> --> 
 
-    <hr>
+    <!-- <hr> -->
 
     <!-- ===================== -->
     <!--       MODAL           -->
@@ -39,7 +39,7 @@
 
     <!-- Modal Testi -->
 <!-- Modal Tambah Testimoni -->
-<div class="modal fade" id="modalTambahTestimoni" tabindex="-1">
+<!-- <div class="modal fade" id="modalTambahTestimoni" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -70,11 +70,11 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
     
     <!-- Modal FAQ -->
-    <div class="modal fade" id="modalFAQ" tabindex="-1">
+    <!-- <div class="modal fade" id="modalFAQ" tabindex="-1">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 
@@ -88,11 +88,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     
     
     <!-- Modal Testi -->
-    <div class="modal fade" id="modalMenu" tabindex="-1">
+    <!-- <div class="modal fade" id="modalMenu" tabindex="-1">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 
@@ -114,11 +114,11 @@
     <p>Total Menu: {{ $total_menu ?? 0 }}</p>
     <p>Total Admin: {{ $total_admin ?? 0 }}</p>
 
-</div>
-@endsection
+</div> -->
+<!-- @endsection -->
 
 
-@push('scripts')
+<!-- @push('scripts')
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -153,5 +153,796 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
-</script>
-@endpush
+</script> -->
+<!-- @endpush -->
+
+@extends 
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Ayam Kabogor</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js Core -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                    colors: {
+                        primary: {
+                            50: '#fff7ed', 100: '#ffedd5', 500: '#f97316', 600: '#ea580c', 700: '#c2410c',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        /* Hide scrollbar for sidebar when collapsing */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .fade-in-up { animation: fadeInUp 0.5s ease-out forwards; opacity: 0; transform: translateY(10px); }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+
+<!-- 
+    X-DATA GLOBAL: 
+    sidebarOpen: true (default terbuka di desktop)
+-->
+<body class="bg-gray-50 text-slate-800 font-sans antialiased" 
+      x-data="{ sidebarOpen: window.innerWidth >= 1024 }">
+
+    <!-- MOBILE OVERLAY (Hanya muncul di layar kecil saat sidebar buka) -->
+    <div x-show="sidebarOpen" 
+         @click="sidebarOpen = false" 
+         x-transition.opacity
+         class="fixed inset-0 bg-slate-900/50 z-40 lg:hidden backdrop-blur-sm"></div>
+
+    <!-- ================= SIDEBAR ================= -->
+    <!-- Logic: Jika open w-64, jika close w-0 (di desktop) atau -translate-x (di mobile) -->
+    <aside class="fixed top-0 left-0 z-50 h-screen bg-white border-r border-gray-100 shadow-xl transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap"
+           :class="sidebarOpen ? 'w-64 translate-x-0' : 'w-0 -translate-x-full lg:w-0 lg:translate-x-0'">
+        
+        <div class="mt-5 h-20 flex items-center justify-center border-b border-gray-50 min-w-[16rem]">
+            <a href="#" class="block">
+                <img src="images/logo_ayam_kabogor.png" 
+                     alt="Ayam Kabogor" 
+                     class="h-20 w-auto object-contain"
+                     onerror="this.src='https://placehold.co/200x80?text=LOGO';"> 
+            </a>
+        </div>
+
+        <nav class="p-4 space-y-2" 
+             x-data="{ 
+                 currentPath: window.location.pathname,
+                 isActive(pageName) {
+                     // Khusus untuk halaman index.html atau root '/'
+                     if (pageName === 'index.html') {
+                         return this.currentPath.endsWith('/') || this.currentPath.includes('index.html');
+                     }
+                     // Untuk halaman lain (faq.html, testimoni.html)
+                     return this.currentPath.includes(pageName);
+                 }
+             }">
+
+            <a href="index.html" 
+               class="relative flex items-center gap-3 px-4 py-3.5 rounded-xl font-medium transition-all duration-300 group overflow-hidden focus:outline-none"
+               :class="isActive('index.html') 
+                    ? 'bg-primary-50 text-primary-600 shadow-sm translate-x-1' 
+                    : 'text-slate-500 hover:bg-gray-50 hover:text-slate-900 hover:translate-x-1'">
+                
+                <span x-show="isActive('index.html')" class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary-500 rounded-r-full"></span>
+
+                <svg class="w-5 h-5 shrink-0 transition-colors duration-300" 
+                     :class="isActive('index.html') ? 'text-primary-600' : 'text-slate-400 group-hover:text-primary-500'"
+                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                </svg>
+                
+                <span>Daftar Menu</span>
+            </a>
+
+            <a href="testimoni.html" 
+               class="relative flex items-center gap-3 px-4 py-3.5 rounded-xl font-medium transition-all duration-300 group overflow-hidden focus:outline-none"
+               :class="isActive('testimoni.html') 
+                    ? 'bg-primary-50 text-primary-600 shadow-sm translate-x-1' 
+                    : 'text-slate-500 hover:bg-gray-50 hover:text-slate-900 hover:translate-x-1'">
+                
+                <span x-show="isActive('testimoni.html')" class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary-500 rounded-r-full"></span>
+
+                <svg class="w-5 h-5 shrink-0 transition-colors duration-300" 
+                     :class="isActive('testimoni.html') ? 'text-primary-600' : 'text-slate-400 group-hover:text-primary-500'"
+                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path>
+                </svg>
+                
+                <span>Testimoni</span>
+            </a>
+
+            <a href="faq.html" 
+               class="relative flex items-center gap-3 px-4 py-3.5 rounded-xl font-medium transition-all duration-300 group overflow-hidden focus:outline-none"
+               :class="isActive('faq.html') 
+                    ? 'bg-primary-50 text-primary-600 shadow-sm translate-x-1' 
+                    : 'text-slate-500 hover:bg-gray-50 hover:text-slate-900 hover:translate-x-1'">
+                
+                <span x-show="isActive('faq.html')" class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary-500 rounded-r-full"></span>
+
+                <svg class="w-5 h-5 shrink-0 transition-colors duration-300" 
+                     :class="isActive('faq.html') ? 'text-primary-600' : 'text-slate-400 group-hover:text-primary-500'"
+                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                
+                <span>FAQ</span>
+            </a>
+        </nav>
+
+        <div class="absolute bottom-0 left-0 w-full p-4 bg-white border-t border-gray-100 min-w-[16rem]">
+            <button class="flex items-center gap-3 w-full px-4 py-2 text-slate-500 hover:text-red-500 transition-colors rounded-lg hover:bg-red-50">
+                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                <span class="font-medium text-sm">Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- ================= MAIN CONTENT WRAPPER ================= -->
+    <!-- Logic: Margin kiri berubah sesuai state sidebarOpen -->
+    <div class="flex-1 flex flex-col min-h-screen transition-all duration-300 ease-in-out"
+         :class="sidebarOpen ? 'lg:ml-64' : 'lg:ml-0'">
+        
+        <!-- HEADER -->
+        <header class="h-20 bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-30 px-6 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <!-- Tombol Toggle Sidebar (Desktop & Mobile) -->
+                <button @click="sidebarOpen = !sidebarOpen" class="p-2 -ml-2 text-slate-500 hover:bg-gray-100 rounded-lg transition">
+                    <!-- Icon Hamburger (Ketika Sidebar Tutup) -->
+                    <svg x-show="!sidebarOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    <!-- Icon Close/Menu Open (Ketika Sidebar Buka) -->
+                    <svg x-show="sidebarOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h7M4 18h7"></path></svg>
+                </button>
+
+                <!-- Breadcrumb -->
+                <div class="hidden sm:flex items-center text-sm text-slate-500">
+                    <span>Admin</span>
+                    <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    <span class="font-semibold text-primary-600">Daftar Menu</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-3 pl-4 border-l border-gray-100">
+                    <div class="text-right hidden md:block">
+                        <p class="text-sm font-bold text-slate-700">yantinuryanti123</p>
+                        <p class="text-xs text-slate-400">Admin</p>
+                    </div>
+                    
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary-500 to-orange-300 p-0.5 shadow-md cursor-pointer hover:scale-105 transition-transform">
+                        <div class="w-full h-full bg-white rounded-full flex items-center justify-center">
+                            
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-primary-500">
+                                <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
+                            </svg>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- BODY KONTEN -->
+        <main class="flex-1 p-6 lg:p-8">
+            
+            <div x-data="{
+                showModal: false, 
+                imgPreview: null,
+                triggerUpload() { document.getElementById('fileInput').click() },
+                fileChosen(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => { this.imgPreview = e.target.result; }
+                        reader.readAsDataURL(file);
+                    }
+                }
+            }">
+
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                    <div>
+                        <h1 class="text-2xl font-bold text-slate-800 tracking-tight">Manajemen Menu</h1>
+                        <p class="text-slate-500 mt-1">Kelola semua menu makanan katering Anda di sini.</p>
+                    </div>
+                    
+                    <button @click="showModal = true" 
+                            class="group relative inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary-600 text-white text-sm font-semibold rounded-xl shadow-lg shadow-orange-200 hover:bg-primary-700 hover:-translate-y-0.5 transition-all duration-300 focus:ring-4 focus:ring-primary-100 focus:outline-none">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                        Tambah Menu Baru
+                    </button>
+                </div>
+
+                <div x-show="showModal" 
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0"
+                    x-transition:enter-end="opacity-100"
+                    x-transition:leave="transition ease-in duration-200"
+                    x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0"
+                    class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4"
+                    style="display: none;"> <div @click.away="showModal = false"
+                        x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+                        x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                        x-transition:leave="transition ease-in duration-200"
+                        x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                        x-transition:leave-end="opacity-0 scale-95 translate-y-4"
+                        class="bg-white rounded-3xl shadow-2xl w-full max-w-4xl overflow-hidden border border-white/20 max-h-[90vh] flex flex-col">
+
+                        <div class="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+                            <div>
+                                <h2 class="text-xl font-bold text-slate-800">Tambah Menu Baru</h2>
+                                <p class="text-sm text-slate-500">Isi detail menu katering di bawah ini.</p>
+                            </div>
+                            <button @click="showModal = false" class="p-2 rounded-full hover:bg-red-50 text-slate-400 hover:text-red-500 transition">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            </button>
+                        </div>
+
+                        <div class="p-8 overflow-y-auto custom-scrollbar">
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                                    
+                                    <div class="lg:col-span-5 flex flex-col gap-4">
+                                        <label class="block text-sm font-semibold text-slate-700">Foto Menu</label>
+                                        
+                                        <div @click="triggerUpload()" 
+                                            class="relative w-full aspect-square rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-orange-50 hover:border-primary-400 transition-all cursor-pointer flex flex-col items-center justify-center group overflow-hidden">
+                                            
+                                            <input type="file" id="fileInput" name="gambar_menu" class="hidden" accept="image/*" @change="fileChosen">
+                                            
+                                            <div x-show="!imgPreview" class="text-center p-6 transition-opacity duration-300">
+                                                <div class="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                                                    <svg class="w-8 h-8 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                                </div>
+                                                <p class="text-sm font-medium text-slate-700 group-hover:text-primary-600">Klik untuk upload gambar</p>
+                                                <p class="text-xs text-slate-400 mt-1">PNG, JPG up to 5MB</p>
+                                            </div>
+
+                                            <img x-show="imgPreview" :src="imgPreview" class="absolute inset-0 w-full h-full object-cover" />
+                                            
+                                            <div x-show="imgPreview" class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                                                <span class="bg-white/20 backdrop-blur text-white px-4 py-2 rounded-lg text-sm font-medium border border-white/50">Ganti Foto</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="lg:col-span-7 space-y-5">
+                                        
+                                        <div>
+                                            <label class="block text-sm font-semibold text-slate-700 mb-2">Nama Menu</label>
+                                            <input type="text" name="nama_menu" placeholder="Contoh: Ayam Bakar Taliwang" 
+                                                class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all">
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-sm font-semibold text-slate-700 mb-2">Deskripsi Singkat</label>
+                                            <textarea name="deskripsi" rows="3" placeholder="Jelaskan rasa, bahan utama, atau keunikan menu ini..." 
+                                                    class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all resize-none"></textarea>
+                                        </div>
+
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                            <div>
+                                                <label class="block text-sm font-semibold text-slate-700 mb-2">Harga Satuan</label>
+                                                <div class="relative">
+                                                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-medium">Rp</span>
+                                                    <input type="number" name="harga" placeholder="0" 
+                                                        class="w-full pl-12 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-sm font-semibold text-slate-700 mb-2">Label Promo Diskon (%)</label>
+                                                <div class="relative">
+                                                    <input type="number" name="promo" placeholder="Contoh: 10" 
+                                                        class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none">
+                                                    <div class="absolute right-3 top-1/2 -translate-y-1/2">
+                                                        <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="px-8 py-6 bg-gray-50 border-t border-gray-100 flex justify-end gap-3">
+                            <button @click="showModal = false" 
+                                    class="px-6 py-2.5 rounded-xl text-slate-600 font-medium hover:bg-gray-200 hover:text-slate-800 transition-colors">
+                                Batal
+                            </button>
+                            <button type="submit" class="px-6 py-2.5 rounded-xl bg-primary-600 text-white font-bold shadow-lg shadow-primary-200 hover:bg-primary-700 hover:-translate-y-0.5 transition-all">
+                                Simpan Menu
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Cards Stat -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+
+                <div class="relative group bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1 transition-all duration-300 cursor-default overflow-hidden">
+                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-orange-50 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <div class="relative flex items-center gap-5">
+                        <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-orange-50 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <p class="text-sm font-medium text-slate-500 mb-1">Total Menu</p>
+                            <h3 class="text-3xl font-bold text-slate-800 tracking-tight">24 <span class="text-lg text-slate-400 font-normal">Item</span></h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative group bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 cursor-default overflow-hidden">
+                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-50 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                    <div class="relative flex items-center gap-5">
+                        <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"></path>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <p class="text-sm font-medium text-slate-500 mb-1">Sedang Promo</p>
+                            <h3 class="text-3xl font-bold text-slate-800 tracking-tight">3 <span class="text-lg text-slate-400 font-normal">Item</span></h3>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Table Container -->
+            <!-- Container Utama dengan Logic Data -->
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden" 
+                x-data="menuManager()">
+                
+                <!-- HEADER: Search & Filter Toolbar -->
+                <div class="p-5 border-b border-gray-50 bg-gray-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <!-- Search Input -->
+                    <div class="relative w-full sm:w-72">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </span>
+                        <input x-model="search" 
+                            type="text" 
+                            class="w-full py-2.5 pl-10 pr-4 text-sm text-slate-700 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-100 transition-all" 
+                            placeholder="Cari menu ayam...">
+                    </div>
+                </div>
+
+                <!-- TABLE -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50/50 border-b border-gray-100 text-xs uppercase tracking-wider text-slate-500 font-semibold select-none">
+                                <th class="px-6 py-4 w-16 text-center">#</th>
+                                <th class="px-6 py-4 w-64">Gambar</th>
+                                
+                                <!-- HEADER: DETAIL MENU (Sortable) -->
+                                <th class="px-6 py-4 cursor-pointer hover:bg-gray-100 transition-colors group" @click="sortBy('name')">
+                                    <div class="flex items-center justify-between">
+                                        <span>Detail Menu</span>
+                                        <!-- Icon Sort Component -->
+                                        <div class="flex flex-col ml-1">
+                                            <svg class="w-3 h-3 -mb-1" :class="sortCol === 'name' && sortAsc === true ? 'text-primary-600' : 'text-slate-300'" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4l-8 8h16l-8-8z"/></svg>
+                                            <svg class="w-3 h-3" :class="sortCol === 'name' && sortAsc === false ? 'text-primary-600' : 'text-slate-300'" fill="currentColor" viewBox="0 0 24 24"><path d="M12 20l8-8H4l8 8z"/></svg>
+                                        </div>
+                                    </div>
+                                </th>
+
+                                <!-- HEADER: HARGA (Sortable) -->
+                                <th class="px-6 py-4 w-40 whitespace-nowrap cursor-pointer hover:bg-gray-100 transition-colors group" @click="sortBy('price')">
+                                    <div class="flex items-center justify-between">
+                                        <span>Harga</span>
+                                        <div class="flex flex-col ml-1">
+                                            <svg class="w-3 h-3 -mb-1" :class="sortCol === 'price' && sortAsc === true ? 'text-primary-600' : 'text-slate-300'" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4l-8 8h16l-8-8z"/></svg>
+                                            <svg class="w-3 h-3" :class="sortCol === 'price' && sortAsc === false ? 'text-primary-600' : 'text-slate-300'" fill="currentColor" viewBox="0 0 24 24"><path d="M12 20l8-8H4l8 8z"/></svg>
+                                        </div>
+                                    </div>
+                                </th>
+
+                                <!-- HEADER: PROMO (Sortable) -->
+                                <th class="px-6 py-4 w-24 text-center cursor-pointer hover:bg-gray-100 transition-colors group" @click="sortBy('promo')">
+                                    <div class="flex items-center justify-center gap-1">
+                                        <span>Promo</span>
+                                        <div class="flex flex-col">
+                                            <svg class="w-3 h-3 -mb-1" :class="sortCol === 'promo' && sortAsc === true ? 'text-primary-600' : 'text-slate-300'" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4l-8 8h16l-8-8z"/></svg>
+                                            <svg class="w-3 h-3" :class="sortCol === 'promo' && sortAsc === false ? 'text-primary-600' : 'text-slate-300'" fill="currentColor" viewBox="0 0 24 24"><path d="M12 20l8-8H4l8 8z"/></svg>
+                                        </div>
+                                    </div>
+                                </th>
+                                
+                                <th class="px-6 py-4 w-32 text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        
+                        <!-- BODY: Render Data Dinamis -->
+                        <tbody class="divide-y divide-gray-100">
+                            <template x-for="(item, index) in paginatedData" :key="item.id">
+                                <tr class="hover:bg-gray-50/80 transition-colors group">
+                                    <td class="px-6 py-4 text-center text-slate-400 font-medium" x-text="(currentPage - 1) * itemsPerPage + index + 1"></td>
+                                    <td class="px-6 py-4">
+                                        <div class="relative w-48 aspect-[4/3] rounded-xl overflow-hidden bg-gray-200 shadow-sm border border-gray-100">
+                                            <!-- Placeholder -->
+                                            <div class="absolute inset-0 flex items-center justify-center text-gray-400 bg-gray-100">
+                                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                            </div>
+                                            <!-- Gambar -->
+                                            <img :src="item.image" class="relative z-10 w-full h-full object-cover object-[center_75%]" onerror="this.style.display='none'">
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex flex-col gap-1">
+                                            <span class="font-bold text-slate-800 text-base group-hover:text-primary-600 transition-colors" x-text="item.name"></span>
+                                            <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed" x-text="item.desc"></p>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="font-bold text-slate-700 bg-slate-100 px-3 py-1 rounded-lg border border-slate-200" x-text="'Rp ' + item.price.toLocaleString('id-ID')"></span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border"
+                                            :class="item.promo ? 'bg-green-100 text-green-700 border-green-200' : 'bg-gray-100 text-gray-500 border-gray-200'"
+                                            x-text="item.promo ? 'Ya' : 'Tidak'">
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center justify-center gap-2">
+                                            <button @click="openModal(item)" class="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                            </button>
+                                            <button @click="deleteCArd(item.id)" class="p-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                            
+                            <!-- Empty State -->
+                            <tr x-show="paginatedData.length === 0">
+                                <td colspan="6" class="p-8 text-center text-slate-500">
+                                    Tidak ada data yang cocok dengan pencarian.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- FOOTER: Pagination -->
+                <div class="p-5 border-t border-gray-100 bg-white flex flex-col sm:flex-row items-center justify-between gap-4"
+                    x-show="filteredData.length > 0">
+                    
+                    <p class="text-sm text-slate-500">
+                        Menampilkan <span class="font-bold text-slate-700" x-text="((currentPage - 1) * itemsPerPage) + 1"></span> 
+                        - 
+                        <span class="font-bold text-slate-700" x-text="Math.min(currentPage * itemsPerPage, filteredData.length)"></span> 
+                        dari 
+                        <span class="font-bold text-slate-700" x-text="filteredData.length"></span> Menu
+                    </p>
+                    
+                    <div class="flex items-center gap-1">
+                        <!-- Button Prev -->
+                        <button @click="prevPage()" 
+                                :disabled="currentPage === 1"
+                                class="px-3 py-1 rounded-lg border border-gray-200 text-slate-500 text-sm hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+                            Prev
+                        </button>
+                        
+                        <!-- Page Numbers -->
+                        <template x-for="page in totalPages" :key="page">
+                            <button @click="goToPage(page)" 
+                                    class="px-3 py-1 rounded-lg text-sm font-medium transition-colors"
+                                    :class="currentPage === page ? 'bg-primary-500 text-white shadow-md shadow-orange-200' : 'border border-gray-200 text-slate-600 hover:bg-gray-50 hover:text-primary-600'"
+                                    x-text="page">
+                            </button>
+                        </template>
+
+                        <!-- Button Next -->
+                        <button @click="nextPage()" 
+                                :disabled="currentPage === totalPages"
+                                class="px-3 py-1 rounded-lg border border-gray-200 text-slate-500 text-sm hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+                            Next
+                        </button>
+                    </div>
+                </div>
+                <div x-show="showModal" 
+                    x-transition.opacity
+                    class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4"
+                    style="display: none;">
+             
+                    <div @click.away="showModal = false"
+                        x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+                        x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                        class="bg-white rounded-3xl shadow-2xl w-full max-w-4xl overflow-hidden border border-white/20 max-h-[90vh] flex flex-col">
+
+                        <div class="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+                            <div>
+                                <h2 class="text-xl font-bold text-slate-800" x-text="modalMode === 'edit' ? 'Edit Menu' : 'Tambah Menu Baru'"></h2>
+                                <p class="text-sm text-slate-500" x-text="modalMode === 'edit' ? 'Perbarui detail menu yang dipilih.' : 'Isi detail menu katering di bawah ini.'"></p>
+                            </div>
+                            <button @click="showModal = false" class="p-2 rounded-full hover:bg-red-50 text-slate-400 hover:text-red-500 transition">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            </button>
+                        </div>
+
+                        <div class="p-8 overflow-y-auto custom-scrollbar">
+                            <form @submit.prevent="saveData">
+                                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                                    
+                                    <div class="lg:col-span-5 flex flex-col gap-4">
+                                        <label class="block text-sm font-semibold text-slate-700">Foto Menu</label>
+                                        <div @click="document.getElementById('fileInput').click()" 
+                                            class="relative w-full aspect-square rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-orange-50 hover:border-primary-400 transition-all cursor-pointer flex flex-col items-center justify-center group overflow-hidden">
+                                            
+                                            <input type="file" id="fileInput" class="hidden" accept="image/*" @change="fileChosen">
+                                            
+                                            <div x-show="!imgPreview" class="text-center p-6">
+                                                <div class="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center mx-auto mb-4">
+                                                    <svg class="w-8 h-8 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                                </div>
+                                                <p class="text-sm text-slate-700">Klik upload gambar</p>
+                                            </div>
+                                            <img x-show="imgPreview" :src="imgPreview" class="absolute inset-0 w-full h-full object-cover" />
+                                            <div x-show="imgPreview" class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                                                <span class="text-white text-sm font-medium">Ganti Foto</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="lg:col-span-7 space-y-5">
+                                        <div>
+                                            <label class="block text-sm font-semibold text-slate-700 mb-2">Nama Menu</label>
+                                            <input x-model="form.name" type="text" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 transition-all" placeholder="Contoh: Ayam Bakar">
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-sm font-semibold text-slate-700 mb-2">Deskripsi</label>
+                                            <textarea x-model="form.desc" rows="3" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 resize-none" placeholder="Deskripsi menu..."></textarea>
+                                        </div>
+
+                                        <div class="grid grid-cols-2 gap-5">
+                                            <div>
+                                                <label class="block text-sm font-semibold text-slate-700 mb-2">Harga</label>
+                                                <div class="relative">
+                                                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-medium">Rp</span>
+                                                    <input x-model="form.price" type="number" class="w-full pl-12 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-500/50 font-semibold">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="block text-sm font-semibold text-slate-700 mb-2">Diskon (%)</label>
+                                                <input x-model="form.promo" type="number" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-500/50">
+                                            </div>
+                                            </div>
+
+                                        <div class="pt-2">
+                                            <label class="inline-flex items-center cursor-pointer group">
+                                                <input type="checkbox" x-model="form.isInactive" class="w-5 h-5 text-red-600 border-gray-300 rounded focus:ring-red-500 transition ease-in-out duration-150 cursor-pointer">
+                                                <span class="ml-3 text-sm font-bold text-red-500 group-hover:text-red-600 transition-colors">Non-aktifkan menu ini</span>
+                                            </label>
+                                            <p class="text-xs text-slate-400 mt-1 ml-8">Menu yang dinonaktifkan tidak akan tampil di halaman pelanggan.</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="px-8 py-6 bg-gray-50 border-t border-gray-100 flex justify-end gap-3">
+                            <button @click="showModal = false" class="px-6 py-2.5 rounded-xl text-slate-600 font-medium hover:bg-gray-200 transition-colors">Batal</button>
+                            
+                            <button @click="saveData" 
+                                    class="px-6 py-2.5 rounded-xl bg-primary-600 text-white font-bold shadow-lg shadow-primary-200 hover:bg-primary-700 hover:-translate-y-0.5 transition-all"
+                                    x-text="modalMode === 'edit' ? 'Simpan Perubahan' : 'Simpan Menu'">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+            <!-- LOGIC ALPINE JS -->
+            <script>
+                function menuManager() {
+                    return {
+                        search: '',
+                        sortCol: null, // Kolom yang sedang disortir (name, price, promo)
+                        sortAsc: null, // Arah sort (true=Asc, false=Desc, null=Default)
+                        currentPage: 1,
+                        itemsPerPage: 5, // Ubah jumlah item per halaman disini
+                        
+                        // STATE MODAL
+                        showModal: false,
+                        modalMode: 'add', // 'add' atau 'edit'
+                        imgPreview: null,
+
+                        // Form Object
+                        form: {
+                            id: null,
+                            name: '',
+                            desc: '',
+                            price: '',
+                            promo: '',
+                            isInactive: false, // False = Aktif, True = Non-Aktif
+                            image: ''
+                        },
+
+                        // Data Dummy (Gantikan ini dengan data asli dari Database/API nanti)
+                        items: [
+                            { id: 1, name: 'Ayam Goreng Kremes', price: 90000, promo: true, desc: 'Ayam kampung yang dimarinasi dengan bumbu tradisional.', image: 'images/ayam_goreng_kremes.png' },
+                            { id: 2, name: 'Ayam Bakar Kecap', price: 85000, promo: true, desc: 'Ayam kampung dibakar dengan olesan bumbu kecap manis.', image: 'images/ayam_kampung_bakar_kecap.png' },
+                            { id: 3, name: 'Ayam Betutu Bali', price: 120000, promo: false, desc: 'Khas Bali dengan rempah yang sangat kuat dan pedas.', image: 'images/ayam_betutu.png' },
+                            { id: 4, name: 'Ayam Pop Padang', price: 75000, promo: false, desc: 'Ayam goreng putih khas Minang dengan saus merah.', image: 'images/ayam_pop.png' },
+                            { id: 5, name: 'Ayam Taliwang', price: 95000, promo: true, desc: 'Ayam bakar pedas khas Lombok yang menggugah selera.', image: 'images/ayam_taliwang.png' },
+                            { id: 6, name: 'Ayam Penyet Surabaya', price: 45000, promo: false, desc: 'Ayam goreng dipenyet dengan sambal terasi pedas.', image: 'images/ayam_penyet.png' },
+                            { id: 7, name: 'Ayam Woku Belanga', price: 88000, promo: false, desc: 'Masakan khas Manado dengan daun kemangi segar.', image: 'images/ayam_woku.png' },
+                        ],
+
+                        // === LOGIC MODAL ADD/EDIT ===
+                        // Fungsi Buka Modal (Flexible: Bisa kosong utk Add, atau ada item utk Edit)
+                        openModal(item = null) {
+                            this.showModal = true;
+                            if (item) {
+                                // MODE EDIT
+                                this.modalMode = 'edit';
+                                // Copy data item ke form (Clone object agar tidak langsung berubah di tabel sebelum save)
+                                this.form = { 
+                                    ...item, 
+                                    isInactive: !item.isActive // Konversi Active -> Inactive checkbox logic
+                                }; 
+                                this.imgPreview = item.image;
+                            } else {
+                                // MODE ADD (Reset Form)
+                                this.modalMode = 'add';
+                                this.form = { id: null, name: '', desc: '', price: '', promo: '', isInactive: false, image: '' };
+                                this.imgPreview = null;
+                            }
+                        },
+
+                        // Handle File Upload Preview
+                        fileChosen(event) {
+                            const file = event.target.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = (e) => { this.imgPreview = e.target.result; }
+                                reader.readAsDataURL(file);
+                            }
+                        },
+
+                        // Fungsi Simpan (Mockup)
+                        saveData() {
+                            // Disini logika simpan ke Database/API
+                            alert(this.modalMode === 'edit' ? 'Perubahan Disimpan!' : 'Menu Baru Ditambahkan!');
+                            this.showModal = false;
+                        },
+                        
+                        // 1. Logic Sorting & Searching
+                        get filteredData() {
+                            let data = this.items.filter(item => {
+                                return item.name.toLowerCase().includes(this.search.toLowerCase()) || 
+                                    item.desc.toLowerCase().includes(this.search.toLowerCase());
+                            });
+
+                            if (this.sortCol && this.sortAsc !== null) {
+                                data = data.sort((a, b) => {
+                                    let valA = a[this.sortCol];
+                                    let valB = b[this.sortCol];
+                                    
+                                    // Handle Text Sorting
+                                    if (typeof valA === 'string') {
+                                        valA = valA.toLowerCase();
+                                        valB = valB.toLowerCase();
+                                    }
+                                    // Handle Boolean Sorting (Promo)
+                                    if (typeof valA === 'boolean') {
+                                        valA = valA ? 1 : 0;
+                                        valB = valB ? 1 : 0;
+                                    }
+
+                                    if (valA < valB) return this.sortAsc ? -1 : 1;
+                                    if (valA > valB) return this.sortAsc ? 1 : -1;
+                                    return 0;
+                                });
+                            }
+                            return data;
+                        },
+
+                        // 2. Logic Pagination
+                        get totalPages() {
+                            return Math.ceil(this.filteredData.length / this.itemsPerPage);
+                        },
+
+                        get paginatedData() {
+                            const start = (this.currentPage - 1) * this.itemsPerPage;
+                            const end = start + this.itemsPerPage;
+                            return this.filteredData.slice(start, end);
+                        },
+
+                        // 3. Function Helpers
+                        nextPage() {
+                            if (this.currentPage < this.totalPages) this.currentPage++;
+                        },
+                        prevPage() {
+                            if (this.currentPage > 1) this.currentPage--;
+                        },
+                        goToPage(page) {
+                            this.currentPage = page;
+                        },
+                        
+                        // Function Sorting 3 Kondisi: Asc -> Desc -> Default
+                        sortBy(col) {
+                            if (this.sortCol === col) {
+                                if (this.sortAsc === true) this.sortAsc = false; // Ke Descending
+                                else if (this.sortAsc === false) { // Reset ke Default
+                                    this.sortAsc = null;
+                                    this.sortCol = null;
+                                }
+                            } else {
+                                this.sortCol = col;
+                                this.sortAsc = true; // Default Start Ascending
+                            }
+                            this.currentPage = 1; // Reset ke halaman 1 saat di-sort
+                        }
+                    }
+                }
+
+                // --- Delete Function ---
+                function deleteCard(elementId) {
+                    if(confirm('Apakah Anda yakin ingin menghapus testimoni ini?')) {
+                        const card = document.getElementById(elementId);
+                        card.style.opacity = '0';
+                        card.style.transform = 'scale(0.9)';
+                        
+                        setTimeout(() => {
+                            card.remove();
+                        }, 300);
+                    }
+                }
+            </script>
+
+            <footer class="mt-10 text-center text-sm text-slate-400 pb-4">
+                &copy; 2025 Ayam Kabogor. All rights reserved.
+            </footer>
+
+        </main>
+    </div>
+
+</body>
+</html>
