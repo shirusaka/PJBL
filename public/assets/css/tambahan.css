@@ -1,0 +1,11 @@
+.btn-orange {
+    color: #fff;
+    background-color: #fd7e14; /* Kode warna oranye standar Bootstrap */
+    border-color: #fd7e14;
+}
+
+.btn-orange:hover {
+    color: #fff;
+    background-color: #e36b09; /* Warna oranye sedikit lebih gelap untuk efek hover */
+    border-color: #d66206;
+}
