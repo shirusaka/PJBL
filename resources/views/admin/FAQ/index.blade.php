@@ -1,16 +1,604 @@
-@extends('layouts.admin')
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen FAQ - Admin Ayam Kabogor</title>
 
-@section('content')
-<div class="container">
-    <h1>Frequently Asked Questions</h1>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    <div class="faq-list">
-        @foreach ($faqs as $faq)
-            <div class="faq-item">
-                <h3>{{ $faq->pertanyaan }}</h3>
-                <p>{{ $faq->jawaban }}</p>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                    colors: {
+                        primary: {
+                            50: '#fff7ed', 100: '#ffedd5', 500: '#f97316', 600: '#ea580c', 700: '#c2410c',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-slate-800 font-sans antialiased" 
+      x-data="{ sidebarOpen: window.innerWidth >= 1024 }">
+
+    <div x-show="sidebarOpen" 
+         @click="sidebarOpen = false" 
+         x-transition.opacity
+         class="fixed inset-0 bg-slate-900/50 z-40 lg:hidden backdrop-blur-sm" x-cloak></div>
+
+    <aside class="fixed top-0 left-0 z-50 h-screen bg-white border-r border-gray-100 shadow-xl transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap"
+           :class="sidebarOpen ? 'w-64 translate-x-0' : 'w-0 -translate-x-full lg:w-0 lg:translate-x-0'">
+        
+        <div class="mt-5 h-20 flex items-center justify-center border-b border-gray-50 min-w-[16rem]">
+            <a href="#" class="block">
+                <img src="images/logo_ayam_kabogor.png" 
+                     alt="Ayam Kabogor" 
+                     class="h-20 w-auto object-contain"
+                     onerror="this.src='https://placehold.co/200x80?text=LOGO';"> 
+            </a>
+        </div>
+
+        <nav class="p-4 space-y-2" 
+            x-data="{ 
+                isActive(pageName) {
+                    const path = window.location.pathname;
+                    let currentFile = path.split('/').pop();
+                    if (currentFile === '' || currentFile === '/') currentFile = 'index.html';
+                    return currentFile === pageName;
+                }
+            }">
+
+            <a href="index.html" 
+            class="relative flex items-center gap-3 px-4 py-3.5 rounded-xl font-medium transition-all duration-300 group overflow-hidden focus:outline-none text-slate-500 hover:bg-gray-50 hover:text-slate-900 hover:translate-x-1"
+            :class="{ 'bg-primary-50 text-primary-600 shadow-sm translate-x-1 hover:bg-primary-50 hover:text-primary-600': isActive('index.html') }">
+                
+                <span x-show="isActive('index.html')" x-cloak 
+                    class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary-500 rounded-r-full"></span>
+
+                <svg class="w-5 h-5 shrink-0 transition-colors duration-300" 
+                    :class="isActive('index.html') ? 'text-primary-600' : 'text-slate-400 group-hover:text-primary-500'"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                </svg>
+                <span>Daftar Menu</span>
+            </a>
+
+            <a href="testimoni.html" 
+            class="relative flex items-center gap-3 px-4 py-3.5 rounded-xl font-medium transition-all duration-300 group overflow-hidden focus:outline-none text-slate-500 hover:bg-gray-50 hover:text-slate-900 hover:translate-x-1"
+            :class="{ 'bg-primary-50 text-primary-600 shadow-sm translate-x-1 hover:bg-primary-50 hover:text-primary-600': isActive('testimoni.html') }">
+                
+                <span x-show="isActive('testimoni.html')" x-cloak 
+                    class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary-500 rounded-r-full"></span>
+
+                <svg class="w-5 h-5 shrink-0 transition-colors duration-300" 
+                    :class="isActive('testimoni.html') ? 'text-primary-600' : 'text-slate-400 group-hover:text-primary-500'"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path>
+                </svg>
+                <span>Testimoni</span>
+            </a>
+
+            <a href="faq.html" 
+            class="relative flex items-center gap-3 px-4 py-3.5 rounded-xl font-medium transition-all duration-300 group overflow-hidden focus:outline-none text-slate-500 hover:bg-gray-50 hover:text-slate-900 hover:translate-x-1"
+            :class="{ 'bg-primary-50 text-primary-600 shadow-sm translate-x-1 hover:bg-primary-50 hover:text-primary-600': isActive('faq.html') }">
+                
+                <span x-show="isActive('faq.html')" x-cloak 
+                    class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary-500 rounded-r-full"></span>
+
+                <svg class="w-5 h-5 shrink-0 transition-colors duration-300" 
+                    :class="isActive('faq.html') ? 'text-primary-600' : 'text-slate-400 group-hover:text-primary-500'"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>FAQ</span>
+            </a>
+
+        </nav>
+
+        <div class="absolute bottom-0 left-0 w-full p-4 bg-white border-t border-gray-100 min-w-[16rem]">
+            <button class="flex items-center gap-3 w-full px-4 py-2 text-slate-500 hover:text-red-500 transition-colors rounded-lg hover:bg-red-50">
+                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                <span class="font-medium text-sm">Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col min-h-screen transition-all duration-300 ease-in-out"
+         :class="sidebarOpen ? 'lg:ml-64' : 'lg:ml-0'">
+        
+        <header class="h-20 bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-30 px-6 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <button @click="sidebarOpen = !sidebarOpen" class="p-2 -ml-2 text-slate-500 hover:bg-gray-100 rounded-lg transition">
+                    <svg x-show="!sidebarOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    <svg x-show="sidebarOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-cloak><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h7M4 18h7"></path></svg>
+                </button>
+                <div class="hidden sm:flex items-center text-sm text-slate-500">
+                    <span>Admin</span>
+                    <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    <span class="font-semibold text-primary-600">Manajemen FAQ</span>
+                </div>
             </div>
-        @endforeach
+            <!-- Modal Profil -->
+            <div x-data="{ 
+                showProfileModal: false,
+                adminData: {
+                    name: 'Zahran',
+                    username: 'admin01',
+                    role: 'Administrator',
+                    email: 'zahran@gmail.com',
+                    phone: '+62 811 8509 743',
+                    address: 'Aeon Tanjung Barat'
+                },
+                // Helper untuk mengambil inisial nama (Misal: Zahran -> Z)
+                get initials() {
+                    return this.adminData.name.charAt(0).toUpperCase();
+                }
+            }" class="relative z-50">
+
+                <button type="button" 
+                        @click="showProfileModal = true" 
+                        class="flex items-center gap-4 cursor-pointer group focus:outline-none text-left">
+                    
+                    <div class="flex items-center gap-3 pl-4 border-l border-gray-100">
+                        <div class="text-right hidden md:block">
+                            <p class="text-sm font-bold text-slate-700 group-hover:text-orange-600 transition-colors" x-text="adminData.name"></p>
+                            <p class="text-xs text-slate-400" x-text="adminData.role"></p>
+                        </div>
+                        
+                        <div class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-all duration-300">
+                            <span x-text="initials"></span>
+                        </div>
+                    </div>
+                </button>
+
+                <template x-teleport="body">
+                    <div x-show="showProfileModal" 
+                        style="display: none;"
+                        class="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4"
+                        x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition ease-in duration-200"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0">
+
+                        <div @click.away="showProfileModal = false"
+                            class="bg-white w-full max-w-sm rounded-3xl shadow-2xl overflow-hidden relative flex flex-col"
+                            x-transition:enter="transition ease-out duration-300"
+                            x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+                            x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                            x-transition:leave="transition ease-in duration-200"
+                            x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                            x-transition:leave-end="opacity-0 scale-95 translate-y-4">
+
+                            <div class="bg-gradient-to-br from-orange-600 to-orange-400 p-6 relative overflow-hidden">
+                                <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
+                                <div class="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-black/10 to-transparent"></div>
+
+                                <div class="relative z-10 flex justify-between items-start">
+                                    <div>
+                                        <p class="text-orange-100 text-xs font-medium uppercase tracking-wider mb-1">Account Info</p>
+                                        <h3 class="text-2xl font-bold text-white" x-text="adminData.name"></h3>
+                                        <div class="inline-flex items-center gap-1 mt-2 bg-white/20 backdrop-blur-md border border-white/20 px-3 py-1 rounded-lg">
+                                            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                                            <span class="text-xs text-white font-medium" x-text="adminData.role"></span>
+                                        </div>
+                                    </div>
+                                    
+                                    <button @click="showProfileModal = false" class="bg-white/20 hover:bg-white/40 text-white p-2 rounded-full backdrop-blur-md transition-colors">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="p-6 bg-white">
+                                <div class="space-y-5 mb-8">
+                                    
+                                    <div class="flex items-center justify-between p-4 bg-orange-50 rounded-2xl border border-orange-100">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 rounded-full bg-white text-orange-500 flex items-center justify-center shadow-sm">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                            </div>
+                                            <div>
+                                                <p class="text-xs text-slate-400">Username</p>
+                                                <p class="text-sm font-bold text-slate-800" x-text="adminData.username"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-4 pl-1">
+                                        <div class="flex items-start gap-4">
+                                            <div class="mt-0.5 text-slate-300">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                            </div>
+                                            <div class="flex-1 border-b border-slate-100 pb-3">
+                                                <p class="text-xs text-slate-400 font-medium">Email</p>
+                                                <p class="text-sm text-slate-700 mt-0.5 font-medium" x-text="adminData.email"></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-start gap-4">
+                                            <div class="mt-0.5 text-slate-300">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                            </div>
+                                            <div class="flex-1 border-b border-slate-100 pb-3">
+                                                <p class="text-xs text-slate-400 font-medium">Phone</p>
+                                                <p class="text-sm text-slate-700 mt-0.5 font-medium" x-text="adminData.phone"></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-start gap-4">
+                                            <div class="mt-0.5 text-slate-300">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                            </div>
+                                            <div class="flex-1">
+                                                <p class="text-xs text-slate-400 font-medium">Location</p>
+                                                <p class="text-sm text-slate-700 mt-0.5 font-medium" x-text="adminData.address"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </header>
+
+        <main class="flex-1 p-6 lg:p-8" x-data="menuManager()">
+            
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <div>
+                    <h1 class="text-2xl font-bold text-slate-800 tracking-tight">Manajemen FAQ</h1>
+                    <p class="text-slate-500 mt-1">Kelola pertanyaan umum seputar pemesanan.</p>
+                </div>
+                
+                <button @click="openModal('add')" 
+                    class="bg-primary-500 hover:bg-primary-600 text-white px-5 py-2.5 rounded-xl shadow-lg shadow-primary-500/30 font-medium transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 whitespace-nowrap">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                    Tambah FAQ Baru
+                </button>
+            </div>
+
+            <div class="w-full mb-8">
+
+                <div class="relative group w-full bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-orange-500/10 hover:-translate-y-1 transition-all duration-300 cursor-default overflow-hidden">
+                    
+                    <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-orange-50 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                    <div class="relative flex items-center gap-6">
+                        <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-slate-500 mb-1">Total Pertanyaan</p>
+                            <div class="flex items-baseline gap-2">
+                                <h3 class="text-4xl font-bold text-slate-800 tracking-tight" x-text="faqs.length">0</h3>
+                                <span class="text-lg text-slate-400 font-medium">QnA</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                
+                <div class="p-5 border-b border-gray-50 bg-gray-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="relative group w-full sm:w-64">
+                        <input type="text" x-model="search" placeholder="Cari pertanyaan..." 
+                            class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all shadow-sm group-hover:shadow-md">
+                        <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50/50 border-b border-gray-100 text-xs uppercase tracking-wider text-slate-500 font-semibold select-none">
+                                <th class="px-6 py-4 w-16 text-center">#</th>
+                                <th class="px-6 py-4 w-1/3">Pertanyaan</th>
+                                <th class="px-6 py-4">Jawaban</th>
+                                <th class="px-6 py-4 w-32 text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <template x-for="(item, index) in paginatedData" :key="item.id">
+                                <tr class="hover:bg-gray-50/80 transition-colors group">
+                                    <td class="px-6 py-4 text-center text-slate-400 font-medium" x-text="(currentPage - 1) * itemsPerPage + index + 1"></td>
+                                    <td class="px-6 py-4 align-center">
+                                        <p class="font-bold text-slate-800 text-base leading-snug" x-text="item.question"></p>
+                                    </td>
+                                    <td class="px-6 py-4 align-top">
+                                        <p class="text-sm text-slate-600 leading-relaxed whitespace-pre-line" x-text="item.answer"></p>
+                                    </td>
+                                    <td class="px-6 py-4 text-center align-top">
+                                        <div class="flex items-center justify-center gap-2">
+                                            <button @click="openModal('edit', item)" 
+                                                class="p-2 rounded-lg text-blue-600 bg-blue-50 hover:bg-blue-100 transition tooltip-trigger" title="Edit">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                            </button>
+                                            <button @click="deleteItem(item.id)" 
+                                                class="p-2 rounded-lg text-red-600 bg-red-50 hover:bg-red-100 transition" title="Hapus">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                            </button>
+                                        </div>
+                                        </td>
+                                </tr>
+                            </template>
+
+                            <tr x-show="paginatedData.length === 0">
+                                <td colspan="4" class="p-12 text-center">
+                                    <div class="bg-orange-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 text-primary-500">
+                                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </div>
+                                    <p class="text-slate-800 font-bold">Data tidak ditemukan</p>
+                                    <p class="text-slate-500 text-sm mt-1">Coba kata kunci lain atau tambah data baru.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="p-5 border-t border-gray-100 bg-white flex flex-col sm:flex-row items-center justify-between gap-4"
+                     x-show="filteredData.length > 0">
+                    
+                    <p class="text-sm text-slate-500">
+                        Menampilkan <span class="font-bold text-slate-700" x-text="((currentPage - 1) * itemsPerPage) + 1"></span> 
+                        - 
+                        <span class="font-bold text-slate-700" x-text="Math.min(currentPage * itemsPerPage, filteredData.length)"></span> 
+                        dari 
+                        <span class="font-bold text-slate-700" x-text="filteredData.length"></span> Data
+                    </p>
+                    
+                    <div class="flex items-center gap-1">
+                        <button @click="prevPage()" :disabled="currentPage === 1"
+                                class="px-3 py-1 rounded-lg border border-gray-200 text-slate-500 text-sm hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+                            Prev
+                        </button>
+                        
+                        <template x-for="page in totalPages" :key="page">
+                            <button @click="goToPage(page)" 
+                                    class="px-3 py-1 rounded-lg text-sm font-medium transition-colors"
+                                    :class="currentPage === page ? 'bg-primary-500 text-white shadow-md shadow-orange-200' : 'border border-gray-200 text-slate-600 hover:bg-gray-50 hover:text-primary-600'"
+                                    x-text="page">
+                            </button>
+                        </template>
+
+                        <button @click="nextPage()" :disabled="currentPage === totalPages"
+                                class="px-3 py-1 rounded-lg border border-gray-200 text-slate-500 text-sm hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div x-show="showModal" x-cloak 
+                 class="fixed inset-0 z-[60] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4"
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0">
+
+                <div @click.away="closeModal()"
+                     class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform transition-all"
+                     x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+                     x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                     x-transition:leave="transition ease-in duration-200"
+                     x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                     x-transition:leave-end="opacity-0 scale-95 translate-y-4">
+
+                    <div class="px-6 py-5 border-b border-gray-100 bg-primary-50 flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-slate-800" x-text="modalMode === 'add' ? 'Tambah FAQ Baru' : 'Edit FAQ'"></h3>
+                        <button @click="closeModal()" class="text-slate-400 hover:text-red-500 transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
+
+                    <form @submit.prevent="saveData()" class="p-6 space-y-5">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Pertanyaan</label>
+                            <input type="text" x-model="formData.question" required placeholder="Misal: Bagaimana cara memesan?"
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all placeholder-gray-400 text-slate-700">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Jawaban</label>
+                            <textarea x-model="formData.answer" rows="5" required placeholder="Tulis jawaban di sini..."
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all placeholder-gray-400 text-slate-700 custom-scrollbar resize-none"></textarea>
+                            <p class="text-xs text-slate-400 mt-2 text-right">Tips: Gunakan Enter untuk baris baru</p>
+                        </div>
+
+                        <div class="flex gap-3 pt-2">
+                            <button type="button" @click="closeModal()" class="flex-1 px-4 py-2.5 rounded-xl border border-gray-300 text-slate-600 font-medium hover:bg-gray-50 transition-colors">
+                                Batal
+                            </button>
+                            <button type="submit" class="flex-1 px-4 py-2.5 rounded-xl bg-primary-500 text-white font-bold hover:bg-primary-600 shadow-lg shadow-primary-200 hover:shadow-primary-300 transition-all transform hover:-translate-y-0.5">
+                                <span x-text="modalMode === 'add' ? 'Simpan Data' : 'Simpan Perubahan'"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <footer class="mt-10 text-center text-sm text-slate-400 pb-4">
+                &copy; 2025 Ayam Kabogor. All rights reserved.
+            </footer>
+
+        </main>
     </div>
-</div>
-@endsection
+
+    <script>
+        function menuManager() {
+            return {
+                search: '',
+                currentPage: 1,
+                itemsPerPage: 5,
+                
+                // STATE MODAL
+                showModal: false,
+                modalMode: 'add', // 'add' atau 'edit'
+
+                // Form Data State
+                formData: {
+                    id: null,
+                    question: '',
+                    answer: ''
+                },
+
+                // Dummy Data
+                faqs: [
+                    {
+                        id: 1,
+                        question: 'Bagaimana cara memesan menu Ayam Kabogor?',
+                        answer: '• Beralih ke daftar menu\n• Memilih menu yang diinginkan, klik detail\n• Tentukan porsi yang ingin dipesan\n• Pesan WhatsApp'
+                    },
+                    {
+                        id: 2,
+                        question: 'Apakah pemesanan hanya lewat WhatsApp saja?',
+                        answer: 'Betul, untuk pemesanan hanya lewat WhatsApp admin saja termasuk pembayaran.'
+                    },
+                    {
+                        id: 3,
+                        question: 'Berapa minimal pemesanan katering?',
+                        answer: 'Minimal pemesanan untuk paket nasi box adalah 20 porsi. Untuk prasmanan minimal 50 porsi.'
+                    },
+                    {
+                        id: 4,
+                        question: 'Apakah harga sudah termasuk ongkos kirim?',
+                        answer: 'Harga yang tertera belum termasuk ongkos kirim. Biaya kirim dihitung dari Bogor Kota.'
+                    },
+                    {
+                        id: 5,
+                        question: 'Metode pembayaran apa saja yang tersedia?',
+                        answer: 'Kami menerima pembayaran melalui Transfer Bank (BCA, Mandiri, BNI) dan E-Wallet.'
+                    },
+                    {
+                        id: 6,
+                        question: 'Apakah bisa request menu custom?',
+                        answer: 'Tentu saja! Silakan hubungi admin kami untuk diskusi.'
+                    }
+                ],
+
+                // --- Computed Properties Logic ---
+                
+                // 1. Filter Search (Rename agar match HTML)
+                get filteredData() {
+                    if (this.search === '') return this.faqs;
+                    return this.faqs.filter(item => {
+                        return item.question.toLowerCase().includes(this.search.toLowerCase()) ||
+                               item.answer.toLowerCase().includes(this.search.toLowerCase());
+                    });
+                },
+
+                // 2. Pagination Logic
+                get totalPages() {
+                    return Math.ceil(this.filteredData.length / this.itemsPerPage);
+                },
+
+                get paginatedData() {
+                    const start = (this.currentPage - 1) * this.itemsPerPage;
+                    const end = start + this.itemsPerPage;
+                    return this.filteredData.slice(start, end);
+                },
+
+                // Inisialisasi Watcher
+                init() {
+                    // Reset ke halaman 1 jika search berubah
+                    this.$watch('search', () => {
+                        this.currentPage = 1;
+                    });
+                },
+
+                // === LOGIC MODAL ADD/EDIT ===
+                openModal(mode, item = null) {
+                    this.modalMode = mode;
+                    this.showModal = true;
+                    
+                    if (mode === 'edit' && item) {
+                        // Copy data item ke form (deep copy simple)
+                        this.formData = JSON.parse(JSON.stringify(item));
+                    } else {
+                        // Reset Form
+                        this.formData = {
+                            id: null,
+                            question: '',
+                            answer: ''
+                        };
+                    }
+                },
+
+                closeModal() {
+                    this.showModal = false;
+                },
+
+                saveData() {
+                    if (this.modalMode === 'add') {
+                        // Logic Tambah
+                        const newId = Date.now();
+                        this.faqs.unshift({
+                            id: newId,
+                            question: this.formData.question,
+                            answer: this.formData.answer
+                        });
+                        this.search = ''; // Reset search
+                        this.currentPage = 1; // Ke halaman awal
+                    } else {
+                        // Logic Edit
+                        const index = this.faqs.findIndex(f => f.id === this.formData.id);
+                        if (index !== -1) {
+                            this.faqs[index] = { ...this.formData };
+                        }
+                    }
+                    this.closeModal();
+                },
+
+                deleteItem(id) {
+                    if(confirm('Apakah Anda yakin ingin menghapus pertanyaan ini?')) {
+                        this.faqs = this.faqs.filter(item => item.id !== id);
+                        
+                        // Cek jika halaman kosong setelah hapus
+                        if (this.paginatedData.length === 0 && this.currentPage > 1) {
+                            this.currentPage--;
+                        }
+                    }
+                },
+
+                // Function Helpers Pagination
+                nextPage() {
+                    if (this.currentPage < this.totalPages) this.currentPage++;
+                },
+                prevPage() {
+                    if (this.currentPage > 1) this.currentPage--;
+                },
+                goToPage(page) {
+                    this.currentPage = page;
+                },
+            }
+        }
+    </script>
+</body>
+</html>

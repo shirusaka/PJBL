@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+<!-- @extends('layouts.admin')
 
 @section('content')
 <div class="container">
@@ -14,4 +14,4 @@
         @endforeach
     </div>
 </div>
-@endsection
+@endsection -->
