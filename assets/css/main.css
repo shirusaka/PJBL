@@ -59,10 +59,335 @@
   display: inline-block; /* memastikan width bekerja dengan baik */
 }
 
+.btn-orange-back {
+  background-color: white;
+  color: #FB4A04;
+  border: 1px solid #FB4A04;
+  font-weight: bold;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  width: 90%; /* <-- tambahkan ini */
+  text-align: center; /* opsional: agar teks tetap di tengah */
+  display: inline-block; /* memastikan width bekerja dengan baik */
+}
+
 .btn-orange:hover {
   background-color: #e54304;
   color: white;
 }
+
+/* tombol detail buat popup css */
+.modal-content {
+    border: 3px solid #FF6B00;
+    background: #fff;
+  }
+
+  #productModal .btn-success {
+    background: #FFD700 !important;
+    color: #000 !important;
+    border: none;
+    font-weight: bold;
+  }
+
+  #productModal .btn-success:hover {
+    background: #FFC107 !important;
+  }
+
+  #productModal .btn-outline-secondary {
+    border-color: #ddd;
+    color: #333;
+  }
+
+  /*css page 3 kelebihan*/
+  .feature-card {
+    background: #fff;
+    border: 2px solid #FFD700; /* Border kuning */
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+
+  .feature-card img {
+    border-radius: 12px;
+  }
+
+  .feature-card h5 {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #333;
+  }
+
+  .feature-card p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #555;
+    margin-bottom: 0;
+  }
+
+/* css page 4 ======================================== */
+:root {
+  --primary-yellow: #FFC107;
+  --primary-orange: #FF9F43;
+  --bg-cream: #FFFBF2;
+  --text-dark: #2D3436;
+}
+
+.section-testimoni {
+  padding: 60px 0;
+  background: #FEF9E6;
+  overflow: hidden;
+}
+
+.badge-title {
+  background: var(--primary-yellow);
+  color: var(--text-dark);
+  padding: 10px 35px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.6rem;
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+/* --- Phone Mockup Styling --- */
+.phone-mockup {
+  background: #fff;
+  border-radius: 20px;
+  padding: 6px; /* Padding frame diperkecil sedikit agar muat 4 */
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  border: 2px solid #f1f2f6;
+  transition: transform 0.3s ease;
+  height: 100%;
+  position: relative;
+}
+
+.phone-mockup:hover {
+  transform: translateY(-5px);
+  border-color: #FB4A04;
+}
+
+.testi-img {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  display: block;
+}
+
+/* --- Tombol Navigasi FIXED BULAT & TENGAH --- */
+.carousel-control-prev, .carousel-control-next {
+  width: 45px !important;        /* Lebar fix */
+  height: 45px !important;       /* Tinggi fix sama dengan lebar */
+  background-color: #fff;
+  border-radius: 50%;            /* Wajib 50% untuk lingkaran */
+  opacity: 1;
+  
+  /* Positioning Center Absolute */
+  position: absolute;
+  top: 50% !important;                      /* Titik tengah vertikal */
+  transform: translateY(-50%) !important;   /* Geser balik 50% tinggi tombol agar presisi di tengah */
+  margin: 0;                     /* Reset margin bootstrap */
+  
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  color: var(--text-dark);
+  
+  /* Flexbox untuk icon di tengah lingkaran */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  z-index: 10;
+}
+
+/* Posisi Horizontal */
+.carousel-control-prev { left: -20px; }
+.carousel-control-next { right: -20px; }
+
+.carousel-control-prev:hover, .carousel-control-next:hover {
+  background-color: var(--primary-yellow);
+  color: #fff;
+  box-shadow: 0 6px 15px rgba(255, 193, 7, 0.6);
+}
+
+.nav-arrow {
+  font-size: 1.1rem; /* Ukuran panah pas */
+}
+
+/* Hide default icon Bootstrap */
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  display: none; 
+}
+
+/* --- Responsiveness --- */
+@media (max-width: 1200px) {
+  /* Di layar laptop kecil, tombol agak masuk dikit */
+  .carousel-control-prev { left: -10px; }
+  .carousel-control-next { right: -10px; }
+}
+
+@media (max-width: 991px) {
+  /* Tablet/HP: Tombol nempel pinggir layar */
+  .carousel-control-prev { left: 0; }
+  .carousel-control-next { right: 0; }
+}
+/* css page 4  close ======================================== */
+
+
+/* css page 5  ======================================== */
+
+/* Definisi Variabel Warna Khusus FAQ */
+.faq {
+  color: #6F4E37;
+}
+
+:root {
+  --primary-orange: #FB4A04;  /* Warna Judul */
+  --faq-border: #BCAAA4;      /* Warna Border Kotak */
+  --bg-cream: #FFFBF2;        /* Warna Background */
+}
+
+/* Container Utama Section FAQ */
+.section-faq {
+ padding: 60px 0;
+ background-color: var(--bg-cream);
+}
+
+/* Judul Besar "Frequently Asked Question" */
+.faq-title {
+ color: var(--primary-orange);
+ font-weight: 700;
+ font-size: 2.5rem;
+ margin-bottom: 10px;
+}
+
+/* Sub-judul di bawahnya */
+.faq-subtitle {
+ color: #4b3621;
+ font-weight: 600;
+ margin-bottom: 40px;
+ font-size: 1.1rem;
+}
+
+/* Kotak Pembungkus Tiap Pertanyaan */
+.faq-card {
+ background: #fff;
+ border: 1px solid var(--faq-border);
+ margin-bottom: 15px;
+ border-radius: 0; /* Membuat sudut kotak siku */
+ overflow: hidden;
+ transition: all 0.3s ease;
+}
+
+/* --- HEADER TOMBOL (Bagian yang diklik) --- */
+.faq-header {
+ padding: 20px 25px;
+ cursor: pointer;
+ display: flex;
+ justify-content: space-between; /* Memisahkan Teks Kiri & Ikon Kanan */
+ align-items: center;
+ background: #fff;
+ border: none;
+ width: 100%;
+ text-align: left;
+ position: relative;
+}
+
+/* Menghilangkan outline biru default saat diklik */
+.faq-header:focus {
+ outline: none;
+ background-color: #fdfdfd;
+}
+
+/* Style Teks Pertanyaan */
+.faq-header h5 {
+ margin: 0;
+ font-size: 1.1rem;
+ font-weight: 600;
+ color: #4E342E;
+ pointer-events: none; /* PENTING: Agar teks tidak menghalangi klik */
+}
+
+/* --- LOGIKA IKON SVG (ANTI GAGAL) --- */
+/* Style dasar untuk ikon SVG */
+.faq-icon-svg {
+  width: 24px;
+  height: 24px;
+  color: #000;
+  pointer-events: none; /* PENTING: Agar ikon tidak menghalangi klik */
+  transition: transform 0.3s ease;
+}
+
+/* 1. KONDISI TERTUTUP (Ada class .collapsed) 
+ -> Munculkan Plus, Sembunyikan Minus */
+.faq-header.collapsed .icon-plus { 
+  display: block; 
+}
+.faq-header.collapsed .icon-minus { 
+  display: none; 
+}
+
+/* 2. KONDISI TERBUKA (Tidak ada class .collapsed) 
+ -> Sembunyikan Plus, Munculkan Minus */
+.faq-header:not(.collapsed) .icon-plus { 
+  display: none; 
+}
+.faq-header:not(.collapsed) .icon-minus { 
+  display: block; 
+}
+
+/* --- BAGIAN ISI JAWABAN --- */
+.faq-body {
+ padding: 0 25px 25px 25px;
+ color: #5D4037;
+ font-size: 1rem;
+ line-height: 1.6;
+}
+
+.faq-body ul {
+ padding-left: 20px;
+ margin-bottom: 0;
+}
+
+/* --- TOMBOL LOAD MORE (Panah Bawah) --- */
+.btn-load-more {
+ width: 50px;
+ height: 50px;
+ background-color: #E0E0E0;
+ border-radius: 50%; /* Membuat tombol bulat */
+ border: none;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ margin: 30px auto 0;
+ cursor: pointer;
+ transition: all 0.3s;
+ color: #333;
+ font-size: 1.2rem;
+}
+
+.btn-load-more:hover {
+ background-color: #d6d6d6;
+ transform: translateY(3px); /* Efek naik sedikit saat hover */
+}
+
+/* Class untuk menyembunyikan elemen */
+.faq-hidden {
+ display: none;
+}
+/* css page 5 close ======================================== */
+
 
 /* Menyamakan tinggi semua card produk */
 #produk .product-card h5,
@@ -660,68 +985,94 @@ h6 {
   }
 }
 
-/*--------------------------------------------------------------
-# Global Footer
---------------------------------------------------------------*/
-.footer {
-  --heading-font: var(--default-font);
-  color: var(--default-color);
-  background-color: var(--background-color);
-  font-size: 14px;
-  padding: 40px 0;
-  position: relative;
-}
+/* =========================================
+           FOOTER STYLE BARU (Sesuai Gambar Reference)
+           ========================================= */
+           .custom-footer {
+            background-color: #FEF9E6;
+            color: var(--footer-text);
+            padding-top: 40px;
+            padding-bottom: 20px;
+            font-size: 0.95rem;
+        }
 
-.footer .icon {
-  color: var(--accent-color);
-  margin-right: 15px;
-  font-size: 24px;
-  line-height: 0;
-}
+        /* Header Footer: Halal, Sehat, Nikmat */
+        .footer-tagline {
+            text-align: center;
+            font-weight: 700; /* Bold */
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #641E02;
+        }
 
-.footer h4 {
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 15px;
-}
+        /* Garis Pemisah Halus */
+        .footer-divider {
+            border-top: 1px solid #8D6E63; /* Coklat pudar */
+            margin-bottom: 40px;
+            width: 100%;
+            opacity: 0.5;
+        }
 
-.footer .address p {
-  margin-bottom: 0px;
-}
+        .footer-bottom-divider {
+            border-top: 1px solid #8D6E63;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
 
-.footer .social-links a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--default-color), transparent 50%);
-  font-size: 16px;
-  color: color-mix(in srgb, var(--default-color), transparent 50%);
-  margin-right: 10px;
-  transition: 0.3s;
-}
+        /* Logo di Footer */
+        .footer-logo-img {
+            max-height: 120px;
+            margin-bottom: 15px;
+        }
 
-.footer .social-links a:hover {
-  color: var(--accent-color);
-  border-color: var(--accent-color);
-}
+        /* Judul Kolom (About, Socials) */
+        .footer-heading {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--footer-text);
+        }
 
-.footer .copyright {
-  padding-top: 20px;
-  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
-}
+        /* Link di Footer */
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
 
-.footer .copyright p {
-  margin-bottom: 0;
-}
+        .footer-links li {
+            margin-bottom: 12px;
+        }
 
-.footer .credits {
-  margin-top: 5px;
-  font-size: 13px;
-}
+        .footer-links a {
+            text-decoration: none;
+            color: var(--footer-text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
 
+        .footer-links a:hover {
+            color: var(--primary-orange); /* Warna hover orange */
+        }
+
+        .footer-address {
+            line-height: 1.6;
+            font-weight: 500;
+            color: #641E02;
+        }
+
+        .copyright-text {
+            font-weight: 700; /* Sesuai gambar terlihat tebal */
+            color: var(--footer-text);
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-divider { margin-bottom: 30px; }
+            .footer-heading { margin-top: 30px; }
+        }
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
