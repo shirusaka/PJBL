@@ -31,7 +31,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('/menu', MenuController::class)->names('admin.menu');
 
     //TESTIMONI
-    Route::resource('/testimoni', TestimoniController::class)->names('admin.testimoni');
+    Route::resource('/testimoni', TestimoniController::class)->except(['show'])->names('admin.testimoni');
 
     //FAQ
     Route::resource('/faq', FAQController::class)->names('admin.faq');
