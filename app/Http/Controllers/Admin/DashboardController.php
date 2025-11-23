@@ -14,9 +14,10 @@ class DashboardController extends Controller
     public function index()
     {
         $total_menu = Menu::count();
+        $menus = Menu::all();
         $testimonials = Testimoni::all();
         $total_admin = User::count();
 
-        return view('admin.dashboard', compact('total_menu', 'total_admin', 'testimonials'));
+        return view('admin.dashboard', compact('total_menu', 'total_admin', 'testimonials', 'menus'));
     }
 }

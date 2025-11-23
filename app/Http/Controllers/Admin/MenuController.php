@@ -3,97 +3,102 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Menu;
 
 class MenuController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $menus = Menu::all();
-        return view('admin.menu.index', compact('menus'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('admin.menu.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
-            'harga' => 'requirednumeric',
-            'gambar' => 'image|mimes:jpeg,png,,jpg|max:2048',
+            'nama_menu' => 'required|string|max:255',
+            'harga'     => 'required|numeric',
+            'gambar'    => 'required|image|mimes:jpeg,png,jpg|max:5120',
+            'deskripsi' => 'nullable|string',
+            'promo'     => 'nullable|numeric|min:0|max:100',
         ]);
 
-        return redirect()->route('menus.index')->width('success'. 'Menu Berhasil Ditambakan');
-    }
+        // === LOGIKA HITUNG HARGA DISKON ===
+        $harga_final = $request->harga; // Ambil harga asli dulu
 
-    /**
-     * Display the specified resource.
-     */
-    public function edit($id)
-    {
-        $menu = Menu::findOrFail($id);
-        return view('admin.menu.edit', compact('menu'));
-    }
+        // Cek apakah ada promo dan nilainya lebih dari 0
+        if ($request->has('promo') && $request->promo > 0) {
+            // Rumus: Harga Asli - (Harga Asli * Persen / 100)
+            $potongan = $request->harga * ($request->promo / 100);
+            $harga_final = $request->harga - $potongan;
+        }
+        // ==================================
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
-    {
-        $menu = Menu::findOrFail($id);
-        $request->validate([
-            'nama' => 'required',
-            'harga' => 'required|required',
-        ]);
-
-        if ($request->hasFile('gambat')) {
-            if ($menu->gambar && file_exists(public_path('assets/img/menu' . $menu->gambar))) {
-                unlink(public_path('assets/img/menu' . $mennu->gambar));
-            }
-
-            $file = $request->file('gambar');
-            $nama_gambar = time() . $file->getClientOriginalName();
-            $file->move(public_path('assets/img/menu'), $nama_gambar);
-
-            $menu->gambar = $nama_gambar;
+        $path = null;
+        if ($request->hasFile('gambar')) {
+            $path = $request->file('gambar')->store('menu', 'public');
         }
 
-        $menu->update([
-            'nama' => $request->nama,
-            'deskripsi' => $request->deskripsi,
-            'harga' => $request->harga,
-            'is_tersedia' => $request->is_tersedia ?? 0
+        Menu::create([
+            'nama_menu'   => $request->nama_menu,
+            'harga'       => $harga_final, // SIMPAN HARGA YANG SUDAH DIPOTONG
+            'gambar'      => $path,
+            'deskripsi'   => $request->deskripsi,
+            'is_tersedia' => $request->has('is_inactive') ? 0 : 1,
+            'promo'       => $request->promo > 0 ? $request->promo : null,
+            'username'    => Auth::user()->name,
         ]);
 
-        return redirect()->route('menus.index')->with('success'. 'Menu Berhasil Di-update');
+        return redirect()->route('admin.dashboard')->with('success', 'Menu Berhasil Ditambahkan');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama_menu' => 'required|string|max:255',
+            'harga'     => 'required|numeric',
+            'gambar'    => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
+            'promo'     => 'nullable|numeric|min:0|max:100',
+        ]);
+
+        $menu = Menu::findOrFail($id);
+
+        // === LOGIKA HITUNG HARGA DISKON (UPDATE) ===
+        $harga_final = $request->harga;
+
+        if ($request->has('promo') && $request->promo > 0) {
+            $potongan = $request->harga * ($request->promo / 100);
+            $harga_final = $request->harga - $potongan;
+        }
+        // ===========================================
+
+        $data = [
+            'nama_menu'   => $request->nama_menu,
+            'harga'       => $harga_final, // UPDATE HARGA JADI YANG SUDAH DIPOTONG
+            'deskripsi'   => $request->deskripsi,
+            'is_tersedia' => $request->has('is_inactive') ? 0 : 1,
+            'promo'       => $request->promo > 0 ? $request->promo : null,
+            'username'    => Auth::user()->name,
+        ];
+
+        if ($request->hasFile('gambar')) {
+            if ($menu->gambar && Storage::disk('public')->exists($menu->gambar)) {
+                Storage::disk('public')->delete($menu->gambar);
+            }
+            $data['gambar'] = $request->file('gambar')->store('menu', 'public');
+        }
+
+        $menu->update($data);
+
+        return redirect()->route('admin.dashboard')->with('success', 'Menu Berhasil Di-update');
+    }
+
     public function destroy($id)
     {
         $menu = Menu::findOrFail($id);
 
-        if ($menu->gambar && file_exists(public_path('assets/img/menu/' . $menu->gambar))) {
-            unlink(public_path('assets/img/menu/' . $menu->gambar));
+        if ($menu->gambar && Storage::disk('public')->exists($menu->gambar)) {
+            Storage::disk('public')->delete($menu->gambar);
         }
 
         $menu->delete();
-        return redirect()->route('menus.index')->with('success', 'Menu Berhasil Dihapus');
+        return redirect()->route('admin.dashboard')->with('success', 'Menu Berhasil Dihapus');
     }
 }
