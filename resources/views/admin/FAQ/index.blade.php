@@ -12,12 +12,20 @@
             <p class="text-slate-500 mt-1">Pertanyaan yang sering diajukan pelanggan.</p>
         </div>
         
-        <button @click="openModal()" 
+        <button @click="openModal('add')" 
                 class="group relative inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary-600 text-white text-sm font-semibold rounded-xl shadow-lg shadow-orange-200 hover:bg-primary-700 hover:-translate-y-0.5 transition-all duration-300 focus:ring-4 focus:ring-primary-100 focus:outline-none">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
             Tambah Pertanyaan
         </button>
     </div>
+
+    {{-- Alert Success --}}
+    @if(session('success'))
+    <div class="mb-6 p-4 rounded-xl bg-green-50 border border-green-100 text-green-700 flex items-center gap-3">
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        <span class="font-medium">{{ session('success') }}</span>
+    </div>
+    @endif
 
     <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
         <div class="p-5 border-b border-gray-50 bg-gray-50/50">
@@ -36,6 +44,7 @@
                         <th class="px-6 py-4 w-16 text-center">#</th>
                         <th class="px-6 py-4 w-1/3">Pertanyaan (Q)</th>
                         <th class="px-6 py-4">Jawaban (A)</th>
+                        <th class="px-6 py-4 w-32 text-center">Oleh</th> {{-- Kolom Username --}}
                         <th class="px-6 py-4 w-32 text-center">Aksi</th>
                     </tr>
                 </thead>
@@ -43,32 +52,48 @@
                     <template x-for="(item, index) in paginatedData" :key="item.id">
                         <tr class="hover:bg-gray-50/80 transition-colors">
                             <td class="px-6 py-4 text-center text-slate-400 font-medium" x-text="(currentPage - 1) * itemsPerPage + index + 1"></td>
+                            
+                            {{-- Desain Q Tetap Dipertahankan --}}
                             <td class="px-6 py-4 align-top">
                                 <div class="flex gap-3">
                                     <span class="text-primary-500 font-bold">Q:</span>
                                     <span class="font-bold text-slate-800 text-sm leading-relaxed" x-text="item.pertanyaan"></span>
                                 </div>
                             </td>
+
+                            {{-- Desain A Tetap Dipertahankan --}}
                             <td class="px-6 py-4 align-top">
                                 <div class="flex gap-3">
                                     <span class="text-green-500 font-bold">A:</span>
                                     <p class="text-slate-600 text-sm leading-relaxed text-justify" x-text="item.jawaban"></p>
                                 </div>
                             </td>
+
+                            {{-- Kolom Username --}}
+                            <td class="px-6 py-4 align-top text-center">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 border border-gray-200">
+                                    <span x-text="item.username || '-'"></span>
+                                </span>
+                            </td>
+
                             <td class="px-6 py-4 text-center align-top">
                                 <div class="flex items-center justify-center gap-2">
-                                    <button @click="openModal(item)" class="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all">
+                                    <button @click="openModal('edit', item)" class="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                                     </button>
-                                    <button @click="deleteItem(item.id)" class="p-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                    </button>
+                                    
+                                    <form :action="'{{ url('admin/faq') }}/' + item.id" method="POST" onsubmit="return confirm('Yakin ingin menghapus FAQ ini?');">
+                                        @csrf @method('DELETE')
+                                        <button type="submit" class="p-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
                     </template>
                     <tr x-show="filteredData.length === 0">
-                        <td colspan="4" class="p-8 text-center text-slate-500">Belum ada data FAQ.</td>
+                        <td colspan="5" class="p-8 text-center text-slate-500">Belum ada data FAQ.</td>
                     </tr>
                 </tbody>
             </table>
@@ -83,29 +108,35 @@
         </div>
     </div>
 
+    {{-- MODAL FORM --}}
     <div x-show="showModal" x-transition.opacity class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4" style="display: none;">
         <div @click.away="showModal = false" class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]">
             <div class="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                 <h2 class="text-xl font-bold text-slate-800" x-text="modalMode === 'edit' ? 'Edit FAQ' : 'Tambah FAQ Baru'"></h2>
                 <button @click="showModal = false" class="text-slate-400 hover:text-red-500"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
+            
             <div class="p-8 overflow-y-auto custom-scrollbar">
-                <form @submit.prevent="saveData">
+                <form :action="formAction" method="POST" id="faqForm">
+                    @csrf
+                    <input type="hidden" name="_method" :value="modalMode === 'edit' ? 'PUT' : 'POST'">
+                    
                     <div class="space-y-6">
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-2">Pertanyaan</label>
-                            <input x-model="form.pertanyaan" type="text" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-primary-500 transition-all font-semibold text-slate-800" placeholder="Contoh: Bagaimana cara memesan?" required>
+                            <input x-model="form.pertanyaan" name="pertanyaan" type="text" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-primary-500 transition-all font-semibold text-slate-800" placeholder="Contoh: Bagaimana cara memesan?" required>
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-2">Jawaban</label>
-                            <textarea x-model="form.jawaban" rows="5" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-primary-500 transition-all resize-none leading-relaxed" placeholder="Jelaskan jawabannya di sini..." required></textarea>
+                            <textarea x-model="form.jawaban" name="jawaban" rows="5" class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-primary-500 transition-all resize-none leading-relaxed" placeholder="Jelaskan jawabannya di sini..." required></textarea>
                         </div>
                     </div>
                 </form>
             </div>
+            
             <div class="px-8 py-6 bg-gray-50 border-t border-gray-100 flex justify-end gap-3">
                 <button @click="showModal = false" class="px-6 py-2.5 rounded-xl text-slate-600 hover:bg-gray-200">Batal</button>
-                <button @click="saveData" class="px-6 py-2.5 rounded-xl bg-primary-600 text-white font-bold hover:bg-primary-700 transition" x-text="modalMode === 'edit' ? 'Simpan Perubahan' : 'Simpan FAQ'"> </button>
+                <button onclick="document.getElementById('faqForm').submit()" class="px-6 py-2.5 rounded-xl bg-primary-600 text-white font-bold hover:bg-primary-700 transition" x-text="modalMode === 'edit' ? 'Simpan Perubahan' : 'Simpan FAQ'"> </button>
             </div>
         </div>
     </div>
@@ -122,37 +153,34 @@
             itemsPerPage: 5,
             showModal: false,
             modalMode: 'add',
+            formAction: '',
             form: { id: null, pertanyaan: '', jawaban: '' },
-            // DATA DUMMY DI SINI (Total 6 Item)
-            items: [
-                // 3 Data Lama
-                { id: 1, pertanyaan: 'Bagaimana cara melakukan reservasi?', jawaban: 'Anda bisa melakukan reservasi melalui formulir di halaman beranda atau menghubungi kami via WhatsApp.' },
-                { id: 2, pertanyaan: 'Apakah tersedia menu vegetarian?', jawaban: 'Ya, kami menyediakan beberapa pilihan menu sayuran dan non-daging yang lezat.' },
-                { id: 3, pertanyaan: 'Berapa minimal pesanan untuk katering?', jawaban: 'Minimal pemesanan untuk layanan prasmanan adalah 50 porsi.' },
-                // 3 Data Baru
-                { id: 4, pertanyaan: 'Apakah ada layanan pengiriman?', jawaban: 'Ya, kami menyediakan layanan pengiriman gratis untuk radius 5km dari lokasi outlet kami.' },
-                { id: 5, pertanyaan: 'Metode pembayaran apa saja yang diterima?', jawaban: 'Kami menerima pembayaran tunai, transfer bank (BCA, Mandiri), dan e-wallet (OVO, GoPay).' },
-                { id: 6, pertanyaan: 'Apakah bisa request menu custom?', jawaban: 'Tentu! Untuk pemesanan prasmanan atau nasi box dalam jumlah besar, menu bisa disesuaikan dengan budget dan selera Anda.' },
-            ],
-            openModal(item = null) {
+            
+            // DATA DARI DATABASE
+            items: @json($faqs),
+
+            openModal(mode, item = null) {
                 this.showModal = true;
-                if (item) {
-                    this.modalMode = 'edit';
-                    this.form = { ...item };
+                this.modalMode = mode;
+                
+                if (mode === 'edit' && item) {
+                    this.form = { 
+                        id: item.id, 
+                        pertanyaan: item.pertanyaan, 
+                        jawaban: item.jawaban 
+                    };
+                    this.formAction = '{{ url("admin/faq") }}/' + item.id;
                 } else {
-                    this.modalMode = 'add';
                     this.form = { id: null, pertanyaan: '', jawaban: '' };
+                    this.formAction = '{{ route("admin.faq.store") }}';
                 }
             },
-            saveData() {
-                alert('FAQ berhasil disimpan!');
-                this.showModal = false;
-            },
-            deleteItem(id) {
-                if(confirm('Hapus FAQ ini?')) { alert('FAQ dihapus.'); }
-            },
+
             get filteredData() {
-                return this.items.filter(i => i.pertanyaan.toLowerCase().includes(this.search.toLowerCase()));
+                return this.items.filter(i => 
+                    i.pertanyaan.toLowerCase().includes(this.search.toLowerCase()) || 
+                    i.jawaban.toLowerCase().includes(this.search.toLowerCase())
+                );
             },
             get paginatedData() {
                 const start = (this.currentPage - 1) * this.itemsPerPage;

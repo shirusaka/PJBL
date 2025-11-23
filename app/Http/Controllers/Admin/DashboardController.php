@@ -17,7 +17,8 @@ class DashboardController extends Controller
         $menus = Menu::all();
         $testimonials = Testimoni::all();
         $total_admin = User::count();
+        $total_promo = Menu::where('promo', '>', 0)->count();
 
-        return view('admin.dashboard', compact('total_menu', 'total_admin', 'testimonials', 'menus'));
+        return view('admin.dashboard', compact('total_menu', 'total_admin', 'testimonials', 'menus', 'total_promo'));
     }
 }

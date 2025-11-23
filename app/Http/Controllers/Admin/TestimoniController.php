@@ -21,7 +21,7 @@ class TestimoniController extends Controller
         // Validasi Foto Saja (Username otomatis dari Admin)
         $request->validate([
             'title' => 'required|string|max:255',
-            'foto_ss' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'foto_ss' => 'required|image|mimes:jpeg,png,jpg|max:10240',
         ]);
 
         $imagePath = null;
@@ -43,7 +43,7 @@ class TestimoniController extends Controller
         // Validasi (Gambar nullable karena edit)
         $request->validate([
             'title' => 'required|string|max:255',
-            'foto_ss' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto_ss' => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
         ]);
 
         $testimoni = Testimoni::findOrFail($id);

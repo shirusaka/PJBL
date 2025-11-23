@@ -24,7 +24,7 @@ class MenuController extends Controller
         $request->validate([
             'nama_menu' => 'required|string|max:255',
             'harga'     => 'required|numeric',
-            'gambar'    => 'required|image|mimes:jpeg,png,jpg|max:5120', // Maks 5MB
+            'gambar'    => 'required|image|mimes:jpeg,png,jpg|max:10240', // Maks 5MB
             'deskripsi' => 'nullable|string',
             'promo'     => 'nullable|numeric|min:0|max:100',
         ]);
