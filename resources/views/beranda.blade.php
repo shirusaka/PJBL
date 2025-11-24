@@ -5,69 +5,11 @@
 @section('content')
 
   {{-- CSS Tambahan Khusus Halaman Ini --}}
-  @push('styles')
-  <style>
-      /* Memaksa rasio gambar testimoni menjadi 9:16 (Vertical/Story) */
-      .phone-mockup {
-          position: relative;
-          border: 8px solid #212529;
-          border-radius: 24px;
-          overflow: hidden;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-          background-color: #fff;
-          margin: 0 auto;
-          max-width: 280px;
-          width: 100%;
-          aspect-ratio: 9 / 16; /* KUNCI: Rasio 9:16 */
-      }
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  <link rel="icon" href="{{ asset('storage/images/logo_ayam_kabogor.png') }}">
 
-      .testi-img {
-          width: 100%;
-          height: 100%;
-          display: block;
-          object-fit: cover; /* Agar gambar full tanpa gepeng */
-      }
+  {{-- HERO SECTION --}}
 
-      /* Style FAQ (Sesuai HTML) */
-      .faq-card {
-          border: 1px solid #e9ecef;
-          border-radius: 12px;
-          margin-bottom: 15px;
-          overflow: hidden;
-          background: #fff;
-          transition: all 0.3s;
-      }
-      .faq-card:hover {
-          box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-          border-color: #FB4A04;
-      }
-      .faq-header {
-          width: 100%;
-          text-align: left;
-          padding: 20px;
-          background: none;
-          border: none;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          font-weight: 600;
-          color: #322602;
-      }
-      .faq-header:focus { outline: none; }
-      .faq-header h5 { margin: 0; font-size: 1rem; font-weight: 700; }
-      .faq-body { padding: 0 20px 20px 20px; color: #555; line-height: 1.6; font-size: 0.95rem; }
-      
-      /* Icon SVG Toggle */
-      .faq-icon { color: #FB4A04; }
-      .faq-icon-svg { transition: transform 0.3s ease; }
-      .icon-minus { display: none; }
-      
-      /* Logic Toggle Icon */
-      .faq-header:not(.collapsed) .icon-plus { display: none; }
-      .faq-header:not(.collapsed) .icon-minus { display: block; }
-      .faq-header:not(.collapsed) { color: #FB4A04; }
-  </style>
-  @endpush
 
   <section id="beranda" class="hero section light-background">
     <div class="container">

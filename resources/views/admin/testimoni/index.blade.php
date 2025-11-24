@@ -6,6 +6,38 @@
 @section('content')
 <div x-data="testimoniManager()">
 
+    {{-- TOAST NOTIFICATION (Pop-up Notifikasi Langsung) --}}
+    <div x-show="toast.show" x-cloak
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 translate-y-2"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-300"
+         x-transition:leave-start="opacity-100 translate-y-0"
+         x-transition:leave-end="opacity-0 translate-y-2"
+         class="fixed bottom-5 right-5 z-[100] px-6 py-3 rounded-xl shadow-lg flex items-center gap-3"
+         :class="toast.type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'">
+        
+        <svg x-show="toast.type === 'success'" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        <svg x-show="toast.type === 'error'" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        
+        <span class="font-semibold" x-text="toast.message"></span>
+    </div>
+
+    {{-- Alert Error Server Side (Laravel) --}}
+    @if ($errors->any())
+        <div class="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 shadow-sm flex items-start gap-3 fade-in-up">
+            <svg class="w-6 h-6 flex-shrink-0 text-red-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <div>
+                <h3 class="font-bold text-lg mb-1">Gagal Menyimpan Testimoni!</h3>
+                <ul class="list-disc list-inside text-sm opacity-90">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    @endif
+
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
             <h1 class="text-2xl font-bold text-slate-800 tracking-tight">Manajemen Testimoni</h1>
@@ -21,7 +53,7 @@
 
     @if(session('success'))
     <div class="mb-6 p-4 rounded-xl bg-green-50 border border-green-100 text-green-700 flex items-center gap-3 fade-in-up">
-        <i class="bi bi-check-circle-fill text-xl"></i>
+        <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
         <p class="font-medium">{{ session('success') }}</p>
     </div>
     @endif
@@ -37,25 +69,18 @@
                         <div class="relative w-full aspect-[9/16] bg-gray-50 rounded-xl overflow-hidden">
                             <img :src="item.foto_ss ? '{{ asset('storage') }}/' + item.foto_ss : 'https://placehold.co/450x800/png?text=No+Image'" 
                                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                            
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80"></div>
-                            <!-- <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
-                                <p class="text-xs text-orange-300 font-medium uppercase tracking-wider mb-1">Judul Testimoni</p>
-                                <h3 class="font-bold text-lg leading-tight truncate" x-text="item.title || 'Tanpa Judul'"></h3>
-                            </div> -->
                         </div>
 
                         <div class="px-1">
                             <p class="text-xs text-slate-400 flex items-center gap-1">
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                                <span x-text="item.username"></span>
+                                <span class="font-medium">Diupload oleh:</span>
+                                <span class="text-slate-600" x-text="item.username"></span>
                             </p>
-                            <!-- <p class="text-xs text-slate-500 mt-1 line-clamp-2" x-text="item.message || 'Tidak ada keterangan'"></p> -->
                         </div>
 
                         <div class="flex items-center gap-2 mt-auto pt-2 border-t border-gray-50">
                             <button @click="openModal('edit', item)" class="flex-1 py-2 text-xs font-bold text-slate-600 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-lg transition-colors">
-                                Edit
+                                Edit Foto
                             </button>
                             
                             <form :action="'{{ url('admin/testimoni') }}/' + item.id" method="POST" onsubmit="return confirm('Hapus testimoni ini?');">
@@ -101,23 +126,20 @@
                     @csrf
                     <input type="hidden" name="_method" :value="modalMode === 'edit' ? 'PUT' : 'POST'">
                     
-                    <!-- <div class="mb-4">
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Judul Testimoni (Contoh: Testi 1)</label>
-                        <input type="text" name="title" x-model="formData.title" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500" required placeholder="Masukkan nama/judul testi...">
-                    </div> -->
-
                     <div class="mx-auto max-w-[200px] relative group mb-4">
                         <label class="block text-sm font-semibold text-slate-700 mb-2 text-center">Screenshot Chat</label>
-                        <div class="relative w-full aspect-[9/16] rounded-2xl border-2 overflow-hidden flex flex-col justify-center items-center transition-all duration-300"
+                        <div @click="document.getElementById('image-input').click()" 
+                             class="relative w-full aspect-[9/16] rounded-2xl border-2 overflow-hidden flex flex-col justify-center items-center transition-all duration-300 cursor-pointer"
                             :class="formData.imagePreview ? 'border-solid border-gray-200 bg-white' : 'border-dashed border-gray-300 bg-gray-50 hover:border-orange-300'">
                             
                             <input type="file" name="foto_ss" id="image-input" accept="image/*" 
-                                   class="absolute inset-0 z-20 w-full h-full opacity-0 cursor-pointer" 
+                                   class="hidden" 
                                    @change="handleFileUpload($event)" :required="modalMode === 'add'">
 
                             <div x-show="!formData.imagePreview" class="absolute inset-0 z-10 flex flex-col items-center justify-center p-4 text-center pointer-events-none">
                                 <div class="mb-2 text-orange-500"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg></div>
-                                <p class="text-xs font-bold text-gray-600">Upload Screenshot</p>
+                                <p class="text-xs font-bold text-gray-600">Klik untuk Upload</p>
+                                <p class="text-[10px] text-gray-400 mt-1">PNG/JPG (Max 10MB)</p>
                             </div>
 
                             <img x-show="formData.imagePreview" :src="formData.imagePreview" class="absolute inset-0 z-10 w-full h-full object-cover bg-white">
@@ -127,11 +149,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- <div class="mb-4">
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Keterangan (Opsional)</label>
-                        <textarea name="message" x-model="formData.message" rows="3" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Pesan testimoni..."></textarea>
-                    </div> -->
 
                     <div class="flex gap-3 pt-2">
                         <button type="button" @click="showModal = false" class="flex-1 py-2.5 rounded-xl text-slate-600 bg-gray-100 hover:bg-gray-200 font-medium transition">Batal</button>
@@ -156,10 +173,22 @@
             modalMode: 'add',
             formAction: '',
             
-            // DATA DATABASE
             items: @json($testimonials),
             
-            formData: { id: null, title: '', message: '', imagePreview: '' },
+            formData: { id: null, imagePreview: '' },
+
+            // State untuk Toast Notification
+            toast: { show: false, message: '', type: 'success' },
+
+            showToast(message, type = 'success') {
+                this.toast.show = true;
+                this.toast.message = message;
+                this.toast.type = type;
+                
+                setTimeout(() => {
+                    this.toast.show = false;
+                }, 3000);
+            },
 
             openModal(mode, item = null) {
                 this.modalMode = mode;
@@ -171,32 +200,50 @@
                 if (mode === 'edit' && item) {
                     this.formData = {
                         id: item.id,
-                        title: item.title,   // Load title
-                        message: item.message,
                         imagePreview: item.foto_ss ? '{{ asset("storage") }}/' + item.foto_ss : null
                     };
                     this.formAction = '{{ url("admin/testimoni") }}/' + item.id;
                 } else {
-                    this.formData = { id: null, title: '', message: '', imagePreview: '' };
+                    this.formData = { id: null, imagePreview: '' };
                     this.formAction = '{{ route("admin.testimoni.store") }}';
                 }
             },
 
             handleFileUpload(event) {
                 const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => { this.formData.imagePreview = e.target.result; };
-                    reader.readAsDataURL(file);
+                
+                // Jika batal pilih file
+                if (!file) return;
+
+                // 1. Validasi Tipe File (Harus Gambar)
+                const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+                if (!validTypes.includes(file.type)) {
+                    this.showToast('Format salah! Harap upload gambar (JPG/PNG).', 'error');
+                    event.target.value = ''; // Reset input
+                    this.formData.imagePreview = null;
+                    return;
                 }
+
+                // 2. Validasi Ukuran File (Max 10MB)
+                const maxSize = 10 * 1024 * 1024; // 10MB
+                if (file.size > maxSize) {
+                    this.showToast('Ukuran file terlalu besar! Maksimal 10MB.', 'error');
+                    event.target.value = '';
+                    this.formData.imagePreview = null;
+                    return;
+                }
+
+                // 3. Jika Valid, Tampilkan Preview & Notifikasi Sukses
+                const reader = new FileReader();
+                reader.onload = (e) => { 
+                    this.formData.imagePreview = e.target.result; 
+                    this.showToast('Foto berhasil dipilih!', 'success');
+                };
+                reader.readAsDataURL(file);
             },
 
             get filteredData() {
-                // Filter berdasarkan title
-                return this.items.filter(item => {
-                    const title = item.title ? item.title.toLowerCase() : '';
-                    return title.includes(this.search.toLowerCase());
-                });
+                return this.items; 
             },
             get paginatedData() {
                 const start = (this.currentPage - 1) * this.itemsPerPage;
