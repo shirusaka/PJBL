@@ -1,656 +1,254 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.main')
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title> Ayamyamyam </title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
+@section('title', 'Beranda')
 
-  <!-- Favicons -->
-  <link rel="icon" type="image/png" href="{{ asset('assets/img/rezeicon.png') }}">
-  <!-- <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
-  
-  <!-- Favicons page 2-->
-  <!-- <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png"> -->
-  <!-- <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png"> -->
-  <!-- <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
-  <link rel="manifest" href="assets/img/favicons/manifest.json">
-  <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png"> -->
-  <meta name="theme-color" content="#ffffff">
+@section('content')
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Main CSS File -->
-  <link href="{{asset('assets/css/main.css')}}" rel="stylesheet">
-  <link href="{{asset('assets/css/theme.css')}}" rel="stylesheet" />
-</head>
-
-<body class="index-page">
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- ... semua script lain ... -->
-  <script src="assets/js/main.js"></script>
-
-  <!-- pop up button pesan sekarang -->
-
-  <header id="header" class="header d-flex align-items-center sticky-top">
-    <div class="container position-relative d-flex align-items-center justify-content-between">
-
-      <a href="index.html" class="">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <img src="assets/img/logo_ayam.png" alt="" style="height: 65px; width: auto; object-fit: contain;">
-      </a>
-
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="#beranda" class="active">Beranda<br></a></li>
-          <li><a href="#produk">Produk</a></li>
-          <li><a href="#kelebihan">Kelebihan</a></li>
-          <li><a href="#testimoni">Testimoni</a></li>
-          <li><a href="#faq">FAQ</a></li>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
-    </div>
-  </header>
-
-  <main class="main">
-    <!-- Hero Section [HOMEPAGE] -->
-    <section id="beranda" class="hero section light-background">
-
-      <div class="container">
-        <div class="row gy-4 justify-content-center justify-content-lg-between">
-          <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center">
-            <!-- judul 1 -->
-            <h1 class="title1" data-aos="fade-up">Ayam Kabogor</h1>
-            <br />
-
-            <p data-aos="fade-up" data-aos-delay="100">
-              Pilihan sehat, rasa nikmat untuk setiap acara anda. Dapatkan kelezatan autentik ayam kampung yang diolah secara alami tanpa bahan buatan.
-              Selain ayam kampung, Ayam Kabogor juga menawarkan berbagai menu lainnya seperti olahan bebek, prasmanan, dan nasi kotak berbagai varian.
-            </p>
-
-            <!-- judul 2 -->
-            <h2 class="title2" data-aos="fade-up">Ayam Kampung Asli Bogor yang <br /> Gurih dan Alami</h2>
-            <p></p>
-
-            <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-              <a href="#" class="btn-get-started">Pesan Sekarang</a>
-            </div>
-          </div>
-          <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
-            <img src="assets/img/ayam_homepage.png" class="img-fluid animated" alt="">
-          </div>
-        </div>
-      </div>
-    </section><!-- Hero Section [HOMEPAGE CLOSE] -->
-
-
-      <!-- Produk Section -->
-        <section id="produk" class="section orange-background">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-7 mx-auto text-center mb-5">
-                <h2 class="d-inline-block bg-warning text-dark px-6 py-3 rounded-pill fw-bold" style="font-size: 1.6rem;">
-                  Daftar Produk
-                </h2>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-12">
-                <div class="carousel slide" id="carouselPopularItems" data-bs-touch="false" data-bs-interval="false">
-                  <div class="carousel-inner">
-
-                    <!-- Slide 1 -->
-                    <div class="carousel-item active">
-                      <div class="row gx-3 align-items-stretch">
-                        
-                        <!-- 1. Ayam Bakar Taliwang -->
-                          <div class="col-sm-6 col-md-4 col-xl mb-5">
-                            <div class="product-card rounded-3 p-3">
-                              <img src="assets/img/ayam_ka/abak_tal.png" class="img-fluid rounded-3 w-100" alt="Ayam Bakar Taliwang">
-                              <div class="mt-3">
-                                <h5 class="fw-bold">Ayam Bakar Taliwang</h5>
-                                <p class="small mt-2">Ayam kampung yang dibakar dengan bumbu khas Taliwang, pedas, gurih dan sedap beraroma rempah</p>
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                  <span class="fw-bold">Rp 90.000</span>
-                                  <span class="text-success fw-bold">Promo</span>
-                                </div>
-                                <div class="mt-3">
-                                  <a href="#!" class="btn-orange">Detail</a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- 2. Ayam Frozen Ungkep -->
-                          <div class="col-sm-6 col-md-4 col-xl mb-5">
-                            <div class="product-card rounded-3 p-3">
-                              <img src="assets/img/ayam_ka/af_ungkep.png" class="img-fluid rounded-3 w-100" alt="Ayam Frozen Ungkep">
-                              <div class="mt-3">
-                                <h5 class="fw-bold">Ayam Frozen Ungkep</h5>
-                                <p class="small mt-2">Ayam yang sudah diungkep dengan bumbu rempah lengkap, siap goreng atau simpan beku</p>
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                  <span class="fw-bold">Rp 80.000</span>
-                                  <span class="text-success fw-bold">Hemat</span>
-                                </div>
-                                <div class="mt-3">
-                                  <a href="#!" class="btn-orange">Detail</a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- 3. Ayam Frozen Kecap -->
-                          <div class="col-sm-6 col-md-4 col-xl mb-5">
-                            <div class="product-card rounded-3 p-3">
-                              <img src="assets/img/ayam_ka/afro_kecap.png" class="img-fluid rounded-3 w-100" alt="Ayam Frozen Kecap">
-                              <div class="mt-3">
-                                <h5 class="fw-bold">Ayam Frozen Kecap</h5>
-                                <p class="small mt-2">Ayam utuh marinated dengan bumbu kecap manis, siap masak jadi hidangan praktis nan lezat</p>
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                  <span class="fw-bold">Rp 80.000</span>
-                                  <span class="text-success fw-bold">Diskon</span>
-                                </div>
-                                <div class="mt-3">
-                                  <a href="#!" class="btn-orange">Detail</a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- 4. Ayam Goreng Ungkep -->
-                          <div class="col-sm-6 col-md-4 col-xl mb-5">
-                            <div class="product-card rounded-3 p-3">
-                              <img src="assets/img/ayam_ka/ag_ungkep.png" class="img-fluid rounded-3 w-100" alt="Ayam Goreng Ungkep">
-                              <div class="mt-3">
-                                <h5 class="fw-bold">Ayam Goreng Ungkep</h5>
-                                <p class="small mt-2">Ayam utuh digoreng garing setelah direbus dalam bumbu rempah khas, gurih meresap dan renyah sempurna</p>
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                  <span class="fw-bold">Rp 90.000</span>
-                                  <span class="text-success fw-bold">Best Seller</span>
-                                </div>
-                                <div class="mt-3">
-                                  <a href="#!" class="btn-orange">Detail</a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                      </div>
-                    </div>
-
-                    <!-- Slide 2 -->
-                    <div class="carousel-item">
-                      <div class="row gx-3 align-items-stretch">
-
-                        <!-- 5. Ayam Bakar Kecap -->
-                        <div class="col-sm-6 col-md-4 col-xl mb-5">
-                          <div class="product-card rounded-3 p-3">
-                            <img src="assets/img/ayam_ka/akampbak_kecap.png" class="img-fluid rounded-3 w-100" alt="Ayam Bakar Kecap">
-                            <div class="mt-3">
-                              <h5 class="fw-bold">Ayam Bakar Kecap</h5>
-                              <p class="small mt-2">Ayam bakar berbalut bumbu kecap manis, dipanggang hingga karamelisasi sempurna, legit dan juicy</p>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="fw-bold">Rp 90.000</span>
-                                <span class="text-success fw-bold">Spesial</span>
-                              </div>
-                              <div class="mt-3">
-                                <a href="#!" class="btn-orange">Detail</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-4 col-xl mb-5">
-                          <div class="product-card rounded-3 p-3">
-                            <img src="assets/img/ayam_ka/bakakak_hamp.jpg" class="img-fluid rounded-3 w-100" alt="Bakakak Hampers">
-                            <div class="mt-3">
-                              <h5 class="fw-bold">Bakakak Hampers</h5>
-                              <p class="small mt-2">Ayam kampung utuh yang dikemas eksklusif dalam hampers untuk hantaran ataupun acara spesial</p>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="fw-bold">Rp 85.000</span>
-                                <span class="text-success fw-bold">Spesial</span>
-                              </div>
-                              <div class="mt-3">
-                                <a href="#!" class="btn-orange">Detail</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-4 col-xl mb-5">
-                          <div class="product-card rounded-3 p-3">
-                            <img src="assets/img/ayam_ka/be_fro_ungkep.png" class="img-fluid rounded-3 w-100" alt="Bebek Frozen Ungkep">
-                            <div class="mt-3">
-                              <h5 class="fw-bold">Bebek Ungkep Frozen</h5>
-                              <p class="small mt-2">Bebek utuh yang sudah diungkep dengan bumbu rempah, siap digoreng atau disimpan beku</p>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="fw-bold">Rp 85.000</span>
-                                <span class="text-success fw-bold">Spesial</span>
-                              </div>
-                              <div class="mt-3">
-                                <a href="#!" class="btn-orange">Detail</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-4 col-xl mb-5">
-                          <div class="product-card rounded-3 p-3">
-                            <img src="assets/img/ayam_ka/be_go_kremes.png" class="img-fluid rounded-3 w-100" alt="Bebek Goreng Kremes">
-                            <div class="mt-3">
-                              <h5 class="fw-bold">Bebek Goreng Kremes</h5>
-                              <p class="small mt-2">Bebek yang digoreng garing dan disajikan dengan serundeng kremes yang renyah</p>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="fw-bold">Rp 100.000</span>
-                                <span class="text-success fw-bold">Spesial</span>
-                              </div>
-                              <div class="mt-3">
-                                <a href="#!" class="btn-orange">Detail</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-
-                    <!-- Slide 3 -->
-                    <div class="carousel-item">
-                      <div class="row gx-3 align-items-stretch">
-
-                        <div class="col-sm-6 col-md-4 col-xl mb-5">
-                          <div class="product-card rounded-3 p-3">
-                            <img src="assets/img/ayam_ka/NB_ikan.jpg" class="img-fluid rounded-3 w-100" alt="Nasi Box Ikan">
-                            <div class="mt-3">
-                              <h5 class="fw-bold">Nasi Box Ikan</h5>
-                              <p class="small mt-2">Nasi putih hangat, ikan nila goreng dengan bumbu kuning, lalapan, tahu dan sambal dalam kemasan praktis</p>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="fw-bold">Mulai dari Rp 25.000</span>
-                                <span class="text-success fw-bold">Spesial</span>
-                              </div>
-                              <div class="mt-3">
-                                <a href="#!" class="btn-orange">Detail</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-4 col-xl mb-5">
-                          <div class="product-card rounded-3 p-3">
-                            <img src="assets/img/ayam_ka/nasi_box.jpg" class="img-fluid rounded-3 w-100" alt="Nasi Box">
-                            <div class="mt-3">
-                              <h5 class="fw-bold">Nasi Box Ayam Kecap</h5>
-                              <p class="small mt-2">Nasi putih, ayam kecap empuk, sayur, telur balado dan jeruk dalam box siap saji</p>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="fw-bold">Mulai dari Rp 25.000</span>
-                                <span class="text-success fw-bold">Spesial</span>
-                              </div>
-                              <div class="mt-3">
-                                <a href="#!" class="btn-orange">Detail</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-4 col-xl mb-5">
-                          <div class="product-card rounded-3 p-3">
-                            <img src="assets/img/ayam_ka/tumpeng.jpg" class="img-fluid rounded-3 w-100" alt="Tumpeng">
-                            <div class="mt-3">
-                              <h5 class="fw-bold">Tumpeng</h5>
-                              <p class="small mt-2">Nasi kuning berbentuk kerucut dengan lauk komplit sebagai simbol syukur untuk acara istimewa</p>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="fw-bold">Rp 350.000</span>
-                                <span class="text-success fw-bold">Spesial</span>
-                              </div>
-                              <div class="mt-3">
-                                <a href="#!" class="btn-orange">Detail</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-4 col-xl mb-5">
-                          <div class="product-card rounded-3 p-3">
-                            <img src="assets/img/ayam_ka/tumpeng_mini.jpg" class="img-fluid rounded-3 w-100" alt="Tumpeng Mini">
-                            <div class="mt-3">
-                              <h5 class="fw-bold">Tumpeng Mini</h5>
-                              <p class="small mt-2">Versi mini dari tumpeng lengkap, cocok untuk syukuran atau hadiah personal</p>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="fw-bold">Rp 35.000</span>
-                                <span class="text-success fw-bold">Spesial</span>
-                              </div>
-                              <div class="mt-3">
-                                <a href="#!" class="btn-orange">Detail</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-
-                    <!-- Slide 4-->
-                    <div class="carousel-item">
-                      <div class="row gx-3 align-items-stretch">
-
-                        <div class="col-sm-6 col-md-4 col-xl mb-5">
-                          <div class="product-card rounded-3 p-3">
-                            <img src="assets/img/ayam_ka/nasi_box2.jpg" class="img-fluid rounded-3 w-100" alt="Aneka Nasi Box">
-                            <div class="mt-3">
-                              <h5 class="fw-bold">Nasi Box Ayam Serundeng</h5>
-                              <p class="small mt-2">Nasi putih dengan ayam berbalut serundeng kelapa garing, gurih dan harum dalam box siap saji</p>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="fw-bold">Mulai dari Rp 25.000</span>
-                                <span class="text-success fw-bold">Spesial</span>
-                              </div>
-                              <div class="mt-3">
-                                <a href="#!" class="btn-orange">Detail</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-4 col-xl mb-5">
-                          <div class="product-card rounded-3 p-3">
-                            <img src="assets/img/ayam_ka/nasi_box3.jpg" class="img-fluid rounded-3 w-100" alt="Aneka Nasi Box">
-                            <div class="mt-3">
-                              <h5 class="fw-bold">Bento Karakter</h5>
-                              <p class="small mt-2">Nasi dan lauk berbentuk karakter lucu untuk anak-anak, sehat, bergizi dan menggemaskan</p>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="fw-bold">Mulai dari Rp 25.000</span>
-                                <span class="text-success fw-bold">Spesial</span>
-                              </div>
-                              <div class="mt-3">
-                                <a href="#!" class="btn-orange">Detail</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-4 col-xl mb-5">
-                          <div class="product-card rounded-3 p-3">
-                            <img src="assets/img/ayam_ka/nasi_box5.jpg" class="img-fluid rounded-3 w-100" alt="Aneka Nasi Box">
-                            <div class="mt-3">
-                              <h5 class="fw-bold">Nasi Box Ayam Goreng</h5>
-                              <p class="small mt-2">Nasi putih, ayam goreng, sambal, lalapan, sayur dan irisan timun dalam kemasan yang praktis</p>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="fw-bold">Mulai dari Rp 25.000</span>
-                                <span class="text-success fw-bold">Spesial</span>
-                              </div>
-                              <div class="mt-3">
-                                <a href="#!" class="btn-orange">Detail</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-4 col-xl mb-5">
-                          <div class="product-card rounded-3 p-3">
-                            <img src="assets/img/ayam_ka/prasmanan.jpg" class="img-fluid rounded-3 w-100" alt="Prasmanan">
-                            <div class="mt-3">
-                              <h5 class="fw-bold">Prasmanan</h5>
-                              <p class="small mt-2">Sajian lengkap ala prasmanan untuk acara besar, bisa disesuaikan sesuai paket</p>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="fw-bold">Mulai dari Rp 65.000</span>
-                                <span class="text-success fw-bold">Spesial</span>
-                              </div>
-                              <div class="mt-3">
-                                <a href="#!" class="btn-orange">Detail</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-
-                    <!-- Slide 5 -->
-                    <div class="carousel-item">
-                      <div class="row gx-3 align-items-stretch">
-
-                        <div class="col-sm-6 col-md-4 col-xl mb-5">
-                          <div class="product-card rounded-3 p-3">
-                            <img src="assets/img/ayam_ka/nasi_bok_AB.jpg" class="img-fluid rounded-3 w-100" alt="Aneka Nasi Box">
-                            <div class="mt-3">
-                              <h5 class="fw-bold">Nasi Box Ayam Bakar</h5>
-                              <p class="small mt-2">Nasi putih, ayam bakar bumbu rempah, lalapan, tahu dan sambal dalam kemasan siap saji</p>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="fw-bold">Mulai dari Rp 25.000</span>
-                                <span class="text-success fw-bold">Spesial</span>
-                              </div>
-                              <div class="mt-3">
-                                <a href="#!" class="btn-orange">Detail</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-4 col-xl mb-5">
-                          <div class="product-card rounded-3 p-3">
-                            <img src="assets/img/ayam_ka/NB_kotak_makan.jpg" class="img-fluid rounded-3 w-100" alt="Aneka Nasi Box">
-                            <div class="mt-3">
-                              <h5 class="fw-bold">Nasi Box + Kotak Makan</h5>
-                              <p class="small mt-2">Paket nasi box lengkap dengan kotak makan eksklusif, cocok untuk hampers atau acara formal</p>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="fw-bold">Mulai dari Rp 25.000</span>
-                                <span class="text-success fw-bold">Spesial</span>
-                              </div>
-                              <div class="mt-3">
-                                <a href="#!" class="btn-orange">Detail</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-4 col-xl mb-5">
-                          <div class="product-card rounded-3 p-3">
-                            <img src="assets/img/ayam_ka/nasi_box_ayam_kotak.jpg" class="img-fluid rounded-3 w-100" alt="Ayam Karkas">
-                            <div class="mt-3">
-                              <h5 class="fw-bold">Nasi Box Ayam Asam Manis</h5>
-                              <p class="small mt-2">Nasi putih yang dipadukan dengan ayam fillet saus asam manis, sayuran, sambal, bakwan dan ikan fillet</p>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="fw-bold">Mulai dari Rp 25.000</span>
-                                <span class="text-success fw-bold">Spesial</span>
-                              </div>
-                              <div class="mt-3">
-                                <a href="#!" class="btn-orange">Detail</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-4 col-xl mb-5">
-                          <div class="product-card rounded-3 p-3">
-                            <img src="assets/img/ayam_ka/karkas.jpeg" class="img-fluid rounded-3 w-100" alt="Ayam Karkas">
-                            <div class="mt-3">
-                              <h5 class="fw-bold">Ayam Karkas</h5>
-                              <p class="small mt-2">Ayam potong bersih tanpa kepala, ceker, dan jeroan – siap olah untuk berbagai kebutuhan masak</p>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="fw-bold">Rp -</span>
-                                <span class="text-success fw-bold">Spesial</span>
-                              </div>
-                              <div class="mt-3">
-                                <a href="#!" class="btn-orange">Detail</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        
-                      </div>
-                    </div>
-
-                  </div>
-
-                  <!-- Navigation Buttons -->
-                  <button class="carousel-control-prev carousel-icon" type="button" data-bs-target="#carouselPopularItems" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                  </button>
-                  <button class="carousel-control-next carousel-icon" type="button" data-bs-target="#carouselPopularItems" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <!-- End Produk Section -->
-
-
-      <!-- Page 3 ============================-->
-        <section id="kelebihan" class="hero section light-background">
-
-          <div class="container">
-            <div class="row justify-content-center g-0">
-              <div class="col-xl-9">
-                <div class="col-lg-6 text-center mx-auto mb-3 mb-md-5 mt-4">
-                  <h5 class="fw-bold text-danger fs-3 fs-lg-5 lh-sm my-6">Keunggulan</h5>
-                  <p>Kenapa Memilih Ayam Kabogor</p>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6 col-md-3 mb-6">
-                    <div class="text-center"><img class="shadow-icon" src="assets/img/gallery/location.png" height="112" alt="..." />
-                      <h5 class="mt-4 fw-bold">Select location</h5>
-                      <p class="mb-md-0">Choose the location where your food will be delivered.</p>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 col-md-3 mb-6">
-                    <div class="text-center"><img class="shadow-icon" src="assets/img/gallery/order.png" height="112" alt="..." />
-                      <h5 class="mt-4 fw-bold">Choose order</h5>
-                      <p class="mb-md-0">Check over hundreds of menus to pick your favorite food</p>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 col-md-3 mb-6">
-                    <div class="text-center"><img class="shadow-icon" src="assets/img/gallery/pay.png" height="112" alt="..." />
-                      <h5 class="mt-4 fw-bold">Pay advanced</h5>
-                      <p class="mb-md-0">It's quick, safe, and simple. Select several methods of payment</p>
-                    </div>
-                  </div>
-                  <div class="col-sm-6 col-md-3 mb-6">
-                    <div class="text-center"><img class="shadow-icon" src="assets/img/gallery/meals.png" height="112" alt="..." />
-                      <h5 class="mt-4 fw-bold">Enjoy meals</h5>
-                      <p class="mb-md-0">Food is made and delivered directly to your home.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div><!-- end of .container-->
-  
-        </section>
-        <!-- Page 3 close ============================-->
-
-    
-  <footer id="footer" class="footer dark-background">
-
+  <section id="beranda" class="hero section light-background">
     <div class="container">
-      <div class="row gy-3">
-        <div class="col-lg-3 col-md-6 d-flex">
-          <i class="bi bi-geo-alt icon"></i>
-          <div class="address">
-            <h4>Address</h4>
-            <p>A108 Adam Street</p>
-            <p>New York, NY 535022</p>
-            <p></p>
-          </div>
-
-        </div>
-
-        <div class="col-lg-3 col-md-6 d-flex">
-          <i class="bi bi-telephone icon"></i>
-          <div>
-            <h4>Contact</h4>
-            <p>
-              <strong>Phone:</strong> <span>+1 5589 55488 55</span><br>
-              <strong>Email:</strong> <span>info@example.com</span><br>
-            </p>
+      <div class="row gy-4 justify-content-center justify-content-lg-between">
+        <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center">
+          <h1 class="title1" data-aos="fade-up">Ayam Kabogor</h1>
+          <br />
+          <p data-aos="fade-up" data-aos-delay="100">
+            Pilihan sehat, rasa nikmat untuk setiap acara anda. Dapatkan kelezatan autentik ayam kampung yang diolah secara alami tanpa bahan buatan.
+            Selain ayam kampung, Ayam Kabogor juga menawarkan berbagai menu lainnya seperti olahan bebek, prasmanan, dan nasi kotak berbagai varian.
+          </p>
+          <h2 class="title2" data-aos="fade-up">Ayam Kampung Asli Bogor yang <br /> Gurih dan Alami</h2>
+          <p></p>
+          <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+            <a href="#produk" class="btn-get-started">Pesan Sekarang</a>
           </div>
         </div>
-
-        <div class="col-lg-3 col-md-6 d-flex">
-          <i class="bi bi-clock icon"></i>
-          <div>
-            <h4>Opening Hours</h4>
-            <p>
-              <strong>Mon-Sat:</strong> <span>11AM - 23PM</span><br>
-              <strong>Sunday</strong>: <span>Closed</span>
-            </p>
-          </div>
+        <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
+          <img src="{{ asset('assets/img/ayam_homepage.png') }}" class="img-fluid animated" alt="">
         </div>
-
-        <div class="col-lg-3 col-md-6">
-          <h4>Follow Us</h4>
-          <div class="social-links d-flex">
-            <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-          </div>
-        </div>
-
       </div>
     </div>
+  </section>
 
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">Yummy</strong> <span>All Rights Reserved</span></p>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed by <a href="https://themewagon.com">ThemeWagon</a>
+  <section id="produk" class="section orange-background">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 mx-auto text-center mb-5">
+          <h2 class="d-inline-block bg-warning text-dark px-6 py-3 rounded-pill fw-bold" style="font-size: 1.6rem;">
+            Daftar Produk
+          </h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="carousel slide" id="carouselPopularItems" data-bs-touch="false" data-bs-interval="false">
+            <div class="carousel-inner">
+
+              @forelse($menus->chunk(4) as $index => $chunk)
+              <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                <div class="row gx-3 align-items-stretch justify-content-center">
+                  
+                  @foreach($chunk as $menu)
+                  <div class="col-sm-6 col-md-4 col-lg-3 mb-5">
+                    <div class="product-card rounded-3 p-3 h-100 bg-white">
+                      <div style="height: 220px; overflow: hidden; border-radius: 12px;">
+                          <img src="{{ asset('storage/' . $menu->gambar) }}" class="img-fluid w-100 h-100" style="object-fit: cover;" alt="{{ $menu->nama_menu }}">
+                      </div>
+                      
+                      <div class="mt-3 d-flex flex-column h-100">
+                        <h5 class="fw-bold">{{ $menu->nama_menu }}</h5>
+                        <p class="small mt-2 text-muted">{{ Str::limit($menu->deskripsi, 80) }}</p>
+                        
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                              @if($menu->promo)
+                                <div>
+                                    <span class="fw-bold">Rp {{ number_format($menu->harga, 0, ',', '.') }}</span>
+                                    <br>
+                                    <small class="text-decoration-line-through text-muted" style="font-size: 11px;">
+                                        Rp {{ number_format(($menu->harga * 100) / (100 - $menu->promo), 0, ',', '.') }}
+                                    </small>
+                                </div>
+                                <span class="text-success fw-bold">Promo {{ $menu->promo }}%</span>
+                              @else
+                                <span class="fw-bold">Rp {{ number_format($menu->harga, 0, ',', '.') }}</span>
+                              @endif
+                            </div>
+                            
+                            <div class="mt-3">
+                              <a href="#" 
+                                class="btn-orange detail-btn w-100 d-block text-center"
+                                data-name="{{ $menu->nama_menu }}"
+                                data-desc="{{ $menu->deskripsi }}"
+                                data-price="Rp {{ number_format($menu->harga, 0, ',', '.') }}"
+                                data-promo="{{ $menu->promo ? 'Promo '.$menu->promo.'%' : '' }}"
+                                data-img="{{ asset('storage/' . $menu->gambar) }}"
+                                data-whatsapp="https://wa.me/6282122103241?text=Halo,%20saya%20ingin%20pesan%20{{ urlencode($menu->nama_menu) }}%20">
+                                Detail
+                              </a>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  @endforeach
+
+                </div>
+              </div>
+              @empty
+              <div class="carousel-item active">
+                  <div class="text-center text-white py-5">
+                      <h4>Belum ada menu yang tersedia.</h4>
+                  </div>
+              </div>
+              @endforelse
+
+            </div>
+
+            <button class="carousel-control-prev carousel-icon" type="button" data-bs-target="#carouselPopularItems" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next carousel-icon" type="button" data-bs-target="#carouselPopularItems" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
+  </section>
 
-  </footer>
+  <section id="kelebihan" class="section light-background">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 mx-auto text-center mb-5">
+          <h2 class="title1 fw-bold" style="font-size: 2.0rem;">Keunggulan</h2>
+          <p class="faq-subtitle" style="color: #4b3621;">Kenapa Memilih Ayam Kabogor?</p>
+        </div>
+      </div>
+      
+      <div class="row gy-4">
+        <div class="col-sm-6 col-md-3">
+          <div class="feature-card h-100">
+            <img src="{{ asset('assets/img/ayam_ka/ayam_kampung.jpg') }}" class="img-fluid mb-3" style="height: 150px; object-fit: cover; width: 100%; border-radius: 12px;">
+            <h5 class="fw-bold mb-2" style="color: #641E02;">Menggunakan ayam kampung pilihan</h5>
+            <p class="mb-0 text-start" style="color: #555; font-size: 0.9rem;">Ayam Kabogor menggunakan ayam kampung pilihan untuk menyajikan kualitas terbaik.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="feature-card h-100">
+            <img src="{{ asset('assets/img/ayam_ka/logo_halal.jpeg') }}" class="img-fluid mb-3" style="height: 150px; object-fit: cover; width: 100%; border-radius: 12px;">
+            <h5 class="fw-bold mb-2" style="color: #641E02;">Terjamin Halal</h5>
+            <p class="mb-0 text-start" style="color: #555; font-size: 0.9rem;">Semua proses pengolahan di dapur sudah sesuai standar dan terjamin kehalalannya.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="feature-card h-100">
+            <img src="{{ asset('assets/img/ayam_ka/rempah.jpeg') }}" class="img-fluid mb-3" style="height: 150px; object-fit: cover; width: 100%; border-radius: 12px;">
+            <h5 class="fw-bold mb-2" style="color: #641E02;">Diracik dengan bumbu rempah asli</h5>
+            <p class="mb-0 text-start" style="color: #555; font-size: 0.9rem;">Resepnya diolah secara teliti untuk menghasilkan cita rasa yang kaya, bukan menggunakan bumbu instan.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="feature-card h-100">
+            <img src="{{ asset('assets/img/ayam_ka/ayam_kelebihan.jpeg') }}" class="img-fluid mb-3" style="height: 150px; object-fit: cover; width: 100%; border-radius: 12px;">
+            <h5 class="fw-bold mb-2" style="color: #641E02;">Sehat dan Alami</h5>
+            <p class="mb-0 text-start" style="color: #555; font-size: 0.9rem;">Ayam yang digunakan Ayam Kabogor dirawat secara alami tanpa suntikan bahan kimia.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <section id="testimoni" class="section-testimoni">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 mx-auto text-center mb-5">
+                <h2 class="d-inline-block bg-warning text-dark px-6 py-3 rounded-pill fw-bold" style="font-size: 1.6rem;">Testimoni</h2>
+                <p class="faq-subtitle" style="color: #4b3621;">Apa kata pelanggan tentang Ayam Kabogor?</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12 position-relative px-lg-5">
+                <div id="testimoniCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000">
+                    <div class="carousel-inner py-3">
+                        
+                        @forelse($testimonials->chunk(4) as $key => $chunk)
+                        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                            <div class="row gx-3 justify-content-center">
+                                @foreach($chunk as $testi)
+                                    <div class="col-lg-3 col-md-6 col-10 mb-3 mx-auto mx-md-0 
+                                        {{ $loop->index == 1 ? 'd-none d-md-block' : '' }} 
+                                        {{ $loop->index > 1 ? 'd-none d-lg-block' : '' }}">
+                                        <div class="phone-mockup">
+                                            <img src="{{ asset('storage/' . $testi->foto_ss) }}" class="testi-img" alt="{{ $testi->title }}">
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        @empty
+                        <div class="text-center py-5">Belum ada testimoni.</div>
+                        @endforelse
 
-  <!-- Preloader -->
-  <div id="preloader"></div>
+                    </div>
+                    <button class="carousel-control-prev carousel-icon" type="button" data-bs-target="#testimoniCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </button>
+                    <button class="carousel-control-next carousel-icon" type="button" data-bs-target="#testimoniCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <section id="faq" class="faq">
+    <div class="faq-container">
+        <div class="row mb-5">
+            <div class="col-lg-10 mx-auto text-center">
+                <h2 class="faq-title" style="color: #FB4A04;">Frequently Asked Question</h2>
+                <p class="faq-subtitle" style="color: #4b3621;">Kualitas adalah prioritas kami. Cek pertanyaan dan jawaban umum tentang Ayam Kabogor dan layanan katering kami.</p>
+            </div>
+        </div>
 
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                
+                {{-- LOOP DATA FAQ --}}
+                @foreach($faqs as $index => $faq)
+                <div class="faq-card {{ $index >= 4 ? 'faq-hidden' : '' }}" id="faq-card-{{ $index }}">
+                    <button class="faq-header collapsed" data-bs-toggle="collapse" data-bs-target="#faq-item-{{ $faq->id }}">
+                        <h5>{{ $faq->pertanyaan }}</h5>
+                        <span class="faq-icon">
+                            <svg class="faq-icon-svg icon-plus" xmlns="http://www.w3.org/2000/svg" height="24px" width="24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+                            <svg class="faq-icon-svg icon-minus" xmlns="http://www.w3.org/2000/svg" height="24px" width="24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" /></svg>
+                        </span>
+                    </button>
+                    <div id="faq-item-{{ $faq->id }}" class="collapse" data-bs-parent="#faq">
+                        <div class="faq-body">
+                            {{ $faq->jawaban }}
+                        </div>
+                    </div>
+                </div>
+                @endforeach
 
-  <!-- Javascript Page 2 -->
-  <script src="assets/vendor/@popperjs/popper.min.js"></script>
-  <script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
-  <script src="assets/vendor/is/is.min.js"></script>
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-  <script src="assets/vendor/fontawesome/all.min.js"></script>
-  <script src="assets/js/theme.js"></script>
+                @if($faqs->count() > 4)
+                <div class="text-center mt-4">
+                    <button id="btnLoadMore" class="btn-load-more" title="Lihat Pertanyaan Lainnya" style="background: none; border: none; font-size: 1.5rem; color: #FB4A04;">
+                        <i class="fas fa-arrow-down"></i>
+                    </button>
+                    <button id="btnShowLess" class="btn-load-more" title="Sembunyikan Pertanyaan" style="display: none; background: none; border: none; font-size: 1.5rem; color: #FB4A04;">
+                        <i class="fas fa-arrow-up"></i>
+                    </button>
+                </div>
+                @endif
 
-  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&amp;display=swap" rel="stylesheet">
-        
+            </div>
+        </div>
+    </div>
+  </section>
 
-  <!-- pop up button pesan sekarang -->
   <div id="pesanModal" class="modal">
     <div class="modal-content">
       <center>
@@ -663,40 +261,147 @@
     </div>
   </div>
 
-  <!-- Script Modal -->
+  <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-4" style="max-width: 400px; background: #fff;">
+        <div class="modal-header border-0 pb-0">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center p-4">
+          <img src="" id="modalProductImage" class="img-fluid rounded-3 mb-3" alt="Produk" style="max-height: 280px; object-fit: cover;">
+          <h5 class="fw-bold mb-2" id="modalProductName" style="text-align: left; color: #322602;">Nama Produk</h5>
+          <p class="small mb-3" id="modalProductDesc" style="text-align: left; color: #322602;">Deskripsi produk akan muncul di sini...</p>
+          
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="fw-bold" id="modalProductPrice" style="font-size: 0.85rem; color: #322602;">Harga: Rp 0</span>
+            <span class="text-success fw-bold" id="modalProductPromo">Promo/Diskon</span>
+          </div>
+
+          <div class="input-group mb-3">
+            <button type="button" class="btn btn-light border" id="decreaseQty" style="background-color: #ffebee;">-</button>
+            <input type="number" class="form-control text-center" value="1" min="1" max="50" id="quantityInput">
+            <button type="button" class="btn btn-light border" id="increaseQty" style="background-color: #e8f5e9;">+</button>
+          </div>
+
+          <a href="#" id="whatsappLink" target="_blank" class="btn-orange w-100 fw-bold d-block py-2" style="background-color: #FB4A04; color: white; border-radius: 8px;">
+            Pesan WhatsApp
+          </a>
+          <p></p>
+          <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Kembali</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+@endsection
+
+@push('scripts')
   <script>
+    // --- Modal Pesan Sekarang ---
     const modal = document.getElementById("pesanModal");
     const openBtn = document.querySelector(".btn-get-started");
     const closeBtn = document.querySelector(".close-btn");
 
-    function openModal() {
-      modal.classList.add("show");
-      document.body.style.overflow = "hidden";
+    if(openBtn) {
+        openBtn.addEventListener("click", function(e) {
+            if(this.getAttribute('href') === '#') {
+                e.preventDefault();
+                modal.style.display = 'block';
+            }
+        });
     }
-
-    function closeModal() {
-      modal.classList.remove("show");
-      document.body.style.overflow = "auto";
+    if(closeBtn) {
+        closeBtn.addEventListener("click", function() {
+            modal.style.display = 'none';
+        });
     }
-
-    if (openBtn) {
-      openBtn.addEventListener("click", function(e) {
-        e.preventDefault();
-        openModal();
-      });
-    }
-
-    if (closeBtn) {
-      closeBtn.addEventListener("click", closeModal);
-    }
-
     window.addEventListener("click", function(e) {
-      if (e.target === modal) closeModal();
+        if (e.target === modal) modal.style.display = 'none';
     });
 
-    window.addEventListener("keydown", function(e) {
-      if (e.key === "Escape") closeModal();
+    // --- Modal Detail Produk ---
+    const productModal = new bootstrap.Modal(document.getElementById('productModal'));
+    const modalImg = document.getElementById('modalProductImage');
+    const modalName = document.getElementById('modalProductName');
+    const modalDesc = document.getElementById('modalProductDesc');
+    const modalPrice = document.getElementById('modalProductPrice');
+    const modalPromo = document.getElementById('modalProductPromo');
+    const whatsappLink = document.getElementById('whatsappLink');
+    const quantityInput = document.getElementById('quantityInput');
+    const decreaseBtn = document.getElementById('decreaseQty');
+    const increaseBtn = document.getElementById('increaseQty');
+
+    function updateWhatsAppLink() {
+        const qty = quantityInput.value;
+        const baseLink = whatsappLink.getAttribute('data-base-link');
+        if(baseLink) whatsappLink.href = `${baseLink} (Jumlah: ${qty} Porsi)`;
+    }
+
+    document.querySelectorAll('.detail-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            modalImg.src = this.getAttribute('data-img');
+            modalName.textContent = this.getAttribute('data-name');
+            modalDesc.textContent = this.getAttribute('data-desc');
+            modalPrice.textContent = this.getAttribute('data-price');
+            modalPromo.textContent = this.getAttribute('data-promo');
+            whatsappLink.setAttribute('data-base-link', this.getAttribute('data-whatsapp'));
+            
+            quantityInput.value = 1;
+            updateWhatsAppLink();
+            productModal.show();
+        });
+    });
+
+    decreaseBtn.addEventListener('click', () => {
+        if (quantityInput.value > 1) {
+            quantityInput.value = parseInt(quantityInput.value) - 1;
+            updateWhatsAppLink();
+        }
+    });
+    increaseBtn.addEventListener('click', () => {
+        quantityInput.value = parseInt(quantityInput.value) + 1;
+        updateWhatsAppLink();
+    });
+    quantityInput.addEventListener('input', () => {
+        if (quantityInput.value < 1) quantityInput.value = 1;
+        updateWhatsAppLink();
+    });
+
+    // --- Logic FAQ Load More ---
+    document.addEventListener('DOMContentLoaded', function() {
+        const btnLoadMore = document.getElementById('btnLoadMore');
+        const btnShowLess = document.getElementById('btnShowLess');
+        // Ambil semua kartu FAQ yang disembunyikan (index >= 4)
+        const hiddenCards = document.querySelectorAll('.faq-card.faq-hidden');
+
+        if(btnLoadMore && btnShowLess) {
+            btnLoadMore.addEventListener('click', function() {
+                hiddenCards.forEach(card => {
+                    card.classList.remove('faq-hidden');
+                    // Tambahkan style display block inline jika class faq-hidden menggunakan display:none di CSS
+                    card.style.display = 'block'; 
+                });
+                btnLoadMore.style.display = 'none';
+                btnShowLess.style.display = 'inline-block';
+            });
+
+            btnShowLess.addEventListener('click', function() {
+                hiddenCards.forEach(card => {
+                    card.classList.add('faq-hidden');
+                    card.style.display = 'none';
+                });
+                btnShowLess.style.display = 'none';
+                btnLoadMore.style.display = 'inline-block';
+                document.getElementById('faq').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
     });
   </script>
-</body>
-</html>
+
+  <style>
+    .faq-hidden {
+        display: none;
+    }
+  </style>
+@endpush

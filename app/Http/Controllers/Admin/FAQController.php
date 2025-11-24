@@ -11,7 +11,6 @@ class FAQController extends Controller
 {
     public function index()
     {
-        // Mengambil semua data FAQ terbaru
         $faqs = FAQ::latest()->get();
         return view('admin.FAQ.index', compact('faqs'));
     }
@@ -41,12 +40,11 @@ class FAQController extends Controller
         // Cari data berdasarkan ID
         $faq = FAQ::findOrFail($id);
         
-        // Update secara manual/eksplisit agar lebih aman & pasti
         $faq->pertanyaan = $request->pertanyaan;
         $faq->jawaban = $request->jawaban;
-        $faq->username = Auth::user()->username; // Update siapa yang ngedit
+        $faq->username = Auth::user()->name; // Update siapa yang ngedit
         
-        // Simpan perubahan
+        // Save
         $faq->save();
 
         return redirect()->route('admin.faq.index')->with('success', 'FAQ berhasil diperbarui');
