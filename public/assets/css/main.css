@@ -1120,6 +1120,56 @@ section,
   object-position: center; /* Fokus gambar di tengah */
 }
 
+/* --- Tambahkan ke main.css --- */
+
+/* Utility untuk menyembunyikan elemen sebelum Alpine load */
+[x-cloak] { display: none !important; }
+
+/* Animasi Blob Background */
+@keyframes float {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
+}
+.blob-anim {
+    animation: float 7s infinite ease-in-out;
+}
+
+/* 1. Animasi untuk Background Blob yang Estetik (Morphing) */
+@keyframes morphing-blob {
+    0% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        transform: rotate(0deg);
+    }
+    50% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+        transform: rotate(180deg) scale(1.05); 
+    }
+    100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        transform: rotate(360deg);
+    }
+}
+.animate-blob-shape {
+    animation: morphing-blob 15s linear infinite;
+}
+
+/* 2. Animasi Melayang Halus untuk Gambar */
+@keyframes float-up-down {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+.animate-float-image {
+    animation: float-up-down 4s ease-in-out infinite;
+    will-change: transform; 
+}
+
+/* Scroll Smooth */
+html {
+    scroll-behavior: smooth;
+}
+
 .phone-mockup {
           position: relative;
           border: 8px solid #212529;
