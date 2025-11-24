@@ -71,26 +71,31 @@
   color: #322602;
 }
 
-#produk .product-card {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+/*======== PERBAIKAN GAMBAR KOTAK (1:1) ======= */
+#produk .product-card img {
+    width: 100% !important;
+    aspect-ratio: 1 / 1 !important; /* Paksa jadi kotak */
+    height: auto !important; /* Biarkan tinggi menyesuaikan lebar */
+    object-fit: cover !important; /* Gambar full tanpa gepeng */
+    border-radius: 0.5rem;
+    margin-bottom: 0;
+    display: block;
 }
 
-#produk .product-card > .mt-3 {
+/* Pastikan card tidak ketarik panjang ke bawah */
+#produk .product-card {
+    height: auto !important; 
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* #produk .product-card > .mt-3 {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-}
-
-#produk .product-card img {
-  height: 180px;           /* Tinggi gambar tetap */
-  object-fit: cover;       /* Gambar tidak distorsi */
-  width: 100%;
-  border-radius: 0.5rem;
-  margin-bottom: 12px;
-}
-
+} */
+ 
 /* Pastikan tombol selalu di bawah */
 #produk .product-card .mt-3 > :last-child {
   margin-top: auto;

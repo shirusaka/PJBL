@@ -113,6 +113,7 @@
 
     <section id="produk" class="relative py-20 bg-brand-secondary overflow-hidden" x-data="productApp()">
         
+        {{-- Background Blobs --}}
         <div class="absolute top-1/2 left-0 w-64 h-64 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
         <div class="absolute top-1/2 right-0 w-64 h-64 bg-yellow-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
 
@@ -137,36 +138,32 @@
 
             <div class="relative max-w-6xl mx-auto">
                 
-                <button 
-                    @click="prevSlide" 
-                    class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-12 z-20 bg-white hover:bg-orange-50 text-brand-primary p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
-                    :disabled="currentIndex === 0"
-                >
+                {{-- Tombol Prev --}}
+                <button @click="prevPage" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-12 z-20 bg-white hover:bg-orange-50 text-brand-primary p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                     </svg>
                 </button>
 
+                {{-- Carousel Container --}}
                 <div class="overflow-hidden py-4">
-                    <div 
-                        class="flex transition-transform duration-500 ease-out"
-                        :style="`transform: translateX(-${currentIndex * (100 / itemsPerPage)}%)`"
-                    >
-                        <template x-for="product in products" :key="product.id">
+                    <div class="flex will-change-transform" :class="isTransitioning ? 'transition-transform duration-500 ease-out' : ''" :style="`transform: translateX(-${currentIndex * (100 / itemsPerPage)}%)`">
+                        <template x-for="product in products" :key="product.uniqueKey">
                             <div class="flex-shrink-0 px-3 w-full md:w-1/2 lg:w-1/3">
                                 <div class="bg-white rounded-2xl shadow-xl shadow-orange-900/5 overflow-hidden h-full flex flex-col hover:-translate-y-2 transition-transform duration-300 border border-orange-50 group">
                                     
-                                    <div class="relative h-64 overflow-hidden bg-gray-100">
-                                        <img :src="product.image" :alt="product.name" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                    {{-- CARD IMAGE: Dipaksa 1:1 dengan CSS inline untuk menimpa style lain --}}
+                                    <div class="relative w-full bg-gray-100" style="aspect-ratio: 1/1; overflow: hidden;">
+                                        <img :src="product.image" :alt="product.name" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" style="width: 100%; height: 100%; object-fit: cover;">
                                         
-                                        <div x-show="product.isPromo" class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md animate-pulse">
+                                        <div x-show="product.isPromo" class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md animate-pulse z-10">
                                             Diskon <span x-text="product.discountPercentage"></span>%
                                         </div>
                                     </div>
 
                                     <div class="p-6 flex flex-col flex-grow">
-                                        <h3 class="text-xl font-bold text-gray-800 mb-2 leading-tight" x-text="product.name"></h3>
-                                        <p class="text-gray-500 text-sm mb-4 line-clamp-3" x-text="product.description"></p>
+                                        <h3 class="text-xl font-bold text-gray-800 mb-2 leading-tight line-clamp-1" x-text="product.name"></h3>
+                                        <p class="text-gray-500 text-sm mb-4 line-clamp-2" x-text="product.description"></p>
                                         
                                         <div class="mt-auto pt-4 border-t border-gray-100">
                                             <div class="flex justify-between items-end mb-4">
@@ -184,10 +181,7 @@
                                                 </div>
                                             </div>
                                             
-                                            <button 
-                                                @click="openModal(product)"
-                                                class="w-full bg-brand-primary hover:bg-orange-700 text-white font-bold py-3 rounded-xl transition-colors shadow-lg shadow-orange-500/20 flex justify-center items-center gap-2 group-hover:shadow-orange-500/40"
-                                            >
+                                            <button @click="openModal(product)" class="w-full bg-brand-primary hover:bg-orange-700 text-white font-bold py-3 rounded-xl transition-colors shadow-lg shadow-orange-500/20 flex justify-center items-center gap-2 group-hover:shadow-orange-500/40">
                                                 <span>Detail Menu</span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -201,49 +195,32 @@
                     </div>
                 </div>
 
-                <button 
-                    @click="nextSlide" 
-                    class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-12 z-20 bg-white hover:bg-orange-50 text-brand-primary p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
-                    :disabled="isEnd"
-                >
+                {{-- Tombol Next --}}
+                <button @click="nextPage" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-12 z-20 bg-white hover:bg-orange-50 text-brand-primary p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>
                 </button>
+
+                {{-- Dots Pagination --}}
+                <div class="flex justify-center mt-10">
+                    <div class="flex items-center gap-2">
+                        <template x-for="(page, index) in totalPages" :key="index">
+                            <button @click="goToPage(index)" class="rounded-full transition-all duration-300" :class="{'w-8 h-3 bg-brand-primary shadow-md shadow-orange-500/50': currentPage === index, 'w-3 h-3 bg-gray-300 hover:bg-gray-400': currentPage !== index}" aria-label="Go to page"></button>
+                        </template>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div 
-            x-cloak
-            x-show="modalOpen" 
-            class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
-            role="dialog" 
-            aria-modal="true"
-        >
-            <div 
-                x-show="modalOpen"
-                x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0"
-                x-transition:enter-end="opacity-100"
-                x-transition:leave="transition ease-in duration-200"
-                x-transition:leave-start="opacity-100"
-                x-transition:leave-end="opacity-0"
-                @click="closeModal()"
-                class="absolute inset-0 bg-gray-900/70 backdrop-blur-sm"
-            ></div>
+        <div x-cloak x-show="modalOpen" class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true">
+            <div x-show="modalOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @click="closeModal()" class="absolute inset-0 bg-gray-900/70 backdrop-blur-sm"></div>
 
-            <div 
-                x-show="modalOpen"
-                x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0 scale-95 translate-y-8"
-                x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-                x-transition:leave="transition ease-in duration-200"
-                x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-                x-transition:leave-end="opacity-0 scale-95 translate-y-8"
-                class="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh]"
-            >
-                <div class="w-full md:w-1/2 h-64 md:h-auto relative bg-gray-100">
+            <div x-show="modalOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95 translate-y-8" x-transition:enter-end="opacity-100 scale-100 translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100 translate-y-0" x-transition:leave-end="opacity-0 scale-95 translate-y-8" class="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh]">
+                
+                <div class="w-full md:w-1/2 relative bg-gray-100 flex-shrink-0" style="aspect-ratio: 1/1;">
                     <img :src="selectedProduct?.image" :alt="selectedProduct?.name" class="absolute inset-0 w-full h-full object-cover">
+                    
                     <button @click="closeModal()" class="absolute top-4 left-4 bg-white/80 p-2 rounded-full md:hidden text-gray-800 shadow-md">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
@@ -258,9 +235,7 @@
                         <div x-show="selectedProduct?.isPromo" class="inline-block bg-red-100 text-red-600 text-xs font-bold px-2 py-1 rounded mb-2 border border-red-200">
                             Diskon <span x-text="selectedProduct?.discountPercentage"></span>%
                         </div>
-                        
                         <h3 class="text-3xl font-extrabold text-gray-800 leading-tight" x-text="selectedProduct?.name"></h3>
-                        
                         <div class="mt-2 flex items-center gap-3">
                              <template x-if="selectedProduct?.isPromo">
                                 <div class="flex items-center gap-3">
@@ -286,25 +261,16 @@
                                 <input type="text" x-model="qty" readonly class="w-12 text-center border-x border-gray-200 font-bold text-gray-800 focus:outline-none">
                                 <button @click="qty++" class="w-10 h-10 flex items-center justify-center text-gray-500 hover:bg-gray-100 hover:text-brand-primary transition rounded-r-lg font-bold text-lg">+</button>
                             </div>
-                            
                             <div class="text-sm text-gray-400">
                                 Total: <span class="font-bold text-gray-800 text-lg" x-text="formatRupiah(calculateTotalBill())"></span>
                             </div>
                         </div>
 
-                        <a 
-                            :href="generateWaLink()"
-                            target="_blank"
-                            class="w-full bg-[#EA580C] hover:bg-[#c2410c] text-white font-bold py-4 px-6 rounded-xl shadow-lg shadow-orange-500/30 transform active:scale-95 transition-all flex items-center justify-center gap-3 group"
-                        >
+                        <a :href="generateWaLink()" target="_blank" class="w-full bg-[#EA580C] hover:bg-[#c2410c] text-white font-bold py-4 px-6 rounded-xl shadow-lg shadow-orange-500/30 transform active:scale-95 transition-all flex items-center justify-center gap-3 group">
                             <i class="fab fa-whatsapp text-xl"></i>
                             Pesan WhatsApp
                             <span class="ml-auto bg-white/20 px-2 py-0.5 rounded text-xs group-hover:bg-white/30 transition">Kirim</span>
                         </a>
-                        
-                        <div class="mt-4 text-center">
-                            <button @click="closeModal()" class="text-gray-400 text-sm hover:underline">Batalkan</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -336,7 +302,7 @@
                 {{-- Item 2 --}}
                 <div class="group relative bg-white rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 border border-gray-100 shadow-xl shadow-gray-200/50 hover:shadow-orange-500/20 hover:border-orange-200">
                     <div class="h-48 w-full rounded-xl overflow-hidden mb-6 relative bg-gray-50 border border-gray-100">
-                        <img src="{{ asset('assets/img/ayam_ka/logo_halal.jpeg') }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Halal">
+                        <img src="{{ asset('assets/img/ayam_ka/halal.webp') }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Halal">
                     </div>
                     <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-brand-primary transition-colors">Terjamin Halal</h3>
                     <p class="text-gray-500 text-sm leading-relaxed">Semua proses dari penyembelihan hingga pengolahan sesuai syariat Islam.</p>
@@ -352,7 +318,7 @@
                 {{-- Item 4 --}}
                 <div class="group relative bg-white rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 border border-gray-100 shadow-xl shadow-gray-200/50 hover:shadow-orange-500/20 hover:border-orange-200">
                     <div class="h-48 w-full rounded-xl overflow-hidden mb-6 relative bg-gray-50 border border-gray-100">
-                        <img src="{{ asset('assets/img/ayam_ka/ayam_kelebihan.jpeg') }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Sehat">
+                        <img src="{{ asset('assets/img/ayam_ka/sehat.webp') }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Sehat">
                     </div>
                     <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-brand-primary transition-colors">Sehat & Alami</h3>
                     <p class="text-gray-500 text-sm leading-relaxed">Diolah secara higienis tanpa bahan kimia berbahaya, aman untuk keluarga.</p>
@@ -493,21 +459,22 @@
 @push('scripts')
 <script>
     document.addEventListener('alpine:init', () => {
-        // --- LOGIC PRODUK (MENU) ---
         Alpine.data('productApp', () => ({
             currentIndex: 0,
             itemsPerPage: 3,
             modalOpen: false,
             selectedProduct: null,
             qty: 1,
-            
-            // Mengambil data dari variabel Blade $menus dan dikonversi ke JSON
-            products: [
+            isTransitioning: true,
+            realLength: 0,
+
+            // Data Produk Awal
+            rawProducts: [
                 @foreach($menus as $menu)
                 {
                     id: {{ $menu->id }},
                     name: "{{ $menu->nama_menu }}",
-                    description: "{{ Str::limit($menu->deskripsi, 150) }}", // Limit agar tidak terlalu panjang
+                    description: "{{ Str::limit($menu->deskripsi, 150) }}", 
                     price: {{ $menu->harga }},
                     discountPercentage: {{ $menu->promo ?? 0 }},
                     isPromo: {{ $menu->promo ? 'true' : 'false' }},
@@ -515,8 +482,19 @@
                 },
                 @endforeach
             ],
+            
+            products: [],
 
             init() {
+                this.realLength = this.rawProducts.length;
+                
+                // Clone untuk efek infinite loop yang mulus
+                // Kita clone sebanyak itemsPerPage (3)
+                const clones = this.rawProducts.slice(0, 3).map(p => ({...p, uniqueKey: 'clone_' + p.id}));
+                const originals = this.rawProducts.map(p => ({...p, uniqueKey: 'orig_' + p.id}));
+                
+                this.products = [...originals, ...clones];
+
                 this.checkResponsive();
                 window.addEventListener('resize', () => this.checkResponsive());
             },
@@ -525,13 +503,67 @@
                 if (window.innerWidth < 768) { this.itemsPerPage = 1; } 
                 else if (window.innerWidth < 1024) { this.itemsPerPage = 2; } 
                 else { this.itemsPerPage = 3; }
+                
                 this.currentIndex = 0;
             },
 
-            get isEnd() { return this.currentIndex >= this.products.length - this.itemsPerPage; },
+            // --- LOGIKA GESER PER HALAMAN ---
+            
+            nextPage() {
+                if (this.isTransitioning) {
+                    this.currentIndex += this.itemsPerPage;
+                    
+                    if (this.currentIndex >= this.realLength) {
+                        setTimeout(() => {
+                            this.isTransitioning = false;
+                            this.currentIndex = this.currentIndex % this.realLength;
+                            requestAnimationFrame(() => {
+                                requestAnimationFrame(() => {
+                                    this.isTransitioning = true;
+                                });
+                            });
+                        }, 500); 
+                    }
+                }
+            },
 
-            nextSlide() { if (!this.isEnd) { this.currentIndex++; } },
-            prevSlide() { if (this.currentIndex > 0) { this.currentIndex--; } },
+            prevPage() {
+                if (this.isTransitioning) {
+                    if (this.currentIndex === 0) {
+                        this.isTransitioning = false;
+                        this.currentIndex = this.realLength;
+                        
+                        requestAnimationFrame(() => {
+                            requestAnimationFrame(() => {
+                                this.isTransitioning = true;
+                                this.currentIndex -= this.itemsPerPage;
+                            });
+                        });
+                    } else {
+                        this.currentIndex -= this.itemsPerPage;
+                        if (this.currentIndex < 0) this.currentIndex = 0;
+                    }
+                }
+            },
+
+            // --- LOGIKA DOTS PAGINATION (PAGE BASED) ---
+
+            get totalPages() {
+                return Math.ceil(this.realLength / this.itemsPerPage);
+            },
+
+            get currentPage() {
+                let realIndex = this.currentIndex;
+                if (realIndex >= this.realLength) realIndex = 0;
+                return Math.floor(realIndex / this.itemsPerPage);
+            },
+
+            goToPage(pageIndex) {
+                this.isTransitioning = true;
+                this.currentIndex = pageIndex * this.itemsPerPage;
+            },
+
+            // --- LOGIKA MODAL ---
 
             openModal(product) {
                 this.selectedProduct = product;
