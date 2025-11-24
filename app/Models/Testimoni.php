@@ -12,7 +12,6 @@ class Testimoni extends Model
     protected $table = 'tbltesti';
     protected $fillable = [
         'username',
-        'title',
         'foto_ss',
     ];
 }

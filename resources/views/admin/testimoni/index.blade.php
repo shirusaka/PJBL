@@ -39,10 +39,10 @@
                                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                             
                             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80"></div>
-                            <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                            <!-- <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
                                 <p class="text-xs text-orange-300 font-medium uppercase tracking-wider mb-1">Judul Testimoni</p>
                                 <h3 class="font-bold text-lg leading-tight truncate" x-text="item.title || 'Tanpa Judul'"></h3>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="px-1">
@@ -101,10 +101,10 @@
                     @csrf
                     <input type="hidden" name="_method" :value="modalMode === 'edit' ? 'PUT' : 'POST'">
                     
-                    <div class="mb-4">
+                    <!-- <div class="mb-4">
                         <label class="block text-sm font-semibold text-slate-700 mb-2">Judul Testimoni (Contoh: Testi 1)</label>
                         <input type="text" name="title" x-model="formData.title" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500" required placeholder="Masukkan nama/judul testi...">
-                    </div>
+                    </div> -->
 
                     <div class="mx-auto max-w-[200px] relative group mb-4">
                         <label class="block text-sm font-semibold text-slate-700 mb-2 text-center">Screenshot Chat</label>

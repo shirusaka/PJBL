@@ -4,6 +4,71 @@
 
 @section('content')
 
+  {{-- CSS Tambahan Khusus Halaman Ini --}}
+  @push('styles')
+  <style>
+      /* Memaksa rasio gambar testimoni menjadi 9:16 (Vertical/Story) */
+      .phone-mockup {
+          position: relative;
+          border: 8px solid #212529;
+          border-radius: 24px;
+          overflow: hidden;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+          background-color: #fff;
+          margin: 0 auto;
+          max-width: 280px;
+          width: 100%;
+          aspect-ratio: 9 / 16; /* KUNCI: Rasio 9:16 */
+      }
+
+      .testi-img {
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover; /* Agar gambar full tanpa gepeng */
+      }
+
+      /* Style FAQ (Sesuai HTML) */
+      .faq-card {
+          border: 1px solid #e9ecef;
+          border-radius: 12px;
+          margin-bottom: 15px;
+          overflow: hidden;
+          background: #fff;
+          transition: all 0.3s;
+      }
+      .faq-card:hover {
+          box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+          border-color: #FB4A04;
+      }
+      .faq-header {
+          width: 100%;
+          text-align: left;
+          padding: 20px;
+          background: none;
+          border: none;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-weight: 600;
+          color: #322602;
+      }
+      .faq-header:focus { outline: none; }
+      .faq-header h5 { margin: 0; font-size: 1rem; font-weight: 700; }
+      .faq-body { padding: 0 20px 20px 20px; color: #555; line-height: 1.6; font-size: 0.95rem; }
+      
+      /* Icon SVG Toggle */
+      .faq-icon { color: #FB4A04; }
+      .faq-icon-svg { transition: transform 0.3s ease; }
+      .icon-minus { display: none; }
+      
+      /* Logic Toggle Icon */
+      .faq-header:not(.collapsed) .icon-plus { display: none; }
+      .faq-header:not(.collapsed) .icon-minus { display: block; }
+      .faq-header:not(.collapsed) { color: #FB4A04; }
+  </style>
+  @endpush
+
   <section id="beranda" class="hero section light-background">
     <div class="container">
       <div class="row gy-4 justify-content-center justify-content-lg-between">
@@ -49,11 +114,16 @@
                   @foreach($chunk as $menu)
                   <div class="col-sm-6 col-md-4 col-lg-3 mb-5">
                     <div class="product-card rounded-3 p-3 h-100 bg-white">
-                      <div style="height: 220px; overflow: hidden; border-radius: 12px;">
-                          <img src="{{ asset('storage/' . $menu->gambar) }}" class="img-fluid w-100 h-100" style="object-fit: cover;" alt="{{ $menu->nama_menu }}">
+                      
+                      {{-- GAMBAR CARD: Aspect Ratio 1:1 (Square) --}}
+                      <div style="width: 100%; aspect-ratio: 1/1; overflow: hidden; border-radius: 12px; margin-bottom: 15px;">
+                          <img src="{{ asset('storage/' . $menu->gambar) }}" 
+                               class="img-fluid" 
+                               style="width: 100%; height: 100%; object-fit: cover;" 
+                               alt="{{ $menu->nama_menu }}">
                       </div>
                       
-                      <div class="mt-3 d-flex flex-column h-100">
+                      <div class="d-flex flex-column flex-grow-1">
                         <h5 class="fw-bold">{{ $menu->nama_menu }}</h5>
                         <p class="small mt-2 text-muted">{{ Str::limit($menu->deskripsi, 80) }}</p>
                         
@@ -129,28 +199,28 @@
       <div class="row gy-4">
         <div class="col-sm-6 col-md-3">
           <div class="feature-card h-100">
-            <img src="{{ asset('assets/img/ayam_ka/ayam_kampung.jpg') }}" class="img-fluid mb-3" style="height: 150px; object-fit: cover; width: 100%; border-radius: 12px;">
+            <img src="{{ asset('assets/img/ayam_ka/ayam_kampung.jpg') }}" class="img-fluid mb-3" alt="Ayam Kampung" style="height: 150px; object-fit: cover; width: 100%; border-radius: 12px;">
             <h5 class="fw-bold mb-2" style="color: #641E02;">Menggunakan ayam kampung pilihan</h5>
             <p class="mb-0 text-start" style="color: #555; font-size: 0.9rem;">Ayam Kabogor menggunakan ayam kampung pilihan untuk menyajikan kualitas terbaik.</p>
           </div>
         </div>
         <div class="col-sm-6 col-md-3">
           <div class="feature-card h-100">
-            <img src="{{ asset('assets/img/ayam_ka/logo_halal.jpeg') }}" class="img-fluid mb-3" style="height: 150px; object-fit: cover; width: 100%; border-radius: 12px;">
+            <img src="{{ asset('assets/img/ayam_ka/logo_halal.jpeg') }}" class="img-fluid mb-3" alt="Halal" style="height: 150px; object-fit: cover; width: 100%; border-radius: 12px;">
             <h5 class="fw-bold mb-2" style="color: #641E02;">Terjamin Halal</h5>
             <p class="mb-0 text-start" style="color: #555; font-size: 0.9rem;">Semua proses pengolahan di dapur sudah sesuai standar dan terjamin kehalalannya.</p>
           </div>
         </div>
         <div class="col-sm-6 col-md-3">
           <div class="feature-card h-100">
-            <img src="{{ asset('assets/img/ayam_ka/rempah.jpeg') }}" class="img-fluid mb-3" style="height: 150px; object-fit: cover; width: 100%; border-radius: 12px;">
+            <img src="{{ asset('assets/img/ayam_ka/rempah.jpeg') }}" class="img-fluid mb-3" alt="Rempah" style="height: 150px; object-fit: cover; width: 100%; border-radius: 12px;">
             <h5 class="fw-bold mb-2" style="color: #641E02;">Diracik dengan bumbu rempah asli</h5>
             <p class="mb-0 text-start" style="color: #555; font-size: 0.9rem;">Resepnya diolah secara teliti untuk menghasilkan cita rasa yang kaya, bukan menggunakan bumbu instan.</p>
           </div>
         </div>
         <div class="col-sm-6 col-md-3">
           <div class="feature-card h-100">
-            <img src="{{ asset('assets/img/ayam_ka/ayam_kelebihan.jpeg') }}" class="img-fluid mb-3" style="height: 150px; object-fit: cover; width: 100%; border-radius: 12px;">
+            <img src="{{ asset('assets/img/ayam_ka/ayam_kelebihan.jpeg') }}" class="img-fluid mb-3" alt="Sehat dan Alami" style="height: 150px; object-fit: cover; width: 100%; border-radius: 12px;">
             <h5 class="fw-bold mb-2" style="color: #641E02;">Sehat dan Alami</h5>
             <p class="mb-0 text-start" style="color: #555; font-size: 0.9rem;">Ayam yang digunakan Ayam Kabogor dirawat secara alami tanpa suntikan bahan kimia.</p>
           </div>
@@ -159,7 +229,7 @@
     </div>
   </section>
 
-  <section id="testimoni" class="section-testimoni">
+  <section id="testimoni" class="section-testimoni orange-background">
     <div class="container">
         <div class="row">
             <div class="col-lg-7 mx-auto text-center mb-5">
@@ -179,9 +249,11 @@
                                     <div class="col-lg-3 col-md-6 col-10 mb-3 mx-auto mx-md-0 
                                         {{ $loop->index == 1 ? 'd-none d-md-block' : '' }} 
                                         {{ $loop->index > 1 ? 'd-none d-lg-block' : '' }}">
+                                        
                                         <div class="phone-mockup">
                                             <img src="{{ asset('storage/' . $testi->foto_ss) }}" class="testi-img" alt="{{ $testi->title }}">
                                         </div>
+                                        
                                     </div>
                                 @endforeach
                             </div>
@@ -215,14 +287,18 @@
         <div class="row">
             <div class="col-lg-10 mx-auto">
                 
-                {{-- LOOP DATA FAQ --}}
+                {{-- LOOP FAQ DATA --}}
                 @foreach($faqs as $index => $faq)
-                <div class="faq-card {{ $index >= 4 ? 'faq-hidden' : '' }}" id="faq-card-{{ $index }}">
+                <div class="faq-card {{ $index >= 4 ? 'faq-hidden' : '' }}" id="faq-card-{{ $index }}" style="{{ $index >= 4 ? 'display:none;' : '' }}">
                     <button class="faq-header collapsed" data-bs-toggle="collapse" data-bs-target="#faq-item-{{ $faq->id }}">
                         <h5>{{ $faq->pertanyaan }}</h5>
                         <span class="faq-icon">
-                            <svg class="faq-icon-svg icon-plus" xmlns="http://www.w3.org/2000/svg" height="24px" width="24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
-                            <svg class="faq-icon-svg icon-minus" xmlns="http://www.w3.org/2000/svg" height="24px" width="24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" /></svg>
+                            <svg class="faq-icon-svg icon-plus" xmlns="http://www.w3.org/2000/svg" height="24px" width="24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                            </svg>
+                            <svg class="faq-icon-svg icon-minus" xmlns="http://www.w3.org/2000/svg" height="24px" width="24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
+                            </svg>
                         </span>
                     </button>
                     <div id="faq-item-{{ $faq->id }}" class="collapse" data-bs-parent="#faq">
@@ -233,6 +309,7 @@
                 </div>
                 @endforeach
 
+                {{-- Tombol Load More --}}
                 @if($faqs->count() > 4)
                 <div class="text-center mt-4">
                     <button id="btnLoadMore" class="btn-load-more" title="Lihat Pertanyaan Lainnya" style="background: none; border: none; font-size: 1.5rem; color: #FB4A04;">
@@ -263,12 +340,18 @@
 
   <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content border-0 shadow-lg rounded-4" style="max-width: 400px; background: #fff;">
+      <div class="modal-content border-0 shadow-lg rounded-4" style="max-width: 400px; background: #fff; border: 3px solid #FB4A04;">
+        
         <div class="modal-header border-0 pb-0">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        
         <div class="modal-body text-center p-4">
-          <img src="" id="modalProductImage" class="img-fluid rounded-3 mb-3" alt="Produk" style="max-height: 280px; object-fit: cover;">
+          
+          <div style="width: 100%; aspect-ratio: 1/1; overflow: hidden; border-radius: 12px; margin-bottom: 15px;">
+             <img src="" id="modalProductImage" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;" alt="Produk">
+          </div>
+
           <h5 class="fw-bold mb-2" id="modalProductName" style="text-align: left; color: #322602;">Nama Produk</h5>
           <p class="small mb-3" id="modalProductDesc" style="text-align: left; color: #322602;">Deskripsi produk akan muncul di sini...</p>
           
@@ -278,16 +361,16 @@
           </div>
 
           <div class="input-group mb-3">
-            <button type="button" class="btn btn-light border" id="decreaseQty" style="background-color: #ffebee;">-</button>
-            <input type="number" class="form-control text-center" value="1" min="1" max="50" id="quantityInput">
-            <button type="button" class="btn btn-light border" id="increaseQty" style="background-color: #e8f5e9;">+</button>
+            <button type="button" class="btn btn-light" id="decreaseQty" style="background-color: rgb(218, 1, 1);">-</button>
+            <input type="number" class="form-control text-center" value="1" min="1" max="10" id="quantityInput">
+            <button type="button" class="btn btn-light" id="increaseQty" style="background-color: rgb(13, 220, 13);">+</button>
           </div>
 
-          <a href="#" id="whatsappLink" target="_blank" class="btn-orange w-100 fw-bold d-block py-2" style="background-color: #FB4A04; color: white; border-radius: 8px;">
+          <a href="#" id="whatsappLink" target="_blank" class="btn-orange w-100 fw-bold">
             Pesan WhatsApp
           </a>
           <p></p>
-          <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Kembali</button>
+          <button type="button" class="btn-orange-back w-100" data-bs-dismiss="modal">Kembali</button>
         </div>
       </div>
     </div>
@@ -297,29 +380,45 @@
 
 @push('scripts')
   <script>
-    // --- Modal Pesan Sekarang ---
+    // --- Script Modal Pesan Sekarang (General) ---
     const modal = document.getElementById("pesanModal");
     const openBtn = document.querySelector(".btn-get-started");
     const closeBtn = document.querySelector(".close-btn");
 
-    if(openBtn) {
-        openBtn.addEventListener("click", function(e) {
-            if(this.getAttribute('href') === '#') {
-                e.preventDefault();
-                modal.style.display = 'block';
-            }
-        });
+    function openModal() {
+      modal.classList.add("show");
+      document.body.style.overflow = "hidden";
     }
-    if(closeBtn) {
-        closeBtn.addEventListener("click", function() {
-            modal.style.display = 'none';
-        });
+
+    function closeModal() {
+      modal.classList.remove("show");
+      document.body.style.overflow = "auto";
     }
+
+    if (openBtn) {
+      openBtn.addEventListener("click", function(e) {
+        if(this.getAttribute('href') === '#') {
+            e.preventDefault();
+            openModal();
+        }
+      });
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", closeModal);
+    }
+
     window.addEventListener("click", function(e) {
-        if (e.target === modal) modal.style.display = 'none';
+      if (e.target === modal) closeModal();
     });
 
-    // --- Modal Detail Produk ---
+    window.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") closeModal();
+    });
+  </script>
+
+  <script>
+    // --- Script Modal Detail Produk ---
     const productModal = new bootstrap.Modal(document.getElementById('productModal'));
     const modalImg = document.getElementById('modalProductImage');
     const modalName = document.getElementById('modalProductName');
@@ -332,64 +431,71 @@
     const increaseBtn = document.getElementById('increaseQty');
 
     function updateWhatsAppLink() {
-        const qty = quantityInput.value;
-        const baseLink = whatsappLink.getAttribute('data-base-link');
-        if(baseLink) whatsappLink.href = `${baseLink} (Jumlah: ${qty} Porsi)`;
+      const qty = quantityInput.value;
+      const baseLink = whatsappLink.getAttribute('data-base-link');
+      if(baseLink) whatsappLink.href = `${baseLink}x${qty}`;
     }
 
     document.querySelectorAll('.detail-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            modalImg.src = this.getAttribute('data-img');
-            modalName.textContent = this.getAttribute('data-name');
-            modalDesc.textContent = this.getAttribute('data-desc');
-            modalPrice.textContent = this.getAttribute('data-price');
-            modalPromo.textContent = this.getAttribute('data-promo');
-            whatsappLink.setAttribute('data-base-link', this.getAttribute('data-whatsapp'));
-            
-            quantityInput.value = 1;
-            updateWhatsAppLink();
-            productModal.show();
-        });
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const name = this.getAttribute('data-name');
+        const desc = this.getAttribute('data-desc');
+        const price = this.getAttribute('data-price');
+        const promo = this.getAttribute('data-promo');
+        const img = this.getAttribute('data-img');
+        const whatsappBase = this.getAttribute('data-whatsapp');
+
+        modalImg.src = img;
+        modalName.textContent = name;
+        modalDesc.textContent = desc;
+        modalPrice.textContent = price;
+        modalPromo.textContent = promo;
+        whatsappLink.setAttribute('data-base-link', whatsappBase);
+        quantityInput.value = 1;
+
+        updateWhatsAppLink();
+        productModal.show();
+      });
     });
 
     decreaseBtn.addEventListener('click', () => {
-        if (quantityInput.value > 1) {
-            quantityInput.value = parseInt(quantityInput.value) - 1;
-            updateWhatsAppLink();
-        }
-    });
-    increaseBtn.addEventListener('click', () => {
-        quantityInput.value = parseInt(quantityInput.value) + 1;
+      if (quantityInput.value > 1) {
+        quantityInput.value = parseInt(quantityInput.value) - 1;
         updateWhatsAppLink();
-    });
-    quantityInput.addEventListener('input', () => {
-        if (quantityInput.value < 1) quantityInput.value = 1;
-        updateWhatsAppLink();
+      }
     });
 
-    // --- Logic FAQ Load More ---
+    increaseBtn.addEventListener('click', () => {
+      quantityInput.value = parseInt(quantityInput.value) + 1;
+      updateWhatsAppLink();
+    });
+
+    quantityInput.addEventListener('input', () => {
+      if (quantityInput.value < 1) quantityInput.value = 1;
+      updateWhatsAppLink();
+    });
+  </script>
+
+  <script>
+    // --- Script FAQ Toggle ---
     document.addEventListener('DOMContentLoaded', function() {
         const btnLoadMore = document.getElementById('btnLoadMore');
         const btnShowLess = document.getElementById('btnShowLess');
-        // Ambil semua kartu FAQ yang disembunyikan (index >= 4)
-        const hiddenCards = document.querySelectorAll('.faq-card.faq-hidden');
+        const hiddenFaqs = document.querySelectorAll('.faq-hidden');
 
         if(btnLoadMore && btnShowLess) {
             btnLoadMore.addEventListener('click', function() {
-                hiddenCards.forEach(card => {
-                    card.classList.remove('faq-hidden');
-                    // Tambahkan style display block inline jika class faq-hidden menggunakan display:none di CSS
-                    card.style.display = 'block'; 
+                hiddenFaqs.forEach(faq => {
+                    faq.style.display = 'block';
                 });
                 btnLoadMore.style.display = 'none';
                 btnShowLess.style.display = 'inline-block';
             });
 
             btnShowLess.addEventListener('click', function() {
-                hiddenCards.forEach(card => {
-                    card.classList.add('faq-hidden');
-                    card.style.display = 'none';
+                hiddenFaqs.forEach(faq => {
+                    faq.style.display = 'none';
                 });
                 btnShowLess.style.display = 'none';
                 btnLoadMore.style.display = 'inline-block';
@@ -398,10 +504,4 @@
         }
     });
   </script>
-
-  <style>
-    .faq-hidden {
-        display: none;
-    }
-  </style>
 @endpush
