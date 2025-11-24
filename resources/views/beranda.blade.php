@@ -6,11 +6,8 @@
 
   {{-- CSS Tambahan Khusus Halaman Ini --}}
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-  <link rel="icon" href="{{ asset('storage/images/logo_ayam_kabogor.png') }}">
 
   {{-- HERO SECTION --}}
-
-
   <section id="beranda" class="hero section light-background">
     <div class="container">
       <div class="row gy-4 justify-content-center justify-content-lg-between">

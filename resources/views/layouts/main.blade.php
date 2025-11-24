@@ -2,14 +2,16 @@
 <html lang="en">
 
 <head>
+  <link rel="icon" type="image/png" href="{{ asset('storage/images/logo_ayam_kabogor.png') }}?v=3">
+  <link rel="shortcut icon" href="{{ asset('storage/images/logo_ayam_kabogor.png') }}?v=3">
+
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>@yield('title', 'Index') - Ayam Kabogor</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
-  <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
-  <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+  <!-- <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon"> -->
 
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
