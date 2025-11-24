@@ -7,6 +7,20 @@
 
 <div x-data="menuManager()">
 
+    @if ($errors->any())
+        <div class="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 shadow-sm flex items-start gap-3">
+            <svg class="w-6 h-6 flex-shrink-0 text-red-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <div>
+                <h3 class="font-bold text-lg mb-1">Gagal Menyimpan Menu!</h3>
+                <ul class="list-disc list-inside text-sm opacity-90">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    @endif
+
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
             <h1 class="text-2xl font-bold text-slate-800 tracking-tight">Manajemen Menu</h1>
@@ -170,11 +184,19 @@
                         <div class="lg:col-span-5 flex flex-col gap-4">
                             <label class="block text-sm font-semibold text-slate-700">Foto Menu</label>
                             <div @click="document.getElementById('fileInput').click()" class="relative w-full aspect-square rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-orange-50 transition-all cursor-pointer flex flex-col items-center justify-center group">
-                                <input type="file" name="gambar" id="fileInput" class="absolute inset-0 z-20 w-full h-full opacity-0 cursor-pointer" @change="fileChosen" :required="modalMode === 'add'">
-                                <div x-show="!form.imagePreview" class="text-center pointer-events-none"><p class="text-sm text-slate-700">Klik upload gambar</p></div>
-                                <img x-show="form.imagePreview" :src="form.imagePreview" class="absolute inset-0 w-full h-full object-cover rounded-2xl">
-                                <div x-show="form.imagePreview" class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-2xl pointer-events-none"><span class="text-white text-xs font-bold px-2 py-1 bg-black/50 rounded">Ganti</span></div>
-                            </div>
+                                
+                                <input type="file" 
+                                    name="gambar" 
+                                    id="fileInput" 
+                                    accept="image/png, image/jpeg, image/jpg" 
+                                    class="absolute inset-0 z-20 w-full h-full opacity-0 cursor-pointer" 
+                                    @change="fileChosen" 
+                                    :required="modalMode === 'add'">
+                                
+                                </div>
+                            @error('gambar')
+                                <p class="text-xs text-red-500 font-medium mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="lg:col-span-7 space-y-5">
@@ -209,16 +231,17 @@
                                             <div class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
                                         </label>
                                     </div>
-                                    
+
                                     <div x-show="form.hasPromo" x-transition>
                                         <div class="flex rounded-xl border border-gray-200 overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 bg-gray-50">
                                             <input x-model.number="form.promo" 
-                                                   type="number" 
-                                                   name="promo" 
-                                                   min="0" 
-                                                   max="100" 
-                                                   class="w-full px-4 py-3 bg-transparent border-none focus:ring-0 focus:outline-none" 
-                                                   placeholder="15">
+                                                :disabled="!form.hasPromo"
+                                                type="number" 
+                                                name="promo" 
+                                                min="0" 
+                                                max="100" 
+                                                class="w-full px-4 py-3 bg-transparent border-none focus:ring-0 focus:outline-none" 
+                                                placeholder="15">
                                             <div class="bg-gray-200 px-4 flex items-center justify-center text-slate-600 font-bold border-l border-gray-200">
                                                 %
                                             </div>
@@ -321,6 +344,22 @@
             fileChosen(event) {
                 const file = event.target.files[0];
                 if (file) {
+                    const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+
+                    if (!validTypes.includes(file.type)) {
+                        alert('Format file tidak didukung! Harap upload gambar dengan format JPG atau PNG.');
+                        event.target.value = ''; // Reset input file
+                        this.form.imagePreview = ''; // Reset preview
+                        return; // Hentikan proses
+                    }
+
+                    if (file.size > 10 * 1024 * 1024) {
+                        alert('Ukuran file terlalu besar! Maksimal 10MB.');
+                        event.target.value = '';
+                        this.form.imagePreview = '';
+                        return;
+                    }
+                    
                     const reader = new FileReader();
                     reader.onload = (e) => { this.form.imagePreview = e.target.result; }
                     reader.readAsDataURL(file);
