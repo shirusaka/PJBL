@@ -12,7 +12,6 @@ class MenuController extends Controller
 {
     public function index()
     {
-        // ... (kode tetap sama)
         $menus = Menu::latest()->get();
         return view('admin.dashboard', compact('menus'));
     }
@@ -40,15 +39,10 @@ class MenuController extends Controller
         // Cek apakah input promo ada isinya. Jika ada, gunakan nilainya. Jika tidak, null.
         $nilai_promo = $request->filled('promo') ? $request->promo : null;
 
-        // 2. Hitung Harga Diskon (Jika ada promo)
+        // PERBAIKAN: Hapus logika perhitungan diskon di sini. 
+        // Simpan harga asli ($request->harga) agar tidak terjadi double diskon di homepage.
         $harga_simpan = $request->harga;
         
-        // Cek jika $nilai_promo memiliki angka (bukan null dan bukan 0)
-        if ($nilai_promo) {
-            $potongan = $request->harga * ($nilai_promo / 100);
-            $harga_simpan = $request->harga - $potongan;
-        }
-
         // 3. Upload Gambar
         $path = null;
         if ($request->hasFile('gambar')) {
@@ -58,10 +52,10 @@ class MenuController extends Controller
         // 4. Simpan ke Database
         Menu::create([
             'nama_menu'   => $request->nama_menu,
-            'harga'       => $harga_simpan,
+            'harga'       => $harga_simpan, // Harga Asli disimpan
             'gambar'      => $path,
             'deskripsi'   => $request->deskripsi,
-            'promo'       => $nilai_promo, // PERBAIKAN DI SINI (Jangan pakai $request->has ? 1)
+            'promo'       => $nilai_promo,
             'is_tersedia' => $request->has('is_inactive') ? 0 : 1,
             'username'    => Auth::user()->name ?? 'Admin',
         ]);
@@ -88,21 +82,16 @@ class MenuController extends Controller
 
         $menu = Menu::findOrFail($id);
 
-        // Cek apakah input promo ada isinya (dikirim dari form yang di-enable)
         $nilai_promo = $request->filled('promo') ? $request->promo : null;
 
-        // Hitung ulang harga diskon jika ada perubahan
+        // PERBAIKAN: Hapus logika perhitungan diskon ulang. Gunakan harga inputan user (Harga Asli).
         $harga_simpan = $request->harga;
-        if ($nilai_promo) {
-            $potongan = $request->harga * ($nilai_promo / 100);
-            $harga_simpan = $request->harga - $potongan;
-        }
 
         $data = [
             'nama_menu'   => $request->nama_menu,
-            'harga'       => $harga_simpan,
+            'harga'       => $harga_simpan, // Harga Asli disimpan
             'deskripsi'   => $request->deskripsi,
-            'promo'       => $nilai_promo, // PERBAIKAN: Gunakan variabel $nilai_promo
+            'promo'       => $nilai_promo,
             'is_tersedia' => $request->has('is_inactive') ? 0 : 1,
             'username'    => Auth::user()->name ?? 'Admin',
         ];
@@ -121,7 +110,6 @@ class MenuController extends Controller
 
     public function destroy($id)
     {
-        // ... (kode tetap sama)
         $menu = Menu::findOrFail($id);
         if ($menu->gambar && Storage::disk('public')->exists($menu->gambar)) {
             Storage::disk('public')->delete($menu->gambar);

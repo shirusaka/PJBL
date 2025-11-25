@@ -4,6 +4,30 @@
 
 @section('content')
 
+    {{-- CSS UNTUK ANIMASI HERO --}}
+    <style>
+        /* Animasi mengambang (naik-turun) untuk gambar */
+        @keyframes float-image {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+        
+        .animate-float-image {
+            animation: float-image 4s ease-in-out infinite;
+        }
+
+        /* Animasi berdenyut untuk background lingkaran */
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+
+        .animate-pulse-soft {
+            animation: pulse-soft 3s ease-in-out infinite;
+        }
+    </style>
+
     <section id="beranda" class="relative min-h-screen flex items-center pt-32 pb-12 overflow-hidden">
         <div class="container mx-auto px-6 lg:px-12">
             <div class="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
@@ -42,9 +66,13 @@
 
                 <div class="w-full lg:w-1/2 relative flex justify-center items-center my-10 lg:my-0">
                     <div class="relative w-[350px] h-[350px] md:w-[480px] md:h-[480px] lg:w-[580px] lg:h-[580px] flex items-center justify-center">
-                        <div class="absolute inset-0 bg-orange-200/60 animate-blob-shape mix-blend-multiply filter blur-sm -z-10"></div>
-                        {{-- Gambar Hero --}}
+                        
+                        {{-- Background LINGKARAN (rounded-full) dan beranimasi (animate-pulse-soft) --}}
+                        <div class="absolute inset-0 bg-orange-200/60 rounded-full animate-pulse-soft mix-blend-multiply filter blur-sm -z-10"></div>
+                        
+                        {{-- Gambar Hero bergerak (animate-float-image) --}}
                         <img src="{{ asset('assets/img/ayam_ka/ayam_homepage.png') }}" alt="Ayam Kabogor Dish" class="relative w-[105%] max-w-none drop-shadow-2xl z-10 animate-float-image">
+                    
                     </div>
                 </div>
             </div>
@@ -152,7 +180,7 @@
                             <div class="flex-shrink-0 px-3 w-full md:w-1/2 lg:w-1/3">
                                 <div class="bg-white rounded-2xl shadow-xl shadow-orange-900/5 overflow-hidden h-full flex flex-col hover:-translate-y-2 transition-transform duration-300 border border-orange-50 group">
                                     
-                                    {{-- CARD IMAGE: Dipaksa 1:1 dengan CSS inline untuk menimpa style lain --}}
+                                    {{-- CARD IMAGE --}}
                                     <div class="relative w-full bg-gray-100" style="aspect-ratio: 1/1; overflow: hidden;">
                                         <img :src="product.image" :alt="product.name" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" style="width: 100%; height: 100%; object-fit: cover;">
                                         
@@ -339,7 +367,13 @@
                     Testimoni Asli
                 </span>
                 <h2 class="text-3xl lg:text-5xl font-extrabold text-gray-800 mt-4 mb-4">
-                    Apa Kata <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-red-600">Mereka?</span>
+                    Apa Kata <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-red-600 relative inline-block">
+                        Mereka?
+                        {{-- SVG UNDERLINE: Disamakan dengan bagian Produk --}}
+                        <svg class="absolute w-full h-3 -bottom-1 left-0 text-yellow-400 opacity-60" viewBox="0 0 100 10" preserveAspectRatio="none">
+                            <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="8" fill="none" />
+                        </svg>
+                    </span>
                 </h2>
                 <p class="text-gray-500 max-w-2xl mx-auto text-lg">
                     Bukti kepuasan nyata dari pelanggan setia Ayam Kabogor.
@@ -369,9 +403,9 @@
                                 <div class="relative group mx-auto max-w-[300px]">
                                     <div class="relative bg-gray-900 rounded-[2.5rem] border-[8px] border-gray-900 shadow-2xl overflow-hidden transform transition-all duration-500 hover:-translate-y-4 hover:shadow-orange-500/20">
                                         <div class="absolute top-0 left-1/2 transform -translate-x-1/2 h-6 w-32 bg-gray-900 rounded-b-xl z-20"></div>
-                                        <div class="relative bg-gray-50 rounded-[2rem] overflow-hidden aspect-[9/18] flex items-center justify-center p-2">
+                                        <div class="relative bg-gray-50 rounded-[2rem] overflow-hidden aspect-[9/19.5] flex items-center justify-center">
                                             <div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent z-10 pointer-events-none"></div>
-                                            <img :src="item.image" class="w-full h-full object-contain rounded-2xl relative z-0" alt="Testimoni Pelanggan">
+                                            <img :src="item.image" class="w-full h-full object-cover relative z-0" alt="Testimoni Pelanggan">
                                         </div>
                                     </div>
                                     <div class="text-center mt-8 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100">
@@ -488,12 +522,9 @@
             init() {
                 this.realLength = this.rawProducts.length;
                 
-                // Clone untuk efek infinite loop yang mulus
-                // Kita clone sebanyak itemsPerPage (3)
-                const clones = this.rawProducts.slice(0, 3).map(p => ({...p, uniqueKey: 'clone_' + p.id}));
-                const originals = this.rawProducts.map(p => ({...p, uniqueKey: 'orig_' + p.id}));
-                
-                this.products = [...originals, ...clones];
+                // MENGHAPUS LOGIKA CLONE/INFINITE LOOP
+                // Hanya menggunakan data asli
+                this.products = this.rawProducts.map(p => ({...p, uniqueKey: 'orig_' + p.id}));
 
                 this.checkResponsive();
                 window.addEventListener('resize', () => this.checkResponsive());
@@ -511,37 +542,29 @@
             
             nextPage() {
                 if (this.isTransitioning) {
-                    this.currentIndex += this.itemsPerPage;
-                    
-                    if (this.currentIndex >= this.realLength) {
-                        setTimeout(() => {
-                            this.isTransitioning = false;
-                            this.currentIndex = this.currentIndex % this.realLength;
-                            requestAnimationFrame(() => {
-                                requestAnimationFrame(() => {
-                                    this.isTransitioning = true;
-                                });
-                            });
-                        }, 500); 
+                    // Cek jika halaman berikutnya masih ada di batas produk asli
+                    if (this.currentIndex + this.itemsPerPage < this.realLength) {
+                        this.currentIndex += this.itemsPerPage;
+                    } else {
+                        // Jika sudah di akhir, kembali ke awal (Looping manual tanpa clone)
+                        this.currentIndex = 0;
                     }
                 }
             },
 
             prevPage() {
                 if (this.isTransitioning) {
-                    if (this.currentIndex === 0) {
-                        this.isTransitioning = false;
-                        this.currentIndex = this.realLength;
-                        
-                        requestAnimationFrame(() => {
-                            requestAnimationFrame(() => {
-                                this.isTransitioning = true;
-                                this.currentIndex -= this.itemsPerPage;
-                            });
-                        });
-                    } else {
+                    if (this.currentIndex - this.itemsPerPage >= 0) {
                         this.currentIndex -= this.itemsPerPage;
-                        if (this.currentIndex < 0) this.currentIndex = 0;
+                    } else {
+                        // Jika di awal, pergi ke halaman terakhir yang valid
+                        // Hitung start index halaman terakhir
+                        const remainder = this.realLength % this.itemsPerPage;
+                        if (remainder === 0) {
+                             this.currentIndex = this.realLength - this.itemsPerPage;
+                        } else {
+                             this.currentIndex = this.realLength - remainder;
+                        }
                     }
                 }
             },
@@ -553,9 +576,8 @@
             },
 
             get currentPage() {
-                let realIndex = this.currentIndex;
-                if (realIndex >= this.realLength) realIndex = 0;
-                return Math.floor(realIndex / this.itemsPerPage);
+                // Sederhana: index dibagi items per page
+                return Math.floor(this.currentIndex / this.itemsPerPage);
             },
 
             goToPage(pageIndex) {
@@ -574,8 +596,13 @@
 
             closeModal() {
                 this.modalOpen = false;
-                this.selectedProduct = null;
                 document.body.style.overflow = 'auto';
+
+                // PERBAIKAN: Menunda penghapusan data 'selectedProduct' sampai animasi close selesai (300ms)
+                // Ini mencegah konten modal menjadi kosong saat masih terlihat memudar (fade-out)
+                setTimeout(() => {
+                    this.selectedProduct = null;
+                }, 300);
             },
 
             formatRupiah(number) {
