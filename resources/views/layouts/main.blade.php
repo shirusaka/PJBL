@@ -116,10 +116,10 @@
                                 <a href="https://www.instagram.com/ayam_kabogor" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-red-500 hover:to-purple-600 hover:text-white hover:border-transparent transition-all shadow-sm hover:shadow-md transform hover:-translate-y-1">
                                     <i class="fab fa-instagram"></i>
                                 </a>
-                                <a href="#" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-black hover:text-white hover:border-black transition-all shadow-sm hover:shadow-md transform hover:-translate-y-1">
+                                <a href="https://www.tiktok.com/@ayamkabogor?_r=1&_t=ZS-91fzlDQiKKA" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-black hover:text-white hover:border-black transition-all shadow-sm hover:shadow-md transform hover:-translate-y-1">
                                     <i class="fab fa-tiktok"></i>
                                 </a>
-                                <a href="#" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all shadow-sm hover:shadow-md transform hover:-translate-y-1">
+                                <a href="https://www.facebook.com/ayamkabogor" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all shadow-sm hover:shadow-md transform hover:-translate-y-1">
                                     <i class="fab fa-facebook"></i>
                                 </a>
                             </div>
@@ -129,7 +129,11 @@
 
                 <div class="lg:col-span-6 space-y-6">
                     <div class="w-full h-64 lg:h-72 rounded-2xl overflow-hidden shadow-lg border-4 border-white relative group">
-                        <iframe src="https://maps.google.com/maps?q=Jl.%20Atang%20Sanjaya%20KM.%202,%20Bantarsari,%20Rancabungur,%20Bogor%2016310&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.863313943267!2d106.73914877355925!3d-6.538940063921078!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c57314e99fab%3A0xba5a28cb42daaa23!2sAyam%20Kabogor%20(Ayam%20Kampung%20dan%20Bebek)!5e0!3m2!1sen!2sid!4v1764015604721!5m2!1sen!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <a href="https://goo.gl/maps/XYZ" target="_blank" class="absolute bottom-4 right-4 bg-white text-gray-800 px-4 py-2 rounded-full font-bold text-xs shadow-md hover:bg-brand-primary hover:text-white transition-colors flex items-center gap-2">
+                            <span>Buka Peta</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
                     </div>
 
                     <div class="flex items-start gap-4 p-2">

@@ -4,9 +4,29 @@
 
 @section('content')
 
-    {{-- CSS UNTUK ANIMASI HERO --}}
+    {{-- STYLE TAMBAHAN (Splash Screen & Animasi) --}}
     <style>
-        /* Animasi mengambang (naik-turun) untuk gambar */
+        /* PENTING: Mencegah flash/glitch modal saat refresh */
+        [x-cloak] { display: none !important; }
+
+        /* Sembunyikan scrollbar saat splash screen masih aktif */
+        body.loading-active {
+            overflow: hidden;
+        }
+
+        /* Animasi Splash Screen Logo */
+        @keyframes splash-bounce {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.1); opacity: 1; }
+            70% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+
+        .animate-splash-logo {
+            animation: splash-bounce 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Animasi Hero Images */
         @keyframes float-image {
             0% { transform: translateY(0); }
             50% { transform: translateY(-20px); }
@@ -17,7 +37,6 @@
             animation: float-image 4s ease-in-out infinite;
         }
 
-        /* Animasi berdenyut untuk background lingkaran */
         @keyframes pulse-soft {
             0%, 100% { transform: scale(1); opacity: 0.6; }
             50% { transform: scale(1.05); opacity: 0.8; }
@@ -27,6 +46,25 @@
             animation: pulse-soft 3s ease-in-out infinite;
         }
     </style>
+
+    {{-- SPLASH SCREEN ANIMATION --}}
+    <div id="splash-screen" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-orange-50 transition-opacity duration-700 ease-out">
+        <div class="relative">
+            {{-- Efek Lingkaran Berdenyut di belakang logo --}}
+            <div class="absolute inset-0 bg-orange-200 rounded-full animate-ping opacity-30 delay-100"></div>
+            
+            {{-- Logo Ayam Kabogor --}}
+            <img 
+                src="{{ asset('assets/img/ayam_ka/logo_ayam_kabogor.png') }}" 
+                alt="Logo Ayam Kabogor" 
+                class="relative w-32 md:w-48 object-contain animate-splash-logo drop-shadow-xl"
+            >
+        </div>
+        
+        <p class="mt-6 text-brand-primary font-bold text-lg tracking-widest animate-pulse">
+            MEMUAT...
+        </p>
+    </div>
 
     <section id="beranda" class="relative min-h-screen flex items-center pt-32 pb-12 overflow-hidden">
         <div class="container mx-auto px-6 lg:px-12">
@@ -79,6 +117,7 @@
         </div>
     </section>
 
+    {{-- MODAL HERO (PESAN SEKARANG) --}}
     <div 
         x-cloak
         x-show="isModalOpen" 
@@ -241,6 +280,7 @@
             </div>
         </div>
 
+        {{-- MODAL DETAIL PRODUK --}}
         <div x-cloak x-show="modalOpen" class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true">
             <div x-show="modalOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @click="closeModal()" class="absolute inset-0 bg-gray-900/70 backdrop-blur-sm"></div>
 
@@ -369,7 +409,7 @@
                 <h2 class="text-3xl lg:text-5xl font-extrabold text-gray-800 mt-4 mb-4">
                     Apa Kata <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-red-600 relative inline-block">
                         Mereka?
-                        {{-- SVG UNDERLINE: Disamakan dengan bagian Produk --}}
+                        {{-- SVG Underline --}}
                         <svg class="absolute w-full h-3 -bottom-1 left-0 text-yellow-400 opacity-60" viewBox="0 0 100 10" preserveAspectRatio="none">
                             <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="8" fill="none" />
                         </svg>
@@ -380,54 +420,74 @@
                 </p>
             </div>
 
-            <div class="relative max-w-7xl mx-auto">
+            <div class="relative max-w-6xl mx-auto">
                 
+                {{-- Tombol Prev --}}
                 <button 
                     @click="prevSlide" 
-                    class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 lg:-translate-x-12 z-20 bg-white text-gray-800 hover:text-brand-primary p-4 rounded-full shadow-xl transition-all duration-300 hover:scale-110 border border-gray-100 hidden md:flex items-center justify-center group"
-                    :disabled="currentIndex === 0"
+                    class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-12 z-20 bg-white hover:bg-orange-50 text-brand-primary p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
                     :class="currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'opacity-100'"
+                    :disabled="currentIndex === 0"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                     </svg>
                 </button>
 
+                {{-- Carousel Container --}}
                 <div class="overflow-hidden py-10 px-2"> 
                     <div 
-                        class="flex transition-transform duration-700 ease-out"
+                        class="flex will-change-transform"
+                        :class="isTransitioning ? 'transition-transform duration-500 ease-out' : ''"
                         :style="`transform: translateX(-${currentIndex * (100 / itemsPerPage)}%)`"
                     >
-                        <template x-for="(item, index) in testimonials" :key="index">
+                        <template x-for="(item, index) in testimonials" :key="item.uniqueKey">
                             <div class="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-4 lg:px-6">
+                                {{-- Card Wrapper --}}
                                 <div class="relative group mx-auto max-w-[300px]">
+                                    {{-- HP Frame Image --}}
                                     <div class="relative bg-gray-900 rounded-[2.5rem] border-[8px] border-gray-900 shadow-2xl overflow-hidden transform transition-all duration-500 hover:-translate-y-4 hover:shadow-orange-500/20">
+                                        {{-- Poni HP --}}
                                         <div class="absolute top-0 left-1/2 transform -translate-x-1/2 h-6 w-32 bg-gray-900 rounded-b-xl z-20"></div>
+                                        {{-- Layar --}}
                                         <div class="relative bg-gray-50 rounded-[2rem] overflow-hidden aspect-[9/19.5] flex items-center justify-center">
                                             <div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent z-10 pointer-events-none"></div>
                                             <img :src="item.image" class="w-full h-full object-cover relative z-0" alt="Testimoni Pelanggan">
                                         </div>
                                     </div>
-                                    <div class="text-center mt-8 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100">
-                                        <h4 class="font-bold text-gray-800" x-text="item.name"></h4>
-                                        <p class="text-sm text-brand-primary" x-text="item.menu"></p>
-                                    </div>
+                                    {{-- NOTE: Bagian Teks (Nama/Menu) di bawah sudah DIHAPUS sesuai request --}}
                                 </div>
                             </div>
                         </template>
                     </div>
                 </div>
 
+                {{-- Tombol Next --}}
                 <button 
                     @click="nextSlide" 
-                    class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 lg:translate-x-12 z-20 bg-white text-gray-800 hover:text-brand-primary p-4 rounded-full shadow-xl transition-all duration-300 hover:scale-110 border border-gray-100 hidden md:flex items-center justify-center group"
-                    :disabled="isEnd"
-                    :class="isEnd ? 'opacity-50 cursor-not-allowed' : 'opacity-100'"
+                    class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-12 z-20 bg-white hover:bg-orange-50 text-brand-primary p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>
                 </button>
+
+                 {{-- Dots Pagination --}}
+                 <div class="flex justify-center mt-8">
+                    <div class="flex items-center gap-2 flex-wrap justify-center px-4">
+                        <template x-for="(item, index) in rawTestimonials" :key="index">
+                            <button 
+                                @click="goToItem(index)" 
+                                class="rounded-full transition-all duration-300" 
+                                :class="{
+                                    'w-8 h-3 bg-brand-primary shadow-md shadow-orange-500/50': activeDotIndex === index, 
+                                    'w-3 h-3 bg-gray-300 hover:bg-gray-400': activeDotIndex !== index
+                                }" 
+                                aria-label="Go to testimonial">
+                            </button>
+                        </template>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -437,6 +497,7 @@
         <div class="container mx-auto px-6 lg:px-12 relative z-10">
             <div class="flex flex-col lg:flex-row gap-8 lg:gap-24 items-start">
                 
+                {{-- Bagian Kiri --}}
                 <div class="w-full lg:w-1/3 transition-all duration-300">
                     <div>
                         <span class="text-brand-primary font-bold tracking-wider uppercase text-sm bg-orange-100 px-4 py-1 rounded-full border border-orange-200">FAQ</span>
@@ -446,13 +507,18 @@
                         </h2>
                         <div class="hidden lg:block mt-8 bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 border border-gray-100 shadow-xl shadow-orange-500/5 relative overflow-hidden group">
                             <h4 class="font-bold text-gray-800 mb-2 relative z-10">Pertanyaan belum terjawab?</h4>
+                            
+                            {{-- Tombol Chat dengan Logo WhatsApp --}}
                             <a href="https://wa.me/6282122103241" target="_blank" class="inline-flex items-center bg-[#EA580C] hover:bg-[#c2410c] text-white font-bold py-3 px-6 rounded-xl transition-all shadow-md hover:shadow-lg gap-2 relative z-10 w-full justify-center">
+                                <i class="fab fa-whatsapp text-xl"></i>
                                 Chat Sekarang
                             </a>
+
                         </div>
                     </div>
                 </div>
 
+                {{-- Bagian Kanan (FAQ Items) --}}
                 <div class="w-full lg:w-2/3">
                     <div class="space-y-4">
                         <template x-for="item in displayedFaqs" :key="item.id">
@@ -492,7 +558,30 @@
 
 @push('scripts')
 <script>
+    // --- SPLASH SCREEN LOGIC ---
+    // Pastikan scroll tidak bisa dilakukan saat splash muncul
+    document.body.classList.add('loading-active');
+
+    window.addEventListener('load', () => {
+        const splash = document.getElementById('splash-screen');
+        
+        // Tahan splash screen sebentar (1.2 detik) agar logo terlihat
+        setTimeout(() => {
+            if(splash) {
+                // Efek fade-out
+                splash.classList.add('opacity-0', 'pointer-events-none');
+                
+                // Hapus class agar bisa scroll kembali
+                document.body.classList.remove('loading-active');
+                
+                // Hapus elemen dari DOM setelah animasi selesai
+                setTimeout(() => splash.remove(), 700);
+            }
+        }, 1200); 
+    });
+
     document.addEventListener('alpine:init', () => {
+        // --- LOGIC PRODUK ---
         Alpine.data('productApp', () => ({
             currentIndex: 0,
             itemsPerPage: 3,
@@ -521,11 +610,7 @@
 
             init() {
                 this.realLength = this.rawProducts.length;
-                
-                // MENGHAPUS LOGIKA CLONE/INFINITE LOOP
-                // Hanya menggunakan data asli
                 this.products = this.rawProducts.map(p => ({...p, uniqueKey: 'orig_' + p.id}));
-
                 this.checkResponsive();
                 window.addEventListener('resize', () => this.checkResponsive());
             },
@@ -534,19 +619,14 @@
                 if (window.innerWidth < 768) { this.itemsPerPage = 1; } 
                 else if (window.innerWidth < 1024) { this.itemsPerPage = 2; } 
                 else { this.itemsPerPage = 3; }
-                
                 this.currentIndex = 0;
             },
-
-            // --- LOGIKA GESER PER HALAMAN ---
             
             nextPage() {
                 if (this.isTransitioning) {
-                    // Cek jika halaman berikutnya masih ada di batas produk asli
                     if (this.currentIndex + this.itemsPerPage < this.realLength) {
                         this.currentIndex += this.itemsPerPage;
                     } else {
-                        // Jika sudah di akhir, kembali ke awal (Looping manual tanpa clone)
                         this.currentIndex = 0;
                     }
                 }
@@ -557,8 +637,6 @@
                     if (this.currentIndex - this.itemsPerPage >= 0) {
                         this.currentIndex -= this.itemsPerPage;
                     } else {
-                        // Jika di awal, pergi ke halaman terakhir yang valid
-                        // Hitung start index halaman terakhir
                         const remainder = this.realLength % this.itemsPerPage;
                         if (remainder === 0) {
                              this.currentIndex = this.realLength - this.itemsPerPage;
@@ -569,23 +647,13 @@
                 }
             },
 
-            // --- LOGIKA DOTS PAGINATION (PAGE BASED) ---
-
-            get totalPages() {
-                return Math.ceil(this.realLength / this.itemsPerPage);
-            },
-
-            get currentPage() {
-                // Sederhana: index dibagi items per page
-                return Math.floor(this.currentIndex / this.itemsPerPage);
-            },
+            get totalPages() { return Math.ceil(this.realLength / this.itemsPerPage); },
+            get currentPage() { return Math.floor(this.currentIndex / this.itemsPerPage); },
 
             goToPage(pageIndex) {
                 this.isTransitioning = true;
                 this.currentIndex = pageIndex * this.itemsPerPage;
             },
-
-            // --- LOGIKA MODAL ---
 
             openModal(product) {
                 this.selectedProduct = product;
@@ -597,12 +665,7 @@
             closeModal() {
                 this.modalOpen = false;
                 document.body.style.overflow = 'auto';
-
-                // PERBAIKAN: Menunda penghapusan data 'selectedProduct' sampai animasi close selesai (300ms)
-                // Ini mencegah konten modal menjadi kosong saat masih terlihat memudar (fade-out)
-                setTimeout(() => {
-                    this.selectedProduct = null;
-                }, 300);
+                setTimeout(() => { this.selectedProduct = null; }, 300);
             },
 
             formatRupiah(number) {
@@ -628,24 +691,24 @@
                 const phone = '6282122103241';
                 const finalPrice = this.calculateFinalPrice(this.selectedProduct);
                 const totalBill = this.calculateTotalBill();
-                
                 let message = `Halo, saya mau pesan menu ${this.selectedProduct.name} ${this.qty} porsi di Ayam Kabogor.`;
-                
                 if (this.selectedProduct.isPromo) {
                     message += ` (Harga Promo: ${this.formatRupiah(finalPrice)}/porsi). Total: ${this.formatRupiah(totalBill)}`;
                 } else {
                     message += ` Total: ${this.formatRupiah(totalBill)}`;
                 }
-
                 return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
             }
         }));
 
-        // --- LOGIC TESTIMONI ---
+        // --- LOGIC TESTIMONI (FIX: 1-by-1, Infinite, Dots, No-Hover-Text) ---
         Alpine.data('testimonialApp', () => ({
             currentIndex: 0,
             itemsPerPage: 3,
-            testimonials: [
+            isTransitioning: true,
+            
+            // Data Mentah dari PHP
+            rawTestimonials: [
                 @foreach($testimonials as $testi)
                 {
                     name: "{{ $testi->title ?? 'Pelanggan Setia' }}",
@@ -654,6 +717,8 @@
                 },
                 @endforeach
             ],
+            
+            testimonials: [],
 
             init() {
                 this.checkResponsive();
@@ -664,11 +729,58 @@
                 if (window.innerWidth < 768) { this.itemsPerPage = 1; } 
                 else if (window.innerWidth < 1024) { this.itemsPerPage = 2; } 
                 else { this.itemsPerPage = 3; }
+                
+                this.setupList();
             },
 
-            get isEnd() { return this.currentIndex >= this.testimonials.length - this.itemsPerPage; },
-            nextSlide() { if (!this.isEnd) this.currentIndex++; },
-            prevSlide() { if (this.currentIndex > 0) this.currentIndex--; }
+            setupList() {
+                // Clone untuk infinite loop effect
+                const clones = this.rawTestimonials.slice(0, this.itemsPerPage).map((item, i) => ({
+                    ...item, 
+                    uniqueKey: 'clone_' + i
+                }));
+                
+                this.testimonials = [
+                    ...this.rawTestimonials.map((item, i) => ({...item, uniqueKey: 'orig_' + i})),
+                    ...clones
+                ];
+            },
+
+            nextSlide() {
+                const maxIndex = this.rawTestimonials.length;
+                if (this.currentIndex < maxIndex) {
+                    this.isTransitioning = true;
+                    this.currentIndex++; 
+
+                    // Jika sudah sampai ujung (clone area), reset diam-diam
+                    if (this.currentIndex === maxIndex) {
+                        setTimeout(() => {
+                            this.isTransitioning = false; 
+                            this.currentIndex = 0;        
+                            setTimeout(() => { this.isTransitioning = true; }, 50);
+                        }, 500); 
+                    }
+                }
+            },
+
+            prevSlide() {
+                if (this.currentIndex > 0) {
+                     this.isTransitioning = true;
+                     this.currentIndex--;
+                }
+            },
+
+            goToItem(index) {
+                this.isTransitioning = true;
+                this.currentIndex = index;
+            },
+
+            get activeDotIndex() {
+                if (this.currentIndex >= this.rawTestimonials.length) {
+                    return 0;
+                }
+                return this.currentIndex;
+            }
         }));
 
         // --- LOGIC FAQ ---
